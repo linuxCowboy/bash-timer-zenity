@@ -22,3 +22,5 @@ help screen
         Ftimer c [seconds]          # cmdline timer (q to quit)
 
 ```
+
+For full functionality you have to enable the _OK_ button in the zenity progress dialog! In version 3.32 it is disabled by default.
