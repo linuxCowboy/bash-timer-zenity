@@ -1,3 +1,5 @@
+alias o='perl -pe'\''while(/\d{5,}|[03-9]\d{3}/){$b=$`;$m=$&;$a=$'\'\\\'\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/./;$_="$b$m$a"}'\'
+
 Ftimer ()
 {
         #######################################
@@ -100,6 +102,4 @@ Ftimer ()
         " | o  # o is a *perl* one-liner to add thousands separator
         fi
 }
-
-alias o='perl -pe'\''while(/\d{5,}|[03-9]\d{3}/){$b=$`;$m=$&;$a=$'\'\\\'\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/./;$_="$b$m$a"}'\'
 
