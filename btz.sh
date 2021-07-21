@@ -1,0 +1,102 @@
+Ftimer2 ()
+{
+        #######################################
+        ### bash shell function with zenity ###
+        #######################################
+
+        # Enable OK/Pause Button in zenity progress dialog
+        #
+        # Version: 3.32
+        # File:    /usr/share/zenity/zenity.ui
+        # Object:  zenity_progress_ok_button
+        # Name:    sensitive
+        #
+        # comment out:
+        #<!-- <property name="sensitive">False</property> -->
+        #
+        # or set to true:
+        #<property name="sensitive">True</property>
+        #
+        # check:
+        # cat -n /usr/share/zenity/zenity.ui |
+        #     sed -rn /GtkButton.*zenity_progress_ok_button/,/\\/object/p |
+        #         grep --colour=always sensitive
+
+        # countup limit in seconds (~ runs forever/till quit)
+        local LIMIT=1000000
+
+        # needs zenity for up + down
+        [[ $1 =~ ^u|d$ ]] && ! type zenity >/dev/null && return
+
+        # countdown
+        if [[ $1 = 'd' && $2 =~ ^[0-9]+$ ]]; then
+                for i in `seq $2 -1 1`; do
+                        echo "$((100 - ${i}00 / $2))\n#Countdown: $i"
+                        sleep 1
+                done | DISPLAY=:0.0 WINDOWID=  zenity --progress --auto-close --title="${3-Timer}"
+
+        # countup
+        elif [[ $1 = 'u' ]]; then
+                local START=0  # for pause/resume
+                local PCENT=100  # start percent; set to end for unlimited run
+                local FILE=$(mktemp)  # get the counter back from subshell
+
+                # a fixed time run with percentage indicator
+                [[ $2 =~ ^[0-9]+$ ]] && LIMIT=$2 && PCENT=0 && shift
+
+                while (($START < $LIMIT)); do
+                        for i in `seq $(($START + 1)) $LIMIT`; do
+                                echo $i >$FILE
+                                printf -v t "%01d:%02d:%02d" $((i / 3600)) $((i / 60 % 60)) $((i % 60))
+
+                                if (($PCENT)); then
+                                        echo "#Countup: $t"  # unlimited
+                                else
+                                        echo "$((${i}00 / $LIMIT))\n#Countup: $t"  # fixed
+                                fi
+                                sleep 1
+                        done | DISPLAY=:0.0 WINDOWID=  \
+                                zenity --progress --cancel-label='Quit' --ok-label='Pause' \
+                                        --percentage=$PCENT --title="${2-Timer}"
+
+                        # zenity return value: okay = 0, quit = 1
+                        (($?)) && break
+
+                        START=$(< $FILE)
+                        (($START == $LIMIT)) && break
+
+                        printf -v t "%01d:%02d:%02d" $((START / 3600)) $((START / 60 % 60)) $((START % 60))
+
+                        # shell handles the pause/restart
+                        read -sn1 -p "Last: $t (key to continue | q to quit)"
+                        echo
+                        [[ $REPLY = q ]] && break
+                done
+                # I try not to litter.
+                \rm $FILE
+
+        # cmdline only (no zenity)
+        elif [[ $1 = 'c' ]]; then
+                for ((i=1; ; ++i)); do
+                        # bonus: value 0 falls through/runs forever
+                        [[ $2 =~ ^[1-9][0-9]*$ ]] && ((i > $2)) && return
+
+                        # delay and input in one call :-)
+                        read -sn1 -t1
+                        [[ $REPLY = q ]] && return
+
+                        # no need for tput ;-)
+                        echo -n "\t$((i))\r"
+                done
+
+        # fall through to help
+        else
+                echo "
+        $FUNCNAME d seconds [title]    # countdown timer  *uses zenity*
+
+        $FUNCNAME u [seconds] [title]  # countup timer (max: ${LIMIT}s)
+
+        $FUNCNAME c [seconds]          # cmdline timer (q to quit)
+        " | o  # o is a *perl* one-liner to add thousands separator
+        fi
+}
