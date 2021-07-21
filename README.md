@@ -6,3 +6,8 @@ source with
 ```
 . btz.sh
 ```
+
+run with
+```
+Ftimer
+```
