@@ -1,4 +1,4 @@
-Ftimer2 ()
+Ftimer ()
 {
         #######################################
         ### bash shell function with zenity ###
