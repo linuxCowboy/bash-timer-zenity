@@ -36,7 +36,7 @@ Ftimer ()
                 for i in `seq $2 -1 1`; do
                         echo "$((100 - ${i}00 / $2))\n#Countdown: $i"
                         sleep 1
-                done | DISPLAY=:0.0 WINDOWID=  zenity --progress --auto-close --title="${3-Timer}"
+                done | WINDOWID=  zenity --progress --auto-close --title="${3-Timer}"
 
         # countup
         elif [[ $1 = 'u' ]]; then
@@ -58,7 +58,7 @@ Ftimer ()
                                         echo "$((${i}00 / $LIMIT))\n#Countup: $t"  # fixed
                                 fi
                                 sleep 1
-                        done | DISPLAY=:0.0 zenity --progress --modal $PULSE \
+                        done | WINDOWID=  zenity --progress --modal $PULSE \
                                 --cancel-label='Quit' --ok-label='Pause' --title="${2-Timer}"
 
                         # zenity return value: okay = 0, quit = 1
