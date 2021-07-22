@@ -41,26 +41,25 @@ Ftimer ()
         # countup
         elif [[ $1 = 'u' ]]; then
                 local START=0  # for pause/resume
-                local PCENT=100  # start percent; set to end for unlimited run
+                local PULSE='--pulsate'  # pulse bar if unlimited
                 local FILE=$(mktemp)  # get the counter back from subshell
 
                 # a fixed time run with percentage indicator
-                [[ $2 =~ ^[0-9]+$ ]] && LIMIT=$2 && PCENT=0 && shift
+                [[ $2 =~ ^[0-9]+$ ]] && LIMIT=$2 && PULSE=  && shift
 
                 while (($START < $LIMIT)); do
                         for i in `seq $(($START + 1)) $LIMIT`; do
                                 echo $i >$FILE
                                 printf -v t "%01d:%02d:%02d" $((i / 3600)) $((i / 60 % 60)) $((i % 60))
 
-                                if (($PCENT)); then
+                                if [[ $PULSE ]]; then
                                         echo "#Countup: $t"  # unlimited
                                 else
                                         echo "$((${i}00 / $LIMIT))\n#Countup: $t"  # fixed
                                 fi
                                 sleep 1
-                        done | DISPLAY=:0.0 \
-                                zenity --progress --cancel-label='Quit' --ok-label='Pause' --modal \
-                                        --percentage=$PCENT --title="${2-Timer}"
+                        done | DISPLAY=:0.0 zenity --progress --modal $PULSE \
+                                --cancel-label='Quit' --ok-label='Pause' --title="${2-Timer}"
 
                         # zenity return value: okay = 0, quit = 1
                         (($?)) && break
