@@ -58,8 +58,8 @@ Ftimer ()
                                         echo "$((${i}00 / $LIMIT))\n#Countup: $t"  # fixed
                                 fi
                                 sleep 1
-                        done | DISPLAY=:0.0 WINDOWID=  \
-                                zenity --progress --cancel-label='Quit' --ok-label='Pause' \
+                        done | DISPLAY=:0.0 \
+                                zenity --progress --cancel-label='Quit' --ok-label='Pause' --modal \
                                         --percentage=$PCENT --title="${2-Timer}"
 
                         # zenity return value: okay = 0, quit = 1
