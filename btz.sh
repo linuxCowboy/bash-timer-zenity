@@ -87,9 +87,10 @@ Ftimer ()
                         # delay and input in one call :-)
                         read -sn1 -t1
                         [[ $REPLY = q ]] && return
+                        [[ $REPLY = r ]] && i=1
 
                         # no need for tput ;-)
-                        echo -n "\t$((i))\r"
+                        printf "% 9d\r" $i
                 done
 
         # fall through to help
@@ -99,7 +100,7 @@ Ftimer ()
 
         $FUNCNAME u [seconds] [title]  # countup timer (max: ${LIMIT}s)
 
-        $FUNCNAME c [seconds]          # cmdline timer (q to quit)
+        $FUNCNAME c [seconds]          # cmdline timer (q quit, r reset)
         " | o
         fi
 }
