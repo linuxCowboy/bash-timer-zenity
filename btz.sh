@@ -70,9 +70,10 @@ Ftimer ()
                         printf -v t "%01d:%02d:%02d" $((START / 3600)) $((START / 60 % 60)) $((START % 60))
 
                         # shell handles the pause/restart
-                        read -sn1 -p "Last: $t (key to continue | q to quit)"
+                        read -sn1 -p "Last: $t (key to continue | q to quit | r to reset)"
                         echo
                         [[ $REPLY = q ]] && break
+                        [[ $REPLY = r ]] && START=0
                 done
                 # I try not to litter.
                 \rm $FILE
