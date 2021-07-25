@@ -19,7 +19,7 @@ help screen
 
         Ftimer u [seconds] [title]  # countup timer (max: 1.000.000s)
 
-        Ftimer c [seconds]          # cmdline timer (q to quit)
+        Ftimer c [seconds [start]]  # cmdline timer (q quit, r reset)
 
 ```
 
