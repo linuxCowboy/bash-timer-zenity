@@ -89,8 +89,12 @@ Ftimer ()
                         [[ $REPLY = q ]] && return
                         [[ $REPLY = r ]] && i=1
 
+                        t=$((i % 60))
+                        ((i >= 60)) && t="$((i / 60 % 60)):$t"
+                        ((i >= 3600)) && t="$((i / 3600)):$t"
+
                         # no need for tput ;-)
-                        printf "% 9d\r" $i
+                        printf "% 12s\r" $t
                 done
 
         # fall through to help
