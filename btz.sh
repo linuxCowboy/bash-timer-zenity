@@ -80,7 +80,7 @@ Ftimer ()
 
         # cmdline only (no zenity)
         elif [[ $1 = 'c' ]]; then
-                for ((i=1; ; ++i)); do
+                for ((i=${3-1}; ; ++i)); do
                         # bonus: value 0 falls through/runs forever
                         [[ $2 =~ ^[1-9][0-9]*$ ]] && ((i > $2)) && return
 
