@@ -104,7 +104,7 @@ Ftimer ()
 
         $FUNCNAME u [seconds] [title]  # countup timer (max: ${LIMIT}s)
 
-        $FUNCNAME c [seconds]          # cmdline timer (q quit, r reset)
+        $FUNCNAME c [seconds [start]]  # cmdline timer (q quit, r reset)
         " | o
         fi
 }
