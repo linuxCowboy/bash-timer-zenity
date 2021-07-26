@@ -30,17 +30,17 @@ Ftimer ()
         local CMD='zenity --progress --modal'
 
         # needs zenity for up + down
-        [[ $1 =~ ^u|d$ ]] && ! type zenity >/dev/null && return
+        [[ $1 =~ ^(u|d) ]] && ! type zenity >/dev/null && return
 
         # countdown
-        if [[ $1 = 'd' && $2 =~ ^[0-9]+$ ]]; then
+        if [[ $1 =~ ^d && $2 =~ ^[0-9]+$ ]]; then
                 for i in `seq $2 -1 1`; do
                         echo "$((100 - ${i}00 / $2))\n#Countdown: $i"
                         sleep 1
                 done | WINDOWID=  $CMD --auto-close --title="${3-Timer}"
 
         # countup
-        elif [[ $1 = 'u' ]]; then
+        elif [[ $1 =~ ^u ]]; then
                 local START=0  # for pause/resume
                 local PULSE='--pulsate'  # pulse bar if unlimited
                 local FILE=$(mktemp)  # get the counter back from subshell
@@ -79,7 +79,7 @@ Ftimer ()
                 \rm $FILE
 
         # cmdline only (no zenity)
-        elif [[ $1 = 'c' ]]; then
+        elif [[ $1 =~ ^c ]]; then
                 for ((i=${3-1}; ; ++i)); do
                         # bonus: value 0 falls through/runs forever
                         [[ $2 =~ ^[1-9][0-9]*$ ]] && ((i > $2)) && return
