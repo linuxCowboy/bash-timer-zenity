@@ -27,7 +27,7 @@ For full functionality you have to enable the _OK_ button in the zenity progress
 
 check
 ```
-d=/usr/share/zenity/zenity.ui
+d=/usr/share/zenity
 
-cat --number "$d" | sed -rn /GtkButton.*zenity_progress_ok_button/,/\\/object/p | grep --colour sensitive
+cat --number "$d/zenity.ui" | sed -rn /GtkButton.*zenity_progress_ok_button/,/\\/object/p | grep --colour sensitive
 ```
