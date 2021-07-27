@@ -24,3 +24,8 @@ help screen
 ```
 
 For full functionality you have to enable the _OK_ button in the zenity progress dialog! In version 3.32 it is disabled by default.
+
+check
+```
+cat --number /usr/share/zenity/zenity.ui | sed -rn /GtkButton.*zenity_progress_ok_button/,/\\/object/p | grep --colour sensitive
+```
