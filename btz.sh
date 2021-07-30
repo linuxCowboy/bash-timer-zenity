@@ -87,7 +87,7 @@ Ftimer ()
                         # delay and input in one call :-)
                         read -sn1 -t1
                         [[ $REPLY = q ]] && return
-                        [[ $REPLY = r ]] && i=1
+                        [[ $REPLY = r ]] && i=${3-1}
 
                         # sparse print
                         t=$((i % 60))
