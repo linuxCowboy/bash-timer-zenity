@@ -31,3 +31,10 @@ d=/usr/share/zenity
 
 cat --number "$d/zenity.ui" | sed -rn /GtkButton.*zenity_progress_ok_button/,/\\/object/p | grep --colour sensitive
 ```
+
+examples
+```
+time Ftimer c 5
+
+Ftimer cmdline 0 $((60 * 60 * 24 - 5))
+```
