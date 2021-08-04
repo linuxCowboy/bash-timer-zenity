@@ -100,6 +100,12 @@ Ftimer ()
                         printf "% 12s\r" $t
                 done
 
+        # simple info
+        elif [[ $1 =~ ^i ]]; then
+                local DATE=`date '+%d. %b\n\n%T'`
+
+                (WINDOWID=  zenity --modal --info --text "${2-$DATE}" --title="${3-Info}" &)
+
         # fall through to help
         else
                 echo "
@@ -108,6 +114,8 @@ Ftimer ()
         $FUNCNAME u[*] [seconds] [title]  # countup timer (max: ${LIMIT}s)
 
         $FUNCNAME c[*] [seconds [start]]  # cmdline timer (q quit, r reset)
+
+        $FUNCNAME i[*] [text {time}] [title]  # text or time info (bground)
         " | o
         fi
 }
