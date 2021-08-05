@@ -21,6 +21,8 @@ help screen
 
         Ftimer c[*] [seconds [start]]  # cmdline timer (q quit, r reset)
 
+        Ftimer i[*] [text {time}] [title]  # text or time info (bground)
+
 ```
 
 For full functionality you have to enable the _OK_ button in the zenity progress dialog! In version 3.32 it is disabled by default.
