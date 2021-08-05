@@ -106,11 +106,11 @@ Ftimer ()
 
                 (WINDOWID=  zenity --modal --info --text "$DATE" --title="${2-Time}" &)
 
-        # simple info
+        # info
         elif [[ $1 =~ ^i ]]; then
                 local DATE=`date '+%d. %b\n\n%T'`
 
-                (WINDOWID=  zenity --modal --info --text "${2-$DATE}" --title="${3-Info}" &)
+                WINDOWID=  zenity --modal --info --text "${2-$DATE}" --title="${3-Info}"
 
         # fall through to help
         else
@@ -123,7 +123,7 @@ Ftimer ()
 
         $FUNCNAME t[*] [title]            # current time (background)
 
-        $FUNCNAME i[*] [text {time}] [title]  # text or time info (bground)
+        $FUNCNAME i[*] [text {time}] [title]  # text or time info
         " | o
         fi
 }
