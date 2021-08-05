@@ -115,13 +115,13 @@ Ftimer ()
         # fall through to help
         else
                 echo "
-        $FUNCNAME d[*] seconds [title]    # countdown timer  *uses zenity*
+        $FUNCNAME d[*] seconds [title]        # countdown timer  *uses zenity*
 
-        $FUNCNAME u[*] [seconds] [title]  # countup timer (max: ${LIMIT}s)
+        $FUNCNAME u[*] [seconds] [title]      # countup timer (max: ${LIMIT}s)
 
-        $FUNCNAME c[*] [seconds [start]]  # cmdline timer (q quit, r reset)
+        $FUNCNAME c[*] [seconds [start]]      # cmdline timer (q quit, r reset)
 
-        $FUNCNAME t[*] [title]            # current time (background)
+        $FUNCNAME t[*] [title]                # current time (background)
 
         $FUNCNAME i[*] [text {time}] [title]  # text or time info
         " | o
