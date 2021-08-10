@@ -30,7 +30,7 @@ Ftimer ()
         local CMD='zenity --progress --modal'
 
         # needs zenity for up + down
-        [[ $1 =~ ^(u|d) ]] && ! type zenity >/dev/null && return
+        [[ $1 =~ ^(u|d) ]] && ! type ${CMD%% *} >/dev/null && return
 
         # countdown
         if [[ $1 =~ ^d && $2 =~ ^[0-9]+$ ]]; then
