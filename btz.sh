@@ -104,13 +104,13 @@ Ftimer ()
         elif [[ $1 =~ ^t ]]; then
                 local DATE=`date '+%d. %b\n\n%T'`
 
-                (WINDOWID=  zenity --modal --info --text "$DATE" --title="${2-Time}" &)
+                (WINDOWID=  $CMD --info --text "$DATE" --title="${2-Time}" &)
 
         # info
         elif [[ $1 =~ ^i ]]; then
                 local DATE=`date '+%d. %b\n\n%T'`
 
-                WINDOWID=  zenity --modal --info --text "${2-$DATE}" --title="${3-Info}"
+                WINDOWID=  $CMD --info --text "${2-$DATE}" --title="${3-Info}"
 
         # fall through to help
         else
