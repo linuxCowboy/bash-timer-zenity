@@ -27,7 +27,7 @@ Ftimer ()
 
         # countup limit in seconds (~ runs forever/till quit)
         local LIMIT=1000000
-        local CMD='zenity --progress --modal'
+        local CMD='zenity --modal'
 
         # needs zenity for up + down
         [[ $1 =~ ^(u|d) ]] && ! type ${CMD%% *} >/dev/null && return
@@ -37,7 +37,7 @@ Ftimer ()
                 for i in `seq $2 -1 1`; do
                         echo "$((100 - ${i}00 / $2))\n#Countdown: $i"
                         sleep 1
-                done | WINDOWID=  $CMD --auto-close --title="${3-Timer}"
+                done | WINDOWID=  $CMD --progress --auto-close --title="${3-Timer}"
 
         # countup
         elif [[ $1 =~ ^u ]]; then
@@ -59,7 +59,7 @@ Ftimer ()
                                         echo "$((${i}00 / $LIMIT))\n#Countup: $t"  # fixed
                                 fi
                                 sleep 1
-                        done | WINDOWID=  $CMD $PULSE --cancel-label='Quit' --ok-label='Pause' --title="${2-Timer}"
+                        done | WINDOWID=  $CMD --progress $PULSE --cancel-label='Quit' --ok-label='Pause' --title="${2-Timer}"
 
                         # zenity return value: okay = 0, quit = 1
                         (($?)) && break
