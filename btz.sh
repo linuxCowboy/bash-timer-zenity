@@ -113,10 +113,8 @@ Ftimer ()
                 (WINDOWID=  $CMD --info --text "$DATE" --title="${2-Time}" &)
 
         # info
-        elif [[ $1 =~ ^i ]]; then
-                local DATE=`date '+%d. %b\n\n%T'`
-
-                WINDOWID=  $CMD --info --text "${2-$DATE}" --title="${3-Info}"
+        elif [[ $1 =~ ^i && $2 ]]; then
+                WINDOWID=  $CMD --info --text "$2" --title="${3-Info}"
 
         # year
         elif [[ $1 =~ ^y ]]; then
@@ -135,17 +133,17 @@ Ftimer ()
         # fall through to help
         else
                 echo "
-        $FUNCNAME d[*] seconds [title]        # countdown timer  *uses zenity*
+        $FUNCNAME d[*] seconds [title]    # countdown timer  *uses zenity*
 
-        $FUNCNAME u[*] [seconds] [title]      # countup timer (max: ${LIMIT}s)
+        $FUNCNAME u[*] [seconds] [title]  # countup timer (max: ${LIMIT}s)
 
-        $FUNCNAME c[*] [seconds [start]]      # cmdline timer (q quit, r reset)
+        $FUNCNAME c[*] [seconds [start]]  # cmdline timer (q quit, r reset)
 
-        $FUNCNAME t[*] [title]                # current time (background)
+        $FUNCNAME t[*] [title]            # current time (background)
 
-        $FUNCNAME i[*] [text {time}] [title]  # text or time info
+        $FUNCNAME i[*] text [title]       # info window
 
-        $FUNCNAME y[*] [year {current}]       # seasonal calendar (console)
+        $FUNCNAME y[*] [year {current}]   # seasonal calendar (console)
         " | o
         fi
 }
