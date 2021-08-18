@@ -142,6 +142,8 @@ Ftimer ()
         $FUNCNAME t[*] [title]                # current time (background)
 
         $FUNCNAME i[*] [text {time}] [title]  # text or time info
+
+        $FUNCNAME y[*]                        # seasonal calendar (console)
         " | o
         fi
 }
