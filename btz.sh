@@ -27,10 +27,16 @@ Ftimer ()
 
         # countup limit in seconds (~ runs forever/till quit)
         local LIMIT=1000000
+
+        # commands
         local CMD='zenity --modal'
+        local CAL='ncal -M -w -W5'  # start Monday, number weeks, 1. Week 5 days
 
         # needs zenity for up + down
         [[ $1 =~ ^(u|d) ]] && ! type ${CMD%% *} >/dev/null && return
+
+        # needs ncal for year
+        [[ $1 =~ ^y ]] && ! type ${CAL%% *} >/dev/null && return
 
         # countdown
         if [[ $1 =~ ^d && $2 =~ ^[0-9]+$ ]]; then
@@ -111,6 +117,18 @@ Ftimer ()
                 local DATE=`date '+%d. %b\n\n%T'`
 
                 WINDOWID=  $CMD --info --text "${2-$DATE}" --title="${3-Info}"
+
+        # year
+        elif [[ $1 =~ ^y ]]; then
+                echo
+                $CAL -m11p -A3  # winter
+                echo
+                $CAL -m3   -A1  # transition
+                echo
+                $CAL -m5   -A3  # summer
+                echo
+                $CAL -m9   -A1  # transition
+                echo
 
         # fall through to help
         else
