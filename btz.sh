@@ -120,14 +120,16 @@ Ftimer ()
 
         # year
         elif [[ $1 =~ ^y ]]; then
+                local YEAR=${2-`date +%Y`}
+
                 echo
-                $CAL -m11p -A3  # winter
+                $CAL -m11p -A3 $YEAR # winter
                 echo
-                $CAL -m3   -A1  # transition
+                $CAL -m3   -A1 $YEAR # transition
                 echo
-                $CAL -m5   -A3  # summer
+                $CAL -m5   -A3 $YEAR # summer
                 echo
-                $CAL -m9   -A1  # transition
+                $CAL -m9   -A1 $YEAR # transition
                 echo
 
         # fall through to help
@@ -143,7 +145,7 @@ Ftimer ()
 
         $FUNCNAME i[*] [text {time}] [title]  # text or time info
 
-        $FUNCNAME y[*]                        # seasonal calendar (console)
+        $FUNCNAME y[*] [year {current}]       # seasonal calendar (console)
         " | o
         fi
 }
