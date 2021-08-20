@@ -120,6 +120,12 @@ Ftimer ()
         elif [[ $1 =~ ^y ]]; then
                 local YEAR=${2-`date +%Y`}
 
+                # 1 to 2 digits year
+                [[ $YEAR =~ ^[0-9]$ ]] && YEAR=0$YEAR
+
+                # 2 to 4 digits year
+                [[ $YEAR =~ ^[0-9][0-9]$ ]] && YEAR=`date -d $YEAR-1-1 +%Y`
+
                 echo
                 $CAL -m11p -A3 $YEAR # winter
                 echo
