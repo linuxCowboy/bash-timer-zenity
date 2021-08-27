@@ -126,6 +126,9 @@ Ftimer ()
                 # 2 to 4 digits year
                 [[ $YEAR =~ ^[0-9][0-9]$ ]] && YEAR=`date -d $YEAR-1-1 +%Y`
 
+                # Winter is Coming
+                [[ ! $2 ]] && [[ `date +%m` =~ 11|12 ]] && ((++YEAR))
+
                 echo
                 $CAL -m11p -A3 $YEAR # winter
                 echo
