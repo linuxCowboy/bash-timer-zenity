@@ -141,25 +141,29 @@ Ftimer ()
 
         # weekday
         elif [[ $1 =~ ^w ]]; then
+                # set format
                 local FORMAT='%02d.%02d.%d'
+                # set format params (year is 4 digits)
                 local F1=d
                 local S2=m
                 local T3=y
 
+                # cmd line
                 local DAY=${2-`date +%d`}
                 local MON=${3-`date +%m`}
                 local YEA=${4-`date +%Y`}
+
+                # 1 to 2 digits year
                 [[ $YEA =~ ^[0-9]$ ]] && YEA=0$YEA
 
                 # check date
                 date -d $YEA-$MON-$DAY >/dev/null || return
 
+                # 2 to 4 digits year
                 [[ $YEA =~ ^[0-9][0-9]$ ]] && YEA=`date -d $YEA-$MON-$DAY +%Y`
 
                 [[ $F1 = d ]] && F1=${DAY#0} && { [[ $S2 = m ]] && { S2=${MON#0}; T3=$YEA;}     || { S2=$YEA; T3=${MON#0};};}
-
                 [[ $F1 = m ]] && F1=${MON#0} && { [[ $S2 = d ]] && { S2=${DAY#0}; T3=$YEA;}     || { S2=$YEA; T3=${DAY#0};};}
-
                 [[ $F1 = y ]] && F1=$YEA     && { [[ $S2 = d ]] && { S2=${DAY#0}; T3=${MON#0};} || { S2=${MON#0}; T3=${DAY#0};};}
 
                 echo
