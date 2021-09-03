@@ -148,7 +148,7 @@ Ftimer ()
                 [[ $YEA =~ ^[0-9]$ ]] && YEA=0$YEA
                 [[ $YEA =~ ^[0-9][0-9]$ ]] && YEA=`date -d $YEA-$MON-$DAY +%Y`
 
-                date -d $YEA-$MON-$DAY +%A
+                printf "%02d.%02d.%d is %s\n" ${DAY#0} ${MON#0} $YEA `date -d $YEA-$MON-$DAY +%A`
 
         # fall through to help
         else
