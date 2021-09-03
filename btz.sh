@@ -141,6 +141,8 @@ Ftimer ()
 
         # weekday
         elif [[ $1 =~ ^w ]]; then
+                local FORMAT='%02d.%02d.%d'
+
                 local DAY=${2-`date +%d`}
                 local MON=${3-`date +%m`}
                 local YEA=${4-`date +%Y`}
@@ -148,7 +150,7 @@ Ftimer ()
                 [[ $YEA =~ ^[0-9]$ ]] && YEA=0$YEA
                 [[ $YEA =~ ^[0-9][0-9]$ ]] && YEA=`date -d $YEA-$MON-$DAY +%Y`
 
-                printf "%02d.%02d.%d is %s\n" ${DAY#0} ${MON#0} $YEA `date -d $YEA-$MON-$DAY +%A`
+                printf "$FORMAT is %s\n" ${DAY#0} ${MON#0} $YEA `date -d $YEA-$MON-$DAY +%A`
 
         # fall through to help
         else
