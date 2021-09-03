@@ -139,20 +139,30 @@ Ftimer ()
                 $CAL -m9   -A1 $YEAR # transition
                 echo
 
+        # weekday
+        elif [[ $1 =~ ^w ]]; then
+                local DAY=${2-`date +%d`}
+                local MON=${3-`date +%m`}
+                local YEA=${4-`date +%y`}
+
+                date -d $YEA-$MON-$DAY +%A
+
         # fall through to help
         else
                 echo "
-        $FUNCNAME d seconds [title]    # countdown timer  *uses zenity*
+        $FUNCNAME d seconds [title]       # countdown timer  *uses zenity*
 
-        $FUNCNAME u [seconds] [title]  # countup timer (max: ${LIMIT}s)
+        $FUNCNAME u [seconds] [title]     # countup timer (max: ${LIMIT}s)
 
-        $FUNCNAME c [seconds [start]]  # cmdline timer (q quit, r reset)
+        $FUNCNAME c [seconds [start]]     # cmdline timer (q quit, r reset)
 
-        $FUNCNAME t [title]            # current time (background)
+        $FUNCNAME t [title]               # current time (background)
 
-        $FUNCNAME i text [title]       # info window
+        $FUNCNAME i text [title]          # info window
 
-        $FUNCNAME y [year]             # seasonal calendar (console)
+        $FUNCNAME y [year]                # seasonal calendar (console)
+
+        $FUNCNAME w [day [month [year]]]  # weekday (console)
         " | o
         fi
 }
