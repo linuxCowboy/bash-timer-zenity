@@ -146,8 +146,11 @@ Ftimer ()
                 local DAY=${2-`date +%d`}
                 local MON=${3-`date +%m`}
                 local YEA=${4-`date +%Y`}
-
                 [[ $YEA =~ ^[0-9]$ ]] && YEA=0$YEA
+
+                # check date
+                date -d $YEA-$MON-$DAY >/dev/null || return
+
                 [[ $YEA =~ ^[0-9][0-9]$ ]] && YEA=`date -d $YEA-$MON-$DAY +%Y`
 
                 printf "$FORMAT is %s\n" ${DAY#0} ${MON#0} $YEA `date -d $YEA-$MON-$DAY +%A`
