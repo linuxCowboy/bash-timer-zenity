@@ -145,6 +145,7 @@ Ftimer ()
                 local MON=${3-`date +%m`}
                 local YEA=${4-`date +%y`}
 
+                [[ $YEA =~ ^[0-9]$ ]] && YEA=0$YEA
                 date -d $YEA-$MON-$DAY +%A
 
         # fall through to help
