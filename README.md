@@ -15,17 +15,19 @@ Ftimer
 help screen
 ```
 
-        Ftimer d seconds [title]    # countdown timer  *uses zenity*
+        Ftimer d seconds [title]       # countdown timer  *uses zenity*
 
-        Ftimer u [seconds] [title]  # countup timer (max: 1.000.000s)
+        Ftimer u [seconds] [title]     # countup timer (max: 1.000.000s)
 
-        Ftimer c [seconds [start]]  # cmdline timer (q quit, r reset)
+        Ftimer c [seconds [start]]     # cmdline timer (q quit, r reset)
 
-        Ftimer t [title]            # current time (background)
+        Ftimer t [title]               # current time (background)
 
-        Ftimer i text [title]       # info window
+        Ftimer i text [title]          # info window
 
-        Ftimer y [year]             # seasonal calendar (console)
+        Ftimer y [year]                # seasonal calendar (console)
+
+        Ftimer w [day [month [year]]]  # weekday (console)
 
 ```
 
