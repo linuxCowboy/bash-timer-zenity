@@ -156,35 +156,11 @@ Ftimer ()
 
                 [[ $YEA =~ ^[0-9][0-9]$ ]] && YEA=`date -d $YEA-$MON-$DAY +%Y`
 
-                if [[ $F1 = d ]]; then
-                        F1=${DAY#0}
-                        if [[ $S2 = m ]]; then
-                                S2=${MON#0}
-                                T3=$YEA
-                        else
-                                S2=$YEA
-                                T3=${MON#0}
-                        fi
+                [[ $F1 = d ]] && F1=${DAY#0} && { [[ $S2 = m ]] && { S2=${MON#0}; T3=$YEA;}     || { S2=$YEA; T3=${MON#0};};}
 
-                elif [[ $F1 = m ]]; then
-                        F1=${MON#0}
-                        if [[ $S2 = d ]]; then
-                                S2=${DAY#0}
-                                T3=$YEA
-                        else
-                                S2=$YEA
-                                T3=${DAY#0}
-                        fi
-                else
-                        F1=$YEA
-                        if [[ $S2 = d ]]; then
-                                S2=${DAY#0}
-                                T3=${MON#0}
-                        else
-                                S2=${MON#0}
-                                T3=${DAY#0}
-                        fi
-                fi
+                [[ $F1 = m ]] && F1=${MON#0} && { [[ $S2 = d ]] && { S2=${DAY#0}; T3=$YEA;}     || { S2=$YEA; T3=${DAY#0};};}
+
+                [[ $F1 = y ]] && F1=$YEA     && { [[ $S2 = d ]] && { S2=${DAY#0}; T3=${MON#0};} || { S2=${MON#0}; T3=${DAY#0};};}
 
                 echo
                 printf "$FORMAT -=[ %s ]=-\n" $F1 $S2 $T3 `date -d $YEA-$MON-$DAY +%A`
