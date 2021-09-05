@@ -162,9 +162,9 @@ Ftimer ()
                 MON=${MON#0}
                 [[ $YEA =~ ^[0-9][0-9]$ ]] && YEA=`date -d $YEA-$MON-$DAY +%Y`
 
-                [[ $F1 = d ]] && F1=$DAY && { [[ $S2 = m ]] && { S2=$MON; T3=$YEA;} || { S2=$YEA; T3=$MON;};}
-                [[ $F1 = m ]] && F1=$MON && { [[ $S2 = d ]] && { S2=$DAY; T3=$YEA;} || { S2=$YEA; T3=$DAY;};}
-                [[ $F1 = y ]] && F1=$YEA && { [[ $S2 = d ]] && { S2=$DAY; T3=$MON;} || { S2=$MON; T3=$DAY;};}
+                [ $F1 = d ] && F1=$DAY && { [ $S2 = m ] && { S2=$MON; T3=$YEA;} || { S2=$YEA; T3=$MON;};}
+                [ $F1 = m ] && F1=$MON && { [ $S2 = d ] && { S2=$DAY; T3=$YEA;} || { S2=$YEA; T3=$DAY;};}
+                [ $F1 = y ] && F1=$YEA && { [ $S2 = d ] && { S2=$DAY; T3=$MON;} || { S2=$MON; T3=$DAY;};}
 
                 echo
                 printf "$FORMAT -=[ %s ]=-\n" $F1 $S2 $T3 `date -d $YEA-$MON-$DAY +%A`
