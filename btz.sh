@@ -153,16 +153,16 @@ Ftimer ()
                 local MON=${3-`date +%m`}
                 local YEA=${4-`date +%Y`}
 
+                # full year
                 [[ $YEA =~ ^[0-9]$ ]] && YEA=0$YEA
-
-                # check date
-                date -d $YEA-$MON-$DAY >/dev/null || return
+                [[ $YEA =~ ^[0-9][0-9]$ ]] && YEA=`date -d $YEA-$MON-$DAY +%Y`
 
                 # not octal
                 DAY=${DAY#0}
                 MON=${MON#0}
 
-                [[ $YEA =~ ^[0-9][0-9]$ ]] && YEA=`date -d $YEA-$MON-$DAY +%Y`
+                # check date
+                date -d $YEA-$MON-$DAY >/dev/null || return
 
                 # mapping
                 [ $F1 = d ] && F1=$DAY && { [ $S2 = m ] && { S2=$MON; T3=$YEA;} || { S2=$YEA; T3=$MON;};}
