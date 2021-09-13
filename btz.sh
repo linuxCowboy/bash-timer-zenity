@@ -166,7 +166,7 @@ Ftimer ()
 
                 # mapping
                 [ $F1 = d ] && F1=$DAY && { [ $S2 = m ] && { S2=$MON; T3=$YEA;} || { S2=$YEA; T3=$MON;};}
-                [ $F1 = m ] && F1=$MON && { [ $S2 = d ] && { S2=$DAY; T3=$YEA;} || { S2=$YEA; T3=$DAY;};}
+                [ $F1 = m ] && F1=$MON && { [ $S2 = y ] && { S2=$YEA; T3=$DAY;} || { S2=$DAY; T3=$YEA;};}
                 [ $F1 = y ] && F1=$YEA && { [ $S2 = d ] && { S2=$DAY; T3=$MON;} || { S2=$MON; T3=$DAY;};}
 
                 echo
