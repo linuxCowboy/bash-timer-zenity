@@ -170,7 +170,7 @@ Ftimer ()
                 [ $F1 = y ] && F1=$YEA && { [ $S2 = d ] && { S2=$DAY; T3=$MON;} || { S2=$MON; T3=$DAY;};}
 
                 echo
-                printf "$FORMAT -=[ %s ]=-\n" $F1 $S2 $T3 `date -d $YEA-$MON-$DAY +%A`
+                printf "$FORMAT -=[ %s ]=-\n" $F1 $S2 $T3 "`date -d $YEA-$MON-$DAY +%A`"
                 echo
 
         # fall through to help
