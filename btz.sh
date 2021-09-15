@@ -176,22 +176,38 @@ Ftimer ()
 
         # luck or bad luck
         elif [[ $1 =~ ^f ]]; then
-                local START=${2-`date +%Y`}
-                local DELTA=${3-1}
+                local YEAR=`date +%Y`
+                local RANGE=1
+                local SIGN=
+
+                [[ $2 && $2 =~ ^[0-9]+$ ]] && YEAR=$2
+                [[ $3 && $3 =~ ^([+-]?)([0-9]+)$ ]] && SIGN=${BASH_REMATCH[1]} && RANGE=${BASH_REMATCH[2]}
 
                 # local Friday
                 local NAME=`date -d 2021-08-13 +%A`
                 # local short months
                 local MONTH=(0 `for i in {1..12}; do date -d $i/1 +%b; done`)
 
-                [[ $START =~ ^[0-9]$ ]] && START=0$START
-                date -d $START-1-13 >/dev/null || return
-                [[ $START =~ ^[0-9][0-9]$ ]] && START=`date -d $START-1-1 +%Y`
+                [[ $YEAR =~ ^[0-9]$ ]] && YEAR=0$YEAR
+                date -d $YEAR-1-13 >/dev/null || return
+                [[ $YEAR =~ ^[0-9][0-9]$ ]] && YEAR=`date -d $YEAR-1-1 +%Y`
 
+                local BEG END
+                if [[ $SIGN = + ]]; then
+                        BEG=$YEAR
+                        END=$((YEAR + RANGE))
+
+                elif [[ $SIGN = - ]]; then
+                        BEG=$((YEAR - RANGE))
+                        END=$YEAR
+                else
+                        BEG=$((YEAR - RANGE))
+                        END=$((YEAR + RANGE))
+                fi
                 echo
                 echo "\t\t -=[ Friday the 13th ]=-"
                 echo
-                for ((y = START - DELTA; y <= START + DELTA; ++y)); do
+                for ((y = $BEG; y <= $END; ++y)); do
                         local OUT="$y:"
 
                         for ((m=1; m <= 12; ++m)); do
@@ -202,27 +218,27 @@ Ftimer ()
                         done
                         echo "$OUT"
 
-                        ((DELTA < 3 || y % 5)) || echo
+                        ((END - BEG < 5 || y % 5)) || echo
                 done
 
         # fall through to help
         else
                 echo "
-        $FUNCNAME d seconds [title]       # countdown timer  *uses zenity*
+        $FUNCNAME d seconds [title]        # countdown timer  *uses zenity*
 
-        $FUNCNAME u [seconds] [title]     # countup timer (max: ${LIMIT}s)
+        $FUNCNAME u [seconds] [title]      # countup timer (max: ${LIMIT}s)
 
-        $FUNCNAME c [seconds [start]]     # cmdline timer (q quit, r reset)
+        $FUNCNAME c [seconds [start]]      # cmdline timer (q quit, r reset)
 
-        $FUNCNAME t [title]               # current time (background)
+        $FUNCNAME t [title]                # current time (background)
 
-        $FUNCNAME i text [title]          # info window
+        $FUNCNAME i text [title]           # info window
 
-        $FUNCNAME y [year]                # seasonal calendar (console)
+        $FUNCNAME y [year]                 # seasonal calendar (console)
 
-        $FUNCNAME w [day [month [year]]]  # weekday (console)
+        $FUNCNAME w [day [month [year]]]   # weekday (console)
 
-        $FUNCNAME f [year [delta]]        # Friday the 13th
+        $FUNCNAME f [year [[+-]range{1}]]  # Friday the 13th (console)
         " | o
         fi
 }
