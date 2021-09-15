@@ -195,7 +195,7 @@ Ftimer ()
                         local OUT="$y:"
 
                         for ((m=1; m <= 12; ++m)); do
-                                t=''
+                                t='   - '
                                 [[ `date -d $y-$m-13 +%A` = $NAME ]] && t=${MONTH[$m]}
                                 t=`printf "% 5s" "$t"`
                                 OUT+="$t"
