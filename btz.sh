@@ -201,6 +201,8 @@ Ftimer ()
                                 OUT+="$t"
                         done
                         echo "$OUT"
+
+                        ((DELTA < 3 || y % 5)) || echo
                 done
 
         # fall through to help
