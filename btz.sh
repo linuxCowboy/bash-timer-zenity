@@ -178,20 +178,27 @@ Ftimer ()
         elif [[ $1 =~ ^f ]]; then
                 local START=${2-`date +%Y`}
                 local DELTA=${3-1}
-                local NAME='Friday'
+
+                # local Friday
+                local NAME=`date -d 2021-08-13 +%A`
+                # local short months
+                local MONTH=(0 `for i in {1..12}; do date -d $i/1 +%b; done`)
 
                 [[ $START =~ ^[0-9]$ ]] && START=0$START
                 date -d $START-1-13 >/dev/null || return
                 [[ $START =~ ^[0-9][0-9]$ ]] && START=`date -d $START-1-1 +%Y`
 
                 for ((y = START - DELTA; y <= START + DELTA; ++y)); do
-                        printf "%d: " $y
+                        local OUT="$y:"
+
                         for ((m=1; m <= 12; ++m)); do
-                                [[ `date -d $y-$m-13 +%A` = $NAME ]] && echo -n "$m "
+                                t=''
+                                [[ `date -d $y-$m-13 +%A` = $NAME ]] && t=${MONTH[$m]}
+                                t=`printf "% 5s" "$t"`
+                                OUT+="$t"
                         done
-                        echo
+                        echo "$OUT"
                 done
-                echo
 
         # fall through to help
         else
