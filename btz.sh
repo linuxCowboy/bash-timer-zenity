@@ -180,17 +180,18 @@ Ftimer ()
                 local RANGE=1
                 local SIGN=
 
+                # year
                 [[ $2 && $2 =~ ^[0-9]+$ ]] && YEAR=$2
+                [[ $YEAR =~ ^[0-9]$ ]] && YEAR=0$YEAR
+                [[ $YEAR =~ ^[0-9][0-9]$ ]] && YEAR=`date -d $YEAR-1-1 +%Y`
+
+                # range + sign
                 [[ $3 && $3 =~ ^([+-]?)([0-9]+)$ ]] && SIGN=${BASH_REMATCH[1]} && RANGE=${BASH_REMATCH[2]}
 
                 # local Friday
                 local NAME=`date -d 2021-08-13 +%A`
                 # local short months
                 local MONTH=(0 `for i in {1..12}; do date -d $i/1 +%b; done`)
-
-                [[ $YEAR =~ ^[0-9]$ ]] && YEAR=0$YEAR
-                date -d $YEAR-1-13 >/dev/null || return
-                [[ $YEAR =~ ^[0-9][0-9]$ ]] && YEAR=`date -d $YEAR-1-1 +%Y`
 
                 local BEG END
                 if [[ $SIGN = + ]]; then
@@ -204,9 +205,11 @@ Ftimer ()
                         BEG=$((YEAR - RANGE))
                         END=$((YEAR + RANGE))
                 fi
+
                 echo
                 echo "\t\t -=[ Friday the 13th ]=-"
                 echo
+
                 for ((y = $BEG; y <= $END; ++y)); do
                         local OUT="$y:"
 
