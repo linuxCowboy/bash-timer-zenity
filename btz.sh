@@ -178,7 +178,7 @@ Ftimer ()
         elif [[ $1 =~ ^f ]]; then
                 local YEAR=`date +%Y`
                 local RANGE=1
-                local SIGN=
+                local SIGN
 
                 # year
                 [[ $2 && $2 =~ ^[0-9]+$ ]] && YEAR=$2
@@ -193,18 +193,11 @@ Ftimer ()
                 # local short months
                 local MONTH=(0 `for i in {1..12}; do date -d $i/1 +%b; done`)
 
-                local BEG END
-                if [[ $SIGN = + ]]; then
-                        BEG=$YEAR
-                        END=$((YEAR + RANGE))
+                local BEG=$((YEAR - RANGE))
+                local END=$((YEAR + RANGE))
 
-                elif [[ $SIGN = - ]]; then
-                        BEG=$((YEAR - RANGE))
-                        END=$YEAR
-                else
-                        BEG=$((YEAR - RANGE))
-                        END=$((YEAR + RANGE))
-                fi
+                [[ $SIGN = + ]] && BEG=$YEAR
+                [[ $SIGN = - ]] && END=$YEAR
 
                 echo
                 echo "\t\t -=[ Friday the 13th ]=-"
