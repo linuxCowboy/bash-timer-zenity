@@ -222,7 +222,7 @@ Ftimer ()
 
         $FUNCNAME w [day [month [year]]]  # weekday (console)
 
-        $FUNCNAME f [year] [delta]        # Friday the 13th
+        $FUNCNAME f [year [delta]]        # Friday the 13th
         " | o
         fi
 }
