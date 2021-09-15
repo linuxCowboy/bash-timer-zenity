@@ -188,6 +188,9 @@ Ftimer ()
                 date -d $START-1-13 >/dev/null || return
                 [[ $START =~ ^[0-9][0-9]$ ]] && START=`date -d $START-1-1 +%Y`
 
+                echo
+                echo "\t\t -=[ Friday the 13th ]=-"
+                echo
                 for ((y = START - DELTA; y <= START + DELTA; ++y)); do
                         local OUT="$y:"
 
