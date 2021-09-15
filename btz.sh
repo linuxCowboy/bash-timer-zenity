@@ -174,6 +174,25 @@ Ftimer ()
                 printf "$FORMAT -=[ %s ]=-\n" $F1 $S2 $T3 "`date -d $YEA-$MON-$DAY +%A`"
                 echo
 
+        # luck or bad luck
+        elif [[ $1 =~ ^f ]]; then
+                local START=${2-`date +%Y`}
+                local DELTA=${3-1}
+                local NAME='Friday'
+
+                [[ $START =~ ^[0-9]$ ]] && START=0$START
+                date -d $START-1-13 >/dev/null || return
+                [[ $START =~ ^[0-9][0-9]$ ]] && START=`date -d $START-1-1 +%Y`
+
+                for ((y = START - DELTA; y <= START + DELTA; ++y)); do
+                        printf "%d: " $y
+                        for ((m=1; m <= 12; ++m)); do
+                                [[ `date -d $y-$m-13 +%A` = $NAME ]] && echo -n "$m "
+                        done
+                        echo
+                done
+                echo
+
         # fall through to help
         else
                 echo "
@@ -190,6 +209,8 @@ Ftimer ()
         $FUNCNAME y [year]                # seasonal calendar (console)
 
         $FUNCNAME w [day [month [year]]]  # weekday (console)
+
+        $FUNCNAME f [year] [delta]        # Friday the 13th
         " | o
         fi
 }
