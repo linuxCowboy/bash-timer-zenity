@@ -217,8 +217,8 @@ Ftimer ()
                         ((END - BEG < 5 || y % 5)) || echo
                 done
 
-        elif [[ $1 =~ ^s ]]; then
-                local INTERVAL=10
+        elif [[ $1 =~ ^s && $2 ]]; then
+                local INTERVAL=6  # precision
 
                 date
                 date -d "$2" || return
