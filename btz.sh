@@ -217,24 +217,45 @@ Ftimer ()
                         ((END - BEG < 5 || y % 5)) || echo
                 done
 
+        elif [[ $1 =~ ^s ]]; then
+                local INTERVAL=10
+
+                date
+                date -d "$2" || return
+                local TARGET=`date -d "$2" +%s`
+
+                while :; do
+                        local CURRENT=`date +%s`
+
+                        if ((CURRENT >= TARGET)); then
+                                TARGET=`date -d@$TARGET '+%d. %b\n\n%T'`
+
+                                WINDOWID=  $CMD --warning --text "$TARGET" --title="${3-Alarm Clock}"
+                                return
+                        fi
+                        sleep $INTERVAL
+                done
+
         # fall through to help
         else
                 echo "
-        $FUNCNAME d seconds [title]        # countdown timer  *uses zenity*
+        $FUNCNAME d seconds [title]         # countdown timer  *uses zenity*
 
-        $FUNCNAME u [seconds] [title]      # countup timer (max: ${LIMIT}s)
+        $FUNCNAME u [seconds] [title]       # countup timer (max: ${LIMIT}s)
 
-        $FUNCNAME c [seconds [start]]      # cmdline timer (q quit, r reset)
+        $FUNCNAME c [seconds [start]]       # cmdline timer (q quit, r reset)
 
-        $FUNCNAME t [title]                # current time (background)
+        $FUNCNAME t [title]                 # current time (background)
 
-        $FUNCNAME i text [title]           # info window
+        $FUNCNAME i text [title]            # info window
 
-        $FUNCNAME y [year]                 # seasonal calendar (console)
+        $FUNCNAME y [year]                  # seasonal calendar (console)
 
-        $FUNCNAME w [day [month [year]]]   # weekday (console)
+        $FUNCNAME w [day [month [year]]]    # weekday (console)
 
-        $FUNCNAME f [year [[+-]range{1}]]  # Friday the 13th (console)
+        $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th (console)
+
+        $FUNCNAME s time(GNU date) [title]  # short-time alarm clock
         " | o
         fi
 }
