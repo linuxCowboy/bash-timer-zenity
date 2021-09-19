@@ -15,21 +15,23 @@ Ftimer
 help screen
 ```
 
-        Ftimer d seconds [title]        # countdown timer  *uses zenity*
+        Ftimer d seconds [title]         # countdown timer  *uses zenity*
 
-        Ftimer u [seconds] [title]      # countup timer (max: 1.000.000s)
+        Ftimer u [seconds] [title]       # countup timer (max: 1.000.000s)
 
-        Ftimer c [seconds [start]]      # cmdline timer (q quit, r reset)
+        Ftimer c [seconds [start]]       # cmdline timer (q quit, r reset)
 
-        Ftimer t [title]                # current time (background)
+        Ftimer t [title]                 # current time (background)
 
-        Ftimer i text [title]           # info window
+        Ftimer i text [title]            # info window
 
-        Ftimer y [year]                 # seasonal calendar (console)
+        Ftimer y [year]                  # seasonal calendar (console)
 
-        Ftimer w [day [month [year]]]   # weekday (console)
+        Ftimer w [day [month [year]]]    # weekday (console)
 
-        Ftimer f [year [[+-]range{1}]]  # Friday the 13th (console)
+        Ftimer f [year [[+-]range{1}]]   # Friday the 13th (console)
+
+        Ftimer s time(GNU date) [title]  # short-time alarm clock
 
 ```
 
@@ -47,4 +49,6 @@ examples
 time Ftimer c 5
 
 Ftimer cmdline 0 $((60*60*24-5))
+
+Ftimer s +10min &
 ```
