@@ -2,7 +2,9 @@
 bash countdown countup timer with zenity + cmdline
 
 ## shell function
-source with
+add this to your .bash_aliases
+
+test with
 ```
 . btz.sh
 ```

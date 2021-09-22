@@ -217,6 +217,7 @@ Ftimer ()
                         ((END - BEG < 5 || y % 5)) || echo
                 done
 
+        # alarm timer
         elif [[ $1 =~ ^s && $2 ]]; then
                 local INTERVAL=6  # precision
 
