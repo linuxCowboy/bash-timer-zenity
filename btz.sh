@@ -93,7 +93,7 @@ Ftimer ()
 
                 for ((i=$START; ; ++i)); do
                         # bonus: value 0 falls through/runs forever
-                        [[ $2 =~ ^[1-9][0-9]*$ ]] && ((i > $2)) && return
+                        (( $2 )) && ((i > $2)) && return
 
                         # delay and input in one call :-)
                         read -sn1 -t1
