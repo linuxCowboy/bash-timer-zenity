@@ -89,8 +89,7 @@ Ftimer ()
                 [[ $2 && ! $2 =~ ^[0-9]+$ ]] ||
                 [[ $3 && ! $3 =~ ^[0-9]+$ ]] && return 1
 
-                local START=1
-                [[ $3 =~ ^[0-9]+$ ]] && START=$3
+                local START=${3-1}
 
                 for ((i=$START; ; ++i)); do
                         # bonus: value 0 falls through/runs forever
