@@ -86,14 +86,19 @@ Ftimer ()
 
         # cmdline only (no zenity)
         elif [[ $1 =~ ^c ]]; then
-                for ((i=${3-1}; ; ++i)); do
+                [[ $2 && ! $2 =~ ^[0-9]+$ ]] && return 1
+
+                local START=1
+                [[ $3 =~ ^[0-9]+$ ]] && START=$3
+
+                for ((i=$START; ; ++i)); do
                         # bonus: value 0 falls through/runs forever
                         [[ $2 =~ ^[1-9][0-9]*$ ]] && ((i > $2)) && return
 
                         # delay and input in one call :-)
                         read -sn1 -t1
                         [[ $REPLY = q ]] && return
-                        [[ $REPLY = r ]] && i=${3-1}
+                        [[ $REPLY = r ]] && i=$START
 
                         # sparse print
                         t=$((i % 60))
