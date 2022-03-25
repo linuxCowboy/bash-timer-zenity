@@ -86,7 +86,8 @@ Ftimer ()
 
         # cmdline only (no zenity)
         elif [[ $1 =~ ^c ]]; then
-                [[ $2 && ! $2 =~ ^[0-9]+$ ]] && return 1
+                [[ $2 && ! $2 =~ ^[0-9]+$ ]] ||
+                [[ $3 && ! $3 =~ ^[0-9]+$ ]] && return 1
 
                 local START=1
                 [[ $3 =~ ^[0-9]+$ ]] && START=$3
