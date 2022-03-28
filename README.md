@@ -43,7 +43,7 @@ check
 ```
 d=/usr/share/zenity
 
-cat --number "$d/zenity.ui" | sed -rn /GtkButton.*zenity_progress_ok_button/,/\\/object/p | grep --colour sensitive
+cat --number "$d/zenity.ui" | sed -rn '/GtkButton.*zenity_progress_ok_button/, \%/object%p' | grep --color sensitive
 ```
 
 examples

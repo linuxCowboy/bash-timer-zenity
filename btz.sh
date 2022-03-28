@@ -22,7 +22,7 @@ Ftimer ()
         #
         # check:
         # cat -n /usr/share/zenity/zenity.ui |
-        #     sed -rn /GtkButton.*zenity_progress_ok_button/,/\\/object/p |
+        #     sed -rn '/GtkButton.*zenity_progress_ok_button/, \%/object%p' |
         #         grep --colour=always sensitive
 
         # countup limit in seconds (~ runs forever/till quit)
