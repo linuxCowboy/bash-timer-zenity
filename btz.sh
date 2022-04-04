@@ -1,6 +1,3 @@
-# o is a *perl* one-liner to add thousands separator
-alias o='perl -pe'\''while(/\d{5,}|[03-9]\d{3}/){$b=$`;$m=$&;$a=$'\'\\\'\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/./;$_="$b$m$a"}'\'
-
 Ftimer ()
 {
         #######################################
@@ -31,6 +28,10 @@ Ftimer ()
         # commands
         local CMD='zenity --modal'
         local CAL='ncal -M -w -W5'  # start Monday, number weeks, 1. Week 5 days
+
+        # thousands separator
+        local CHR="."
+        local sep='perl -pe'\''while(/\d{5,}/){$b=$`;$m=$&;$a=$'\'"\'"\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/'$CHR'/;$_="$b$m$a"}'\'
 
         # needs zenity for up + down
         [[ $1 =~ ^(u|d) ]] && ! type ${CMD%% *} >/dev/null && return
@@ -262,7 +263,6 @@ Ftimer ()
         $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th (console)
 
         $FUNCNAME s time(GNU date) [title]  # short-time alarm clock
-        " | o
+        " | eval "$sep"
         fi
 }
-
