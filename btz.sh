@@ -25,7 +25,7 @@ Ftimer ()
         # countup limit in seconds (~ runs forever/till quit)
         local LIMIT=1000000
 
-        # alarm clock logging
+        # alarm clock logging if set
         local LOG=~/.ftimer.log
 
         # commands
@@ -240,11 +240,18 @@ Ftimer ()
         elif [[ $1 =~ ^s && $2 ]]; then
                 local INTERVAL=6  # precision
 
-                date | tee --append "$LOG"
+                date --date "$2" >/dev/null || return
 
-                date --date "$2" || return
-                date --date "$2" >> "$LOG"
-                        echo     >> "$LOG"
+                if [[ $LOG ]]; then
+                        [[ $3 ]] && echo "$3"    >> "$LOG"
+                        date         | tee --append "$LOG"
+                        date -d "$2" | tee --append "$LOG"
+                                echo             >> "$LOG"
+                else
+                        date
+                        date --date "$2"
+                fi
+
                 local TARGET=`date -d "$2" +%s`
 
                 while :; do
