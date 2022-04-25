@@ -25,6 +25,9 @@ Ftimer ()
         # countup limit in seconds (~ runs forever/till quit)
         local LIMIT=1000000
 
+        # alarm clock logging
+        local LOG=~/.ftimer.log
+
         # commands
         local CMD='zenity --modal'
         local CAL='ncal -M -w -W5'  # start Monday, number weeks, 1. Week 5 days
@@ -237,8 +240,11 @@ Ftimer ()
         elif [[ $1 =~ ^s && $2 ]]; then
                 local INTERVAL=6  # precision
 
-                date
-                date -d "$2" || return
+                date | tee --append "$LOG"
+
+                date --date "$2" || return
+                date --date "$2" >> "$LOG"
+                        echo     >> "$LOG"
                 local TARGET=`date -d "$2" +%s`
 
                 while :; do
@@ -272,7 +278,7 @@ Ftimer ()
 
         $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th (console)
 
-        $FUNCNAME s time(GNU date) [title]  # short-time alarm clock
+        $FUNCNAME s time(GNU date) [title]  # short-time alarm clock ($LOG)
         " | eval "$sep"
         fi
 }
