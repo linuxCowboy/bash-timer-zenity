@@ -285,7 +285,7 @@ Ftimer ()
 
         $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th (console)
 
-        $FUNCNAME s time(GNU date) [title]  # short-time alarm clock ($LOG)
+        $FUNCNAME s time(GNU date) [title]  # short-time alarm clock (${LOG:-no log})
         " | eval "$sep"
         fi
 }
