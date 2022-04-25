@@ -15,29 +15,9 @@ Ftimer
 ```
 
 help screen
-```
+![help](screenshot.png?raw=true)
 
-        Ftimer d seconds [title]         # countdown timer  *uses zenity*
-
-        Ftimer u [seconds] [title]       # countup timer (max: 1.000.000s)
-
-        Ftimer c [seconds [start]]       # cmdline timer (q quit, r reset)
-
-        Ftimer t [title]                 # current time (background)
-
-        Ftimer i text [title]            # info window
-
-        Ftimer y [year]                  # seasonal calendar (console)
-
-        Ftimer w [day [month [year]]]    # weekday (console)
-
-        Ftimer f [year [[+-]range{1}]]   # Friday the 13th (console)
-
-        Ftimer s time(GNU date) [title]  # short-time alarm clock
-
-```
-
-For full functionality you have to enable the _OK_ button in the zenity progress dialog! In version 3.32 it is disabled by default.
+For full functionality you have to enable the _OK_ button in the zenity progress dialog! In version 3.42 it is disabled by default.
 
 check
 ```

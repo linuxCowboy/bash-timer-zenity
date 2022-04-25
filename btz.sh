@@ -6,7 +6,7 @@ Ftimer ()
 
         # Enable OK/Pause Button in zenity progress dialog
         #
-        # Version: 3.32
+        # Version: 3.42
         # File:    /usr/share/zenity/zenity.ui
         # Object:  zenity_progress_ok_button
         # Name:    sensitive
