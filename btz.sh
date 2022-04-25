@@ -29,7 +29,17 @@ Ftimer ()
         local CMD='zenity --modal'
         local CAL='ncal -M -w -W5'  # start Monday, number weeks, 1. Week 5 days
 
-        # thousands separator
+        ##### thousands separator #####
+        #
+        # #!/usr/bin/perl
+        #
+        # while (<>) {
+        #         while (/\d{5,}/) {
+        #                 $b=$`; $m=$&; $a=$'; $m =~ s/(?<=\d)(?=(\d{3})+\b)/./; $_="$b$m$a";
+        #         }
+        #         print
+        # }
+        #
         local CHR="."
         local sep='perl -pe'\''while(/\d{5,}/){$b=$`;$m=$&;$a=$'\'"\'"\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/'$CHR'/;$_="$b$m$a"}'\'
 
