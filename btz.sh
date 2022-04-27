@@ -26,7 +26,7 @@ Ftimer ()
         local LIMIT=1000000
 
         # alarm clock logging if set
-        local LOG=~/.ftimer.log
+        local LOG='/tmp/Ftimer.log'
 
         # commands
         local CMD='zenity --modal'
