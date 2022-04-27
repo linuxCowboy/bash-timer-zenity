@@ -32,5 +32,5 @@ time Ftimer c 5
 
 Ftimer cmdline 0 $((60*60*24-5))
 
-Ftimer s +10min &
+Ftimer a +10min &
 ```

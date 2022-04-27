@@ -46,8 +46,8 @@ Ftimer ()
         local CHR="."
         local sep='perl -pe'\''while(/\d{5,}/){$b=$`;$m=$&;$a=$'\'"\'"\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/'$CHR'/;$_="$b$m$a"}'\'
 
-        # needs zenity for up + down
-        [[ $1 =~ ^(u|d) ]] && ! type ${CMD%% *} >/dev/null && return
+        # needs zenity
+        [[ $1 =~ ^(d|u|t|i|a) ]] && ! type ${CMD%% *} >/dev/null && return
 
         # needs ncal for year
         [[ $1 =~ ^y ]] && ! type ${CAL%% *} >/dev/null && return
@@ -237,7 +237,7 @@ Ftimer ()
                 done
 
         # alarm timer
-        elif [[ $1 =~ ^s && $2 ]]; then
+        elif [[ $1 =~ ^a && $2 ]]; then
                 local INTERVAL=6  # precision
 
                 date --date "$2" >/dev/null || return
@@ -285,7 +285,7 @@ Ftimer ()
 
         $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th (console)
 
-        $FUNCNAME s time(GNU date) [title]  # short-time alarm clock (${LOG:-no log})
+        $FUNCNAME a time(GNU date) [title]  # alarm clock (${LOG:-no log})
         " | eval "$sep"
         fi
 }
