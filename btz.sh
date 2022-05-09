@@ -137,26 +137,118 @@ Ftimer ()
 
         # year
         elif [[ $1 =~ ^y ]]; then
-                local YEAR=${2-`date +%Y`}
+            # 0-black 1-red 2-green 3-brown [yellow] 4-blue 5-purple [magenta] 6-cyan 7-white
+            echo "$(
+                y=`date +%Y`
+                m=`date +%-m`  # hyphen
+                d=`date +%-d`
+                local YEAR=${2-$y}  # if no subshell
 
-                # 1 to 2 digits year
-                [[ $YEAR =~ ^[0-9]$ ]] && YEAR=0$YEAR
+                YEAR=`date -d $YEAR-1-1 +%Y` || return  # check + 4 digits
 
-                # 2 to 4 digits year
-                [[ $YEAR =~ ^[0-9][0-9]$ ]] && YEAR=`date -d $YEAR-1-1 +%Y`
+                ncal $YEAR >/dev/null || return
 
-                # Winter is Coming
-                [[ ! $2 ]] && [[ `date +%m` =~ 11|12 ]] && ((++YEAR))
+                [[ ! $2 && $m =~ 11|12 ]] && ((++YEAR))  # Winter is Coming
 
-                echo
-                $CAL -m11p -A3 $YEAR # winter
-                echo
-                $CAL -m3   -A1 $YEAR # transition
-                echo
-                $CAL -m5   -A3 $YEAR # summer
-                echo
-                $CAL -m9   -A1 $YEAR # transition
-                echo
+                r="$(tput sgr0)"
+                M=(`for i in 11 12 {1..10};do date -d $i/1 +%B;done`)  # full month
+                W=(Mon Tue Wed Thu Fri Sat Sun)  # 3 char
+
+                # core
+                for i in 11p 12p {1..10}; do
+                        declare -n X=A$i  # nameref
+                        X=(`$CAL -m$i $YEAR |sed -n '2,8 s/ /:/gp' |cut -c 4-`)
+
+                        if [[ $YEAR = $y && $i = $m ]] ||
+                                [[ $YEAR = $((y + 1)) && $i = ${m}p ]]; then  # today
+                                        f="$(tput rev)"  # alternative
+                                        f="$(tput rev)$(tput bold)$(tput setaf 3)"
+
+                                        if ((d < 10)); then
+                                                X=(`echo "${X[*]}" |sed 's/:'$d'\b/'"$r$f:$d$r-"/`)
+                                        else  # - is marker
+                                                X=(`echo "${X[*]}" |sed 's/\b'$d'\b/'"$r$f$d$r-"/`)
+                                        fi
+                        fi
+                done
+
+                # winter
+                N=`$CAL -m11p -A3 $YEAR |tail -n 1`  # week number
+                p='  '  # padding left margin
+                g="$(tput setaf 3)"
+                        echo
+                printf "$p$r$g        %-17s %-17s %-17s %-17s$r\n" ${M[0]} ${M[1]} ${M[2]} ${M[3]}
+                for i in {0..6}; do
+                        if ((i < 5)); then
+                                w=
+                                h="$(tput setaf 4)"
+                        else  # weekend
+                                w="$(tput bold)$(tput setaf 2)"  # day number
+                                h="$(tput bold)$(tput setaf 4)"  # day name
+                        fi
+                        l=`echo "${A11p[$i]} ${A12p[$i]} ${A1[$i]} ${A2[$i]}" |sed s/-/"$w"/`
+                        echo "$p$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'  # highlight today
+                done
+                f="$(tput setaf 6)"
+                echo "$p $r$f$N$r"
+
+                # transition
+                N=`$CAL -m3 -A1 $YEAR |tail -n 1`
+                q='                  '  # indent
+                        echo
+                printf "$p$q$r$g        %-17s %-17s$r\n" ${M[4]} ${M[5]}
+                for i in {0..6}; do
+                        if ((i < 5)); then
+                                w=
+                                h="$(tput setaf 4)"
+                        else
+                                w="$(tput bold)$(tput setaf 2)"
+                                h="$(tput bold)$(tput setaf 4)"
+                        fi
+                        l=`echo "${A3[$i]} ${A4[$i]}" |sed s/-/"$w"/`
+                        echo "$p$q$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'
+                done
+                echo "$p$q $r$f$N$r"
+
+                # year
+                c="$(tput bold)$(tput setab 4)$(tput setaf 3)"
+                        echo
+                echo "$p$q     $r$c           -=[ $YEAR ]=-           $r"
+
+                # summer
+                N=`$CAL -m5 -A3 $YEAR |tail -n 1`
+                        echo
+                printf "$p$r$g        %-17s %-17s %-17s %-17s$r\n" ${M[6]} ${M[7]} ${M[8]} ${M[9]}
+                for i in {0..6}; do
+                        if ((i < 5)); then
+                                w=
+                                h="$(tput setaf 4)"
+                        else
+                                w="$(tput bold)$(tput setaf 2)"
+                                h="$(tput bold)$(tput setaf 4)"
+                        fi
+                        l=`echo "${A5[$i]} ${A6[$i]} ${A7[$i]} ${A8[$i]}" |sed s/-/"$w"/`
+                        echo "$p$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'
+                done
+                echo "$p $r$f$N$r"
+
+                # transition
+                N=`$CAL -m9 -A1 $YEAR |tail -n 1`
+                        echo
+                printf "$p$q$r$g        %-17s %-17s$r\n" ${M[10]} ${M[11]}
+                for i in {0..6}; do
+                        if ((i < 5)); then
+                                w=
+                                h="$(tput setaf 4)"
+                        else
+                                w="$(tput bold)$(tput setaf 2)"
+                                h="$(tput bold)$(tput setaf 4)"
+                        fi
+                        l=`echo "${A9[$i]} ${A10[$i]}" |sed s/-/"$w"/`
+                        echo "$p$q$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'
+                done
+                echo "$p$q $r$f$N$r"
+            )\n"
 
         # weekday
         elif [[ $1 =~ ^w ]]; then
