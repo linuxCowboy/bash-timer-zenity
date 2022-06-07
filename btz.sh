@@ -375,6 +375,12 @@ Ftimer ()
                         sleep $INTERVAL
                 done
 
+        # alarm log
+        elif [[ $1 =~ ^l ]]; then
+                [[ -f $LOG ]] && cat $LOG || echo "No Log."
+                echo ===
+                date
+
         # fall through to help
         else
                 echo "
@@ -395,6 +401,8 @@ Ftimer ()
         $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th (console)
 
         $FUNCNAME a time(GNU date) [title]  # alarm clock (${LOG:-no log})
+
+        $FUNCNAME l                         # alarm clock log
         " | eval "$sep"
         fi
 }
