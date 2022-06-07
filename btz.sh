@@ -384,25 +384,25 @@ Ftimer ()
         # fall through to help
         else
                 echo "
-        $FUNCNAME d seconds [title]         # countdown timer  *uses zenity*
+        $FUNCNAME d seconds [title]         # countdown timer (*uses zenity*)
 
         $FUNCNAME u [seconds] [title]       # countup timer (max: ${LIMIT}s)
 
+        $FUNCNAME a time(GNU date) [title]  # alarm clock   (${LOG:-no log})
+
+        $FUNCNAME l                         # alarm clock log       (console)
+
         $FUNCNAME c [seconds [start]]       # cmdline timer (q quit, r reset)
 
-        $FUNCNAME t [title]                 # current time (background)
+        $FUNCNAME t [title]                 # current time       (background)
 
-        $FUNCNAME i text [title]            # info window
+        $FUNCNAME i text [title]            # info window            (zenity)
 
-        $FUNCNAME y [year]                  # seasonal calendar (console)
+        $FUNCNAME y [year]                  # seasonal calendar     (console)
 
-        $FUNCNAME w [day [month [year]]]    # weekday (console)
+        $FUNCNAME w [day [month [year]]]    # weekday               (console)
 
-        $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th (console)
-
-        $FUNCNAME a time(GNU date) [title]  # alarm clock (${LOG:-no log})
-
-        $FUNCNAME l                         # alarm clock log
+        $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th       (console)
         " | eval "$sep"
         fi
 }
