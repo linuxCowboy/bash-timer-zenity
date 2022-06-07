@@ -36,6 +36,7 @@ Ftimer ()
         #
         # #!/usr/bin/perl
         #
+        # ### outside:
         # while (<>) {
         #         while (/\d{5,}/) {
         #                 $b=$`; $m=$&; $a=$'; $m =~ s/(?<=\d)(?=(\d{3})+\b)/./; $_="$b$m$a";
@@ -43,6 +44,22 @@ Ftimer ()
         #         print
         # }
         #
+        # ### inside:
+        # $_ = sprintf "1000000 my string with long numbers 1234567890";
+        #
+        # while (/\d{5,}/p) {
+        #         $b = ${^PREMATCH};
+        #         $m = ${^MATCH};
+        #         $a = ${^POSTMATCH};
+        #
+        #         $m =~ s/(?<=\d)(?=(\d{3})+\b)/./;
+        #
+        #         $_ = "$b$m$a";
+        # }
+        # CORE::say;
+        #
+        ############
+
         local CHR="."
         local sep='perl -pe'\''while(/\d{5,}/){$b=$`;$m=$&;$a=$'\'"\'"\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/'$CHR'/;$_="$b$m$a"}'\'
 
