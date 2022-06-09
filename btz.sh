@@ -115,6 +115,42 @@ Ftimer ()
                 # I try not to litter.
                 \rm $FILE
 
+        # alarm timer
+        elif [[ $1 =~ ^a && $2 ]]; then
+                local INTERVAL=6  # precision
+
+                date --date "$2" >/dev/null || return
+
+                if [[ $LOG ]]; then
+                        [[ $3 ]] && echo "$3"    >> "$LOG"
+                        date         | tee --append "$LOG"
+                        date -d "$2" | tee --append "$LOG"
+                                echo             >> "$LOG"
+                else
+                        date
+                        date --date "$2"
+                fi
+
+                local TARGET=`date -d "$2" +%s`
+
+                while :; do
+                        local CURRENT=`date +%s`
+
+                        if ((CURRENT >= TARGET)); then
+                                TARGET=`date -d@$TARGET '+%d. %b\n\n%T'`
+
+                                WINDOWID=  $CMD --warning --text "$TARGET" --title="${3-Alarm Clock}"
+                                return
+                        fi
+                        sleep $INTERVAL
+                done
+
+        # alarm log
+        elif [[ $1 =~ ^l ]]; then
+                [[ -f $LOG ]] && cat $LOG || echo "No Log."
+                echo ===
+                date
+
         # cmdline only (no zenity)
         elif [[ $1 =~ ^c ]]; then
                 [[ $2 && ! $2 =~ ^[0-9]+$ ]] ||
@@ -344,42 +380,6 @@ Ftimer ()
 
                         ((END - BEG < 5 || y % 5)) || echo
                 done
-
-        # alarm timer
-        elif [[ $1 =~ ^a && $2 ]]; then
-                local INTERVAL=6  # precision
-
-                date --date "$2" >/dev/null || return
-
-                if [[ $LOG ]]; then
-                        [[ $3 ]] && echo "$3"    >> "$LOG"
-                        date         | tee --append "$LOG"
-                        date -d "$2" | tee --append "$LOG"
-                                echo             >> "$LOG"
-                else
-                        date
-                        date --date "$2"
-                fi
-
-                local TARGET=`date -d "$2" +%s`
-
-                while :; do
-                        local CURRENT=`date +%s`
-
-                        if ((CURRENT >= TARGET)); then
-                                TARGET=`date -d@$TARGET '+%d. %b\n\n%T'`
-
-                                WINDOWID=  $CMD --warning --text "$TARGET" --title="${3-Alarm Clock}"
-                                return
-                        fi
-                        sleep $INTERVAL
-                done
-
-        # alarm log
-        elif [[ $1 =~ ^l ]]; then
-                [[ -f $LOG ]] && cat $LOG || echo "No Log."
-                echo ===
-                date
 
         # fall through to help
         else
