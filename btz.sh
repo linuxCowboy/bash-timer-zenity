@@ -64,7 +64,7 @@ Ftimer ()
         local sep='perl -pe'\''while(/\d{5,}/){$b=$`;$m=$&;$a=$'\'"\'"\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/'$CHR'/;$_="$b$m$a"}'\'
 
         # needs zenity
-        [[ $1 =~ ^(d|u|t|i|a) ]] && ! type ${CMD%% *} >/dev/null && return
+        [[ $1 =~ ^(d|u|a|t|i) ]] && ! type ${CMD%% *} >/dev/null && return
 
         # needs ncal for year
         [[ $1 =~ ^y ]] && ! type ${CAL%% *} >/dev/null && return
@@ -383,14 +383,18 @@ Ftimer ()
 
         # fall through to help
         else
+                (( ${#LOG} > 21 )) && LOG="${LOG:0:7}...${LOG: -11}"
+
+                printf -v LOG "%-23.23s" "(${LOG:-no log})"
+
                 echo "
         $FUNCNAME d seconds [title]         # countdown timer (*uses zenity*)
 
         $FUNCNAME u [seconds] [title]       # countup timer (max: ${LIMIT}s)
 
-        $FUNCNAME a time(GNU date) [title]  # alarm clock   (${LOG:-no log})
+        $FUNCNAME a time(GNU date) [title]  # alarm clock            (zenity)
 
-        $FUNCNAME l                         # alarm clock log       (console)
+        $FUNCNAME l $LOG # alarm clock log       (console)
 
         $FUNCNAME c [seconds [start]]       # cmdline timer (q quit, r reset)
 
