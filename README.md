@@ -29,6 +29,8 @@ d=/usr/share/zenity
 cat --number "$d/zenity.ui" |sed -rn '/GtkButton.*zenity_progress_ok_button/, \%/object%p' |grep --color sensitive
 ```
 
+You can set an icon for *alarm*, *time* and *info*.
+
 examples:
 ```
 time Ftimer c 5

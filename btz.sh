@@ -22,8 +22,6 @@ Ftimer ()
         #     sed -rn '/GtkButton.*zenity_progress_ok_button/, \%/object%p' |
         #         grep --colour=always sensitive
 
-        # Icons in /usr/share/icons/
-
         # countup limit in seconds (~ runs forever/till quit)
         local LIMIT=1000000
 
@@ -144,7 +142,7 @@ Ftimer ()
                         if ((CURRENT >= TARGET)); then
                                 TARGET=`date -d@$TARGET '+%d. %b\n\n%T'`
 
-                                WINDOWID=  $CMD --warning --icon-name $ICON ${FULL:+--window-icon "$FULL"} \
+                                WINDOWID=  $CMD --warning ${ICON:+--icon-name "$ICON"} ${FULL:+--window-icon "$FULL"} \
                                         --text "$TARGET" --title "${3-Alarm Clock}"
                                 return
                         fi
@@ -190,7 +188,7 @@ Ftimer ()
                 local FULL='/usr/share/icons/mate/48x48/apps/preferences-system-time.png'
                 local DATE=`date '+%d. %b\n\n%T'`
 
-                (WINDOWID=  $CMD --info --icon-name $ICON ${FULL:+--window-icon "$FULL"} \
+                (WINDOWID=  $CMD --info ${ICON:+--icon-name "$ICON"} ${FULL:+--window-icon "$FULL"} \
                         --text "$DATE" --title "${2-Time}" &)
 
         # info
@@ -198,7 +196,7 @@ Ftimer ()
                 local ICON='edit-paste'
                 local FULL='/usr/share/icons/mate/48x48/actions/edit-paste.png'
 
-                WINDOWID=  $CMD --info --icon-name $ICON ${FULL:+--window-icon "$FULL"} \
+                WINDOWID=  $CMD --info ${ICON:+--icon-name "$ICON"} ${FULL:+--window-icon "$FULL"} \
                         --text "$2" --title "${3-Info}"
 
         # year
