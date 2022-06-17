@@ -15,10 +15,10 @@ Ftimer
 ```
 
 help screen:\
-![help](screenshot.png)
+![help](pics/screenshot.png)
 
 year:\
-![year](year.png)
+![year](pics/year.png)
 
 For full functionality you have to enable the _OK_ button in the zenity progress dialog! In version 3.42 it is disabled by default.
 
