@@ -121,7 +121,7 @@ Ftimer ()
                 \rm $FILE
 
         # alarm timer
-        elif [[ $1 =~ ^a && $2 ]]; then
+        elif [[ $1 =~ ^(a|A) && $2 ]]; then
                 local ICON='appointment'
                 local FULL='/usr/share/icons/mate/48x48/actions/appointment.png'
                 local TONE=0
@@ -131,6 +131,7 @@ Ftimer ()
                 date --date "$2" >/dev/null || return
 
                 [[ -f "$FILE" && -x ${PLAYER%% *} ]] && ((++TONE))
+                [[ $1 = 'A' ]] && TONE=0
                 ((TONE)) && [[ -x ${MIXER%% *} ]] && ((++MAST))
 
                 if [[ $LOG ]]; then
@@ -419,6 +420,8 @@ Ftimer ()
         $FUNCNAME u [seconds] [title]       # countup timer (max: ${LIMIT}s)
 
         $FUNCNAME a time(GNU date) [title]  # alarm clock            (zenity)
+
+        $FUNCNAME A time(GNU date) [title]  # Alarm Clock silent     (zenity)
 
         $FUNCNAME l $LOG # alarm clock log       (console)
 
