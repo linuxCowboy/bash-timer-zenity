@@ -28,6 +28,11 @@ Ftimer ()
         # alarm clock logging if set
         local LOG='/tmp/Ftimer.log'
 
+        # alarm tone if set
+        local PLAYER='/usr/bin/mpg321 -q'  # full path
+        local MIXER='/usr/bin/amixer -q set Master unmute 70%'
+        local FILE='/usr/local/bin/okay.mp3'
+
         # commands
         local CMD='zenity --modal'
         local CAL='ncal -M -w -W5'  # start Monday, number weeks, 1. Week 5 days
@@ -119,10 +124,14 @@ Ftimer ()
         elif [[ $1 =~ ^a && $2 ]]; then
                 local ICON='appointment'
                 local FULL='/usr/share/icons/mate/48x48/actions/appointment.png'
-
+                local TONE=0
+                local MAST=0
                 local INTERVAL=6  # precision
 
                 date --date "$2" >/dev/null || return
+
+                [[ -f "$FILE" && -x ${PLAYER%% *} ]] && ((++TONE))
+                ((TONE)) && [[ -x ${MIXER%% *} ]] && ((++MAST))
 
                 if [[ $LOG ]]; then
                         [[ $3 ]] && echo "$3"    >> "$LOG"
@@ -134,6 +143,9 @@ Ftimer ()
                         date --date "$2"
                 fi
 
+                ((MAST)) && $MIXER
+                ((TONE)) && $PLAYER "$FILE"  # test
+
                 local TARGET=`date -d "$2" +%s`
 
                 while :; do
@@ -141,6 +153,9 @@ Ftimer ()
 
                         if ((CURRENT >= TARGET)); then
                                 TARGET=`date -d@$TARGET '+%d. %b\n\n%T'`
+
+                                ((MAST)) && $MIXER
+                                ((TONE)) && $PLAYER "$FILE"
 
                                 WINDOWID=  $CMD --warning ${ICON:+--icon-name "$ICON"} ${FULL:+--window-icon "$FULL"} \
                                         --text "$TARGET" --title "${3-Alarm Clock}"
