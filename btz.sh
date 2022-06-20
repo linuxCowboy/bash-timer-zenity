@@ -22,9 +22,6 @@ Ftimer ()
         #     sed -rn '/GtkButton.*zenity_progress_ok_button/, \%/object%p' |
         #         grep --colour=always sensitive
 
-        # countup limit in seconds (~ runs forever/till quit)
-        local LIMIT=1000000
-
         # alarm clock logging if set
         local LOG='/tmp/Ftimer.log'
 
@@ -83,41 +80,34 @@ Ftimer ()
 
         # countup
         elif [[ $1 =~ ^u ]]; then
-                local START=0  # for pause/resume
-                local PULSE='--pulsate'  # pulse bar if unlimited
+                local HOT=0
+                [[ $2 =~ ^[0-9]+$ ]] && HOT=$2 && shift
+                local START=$HOT
                 local FILE=$(mktemp)  # get the counter back from subshell
 
-                # a fixed time run with percentage indicator
-                [[ $2 =~ ^[0-9]+$ ]] && LIMIT=$2 && PULSE=  && shift
+                while :; do
+                        for (( ; ;++START)); do
+                                echo $START >$FILE
+                                printf -v t "%01d:%02d:%02d" $((START / 3600)) $((START / 60 % 60)) $((START % 60))
 
-                while (($START < $LIMIT)); do
-                        for i in `seq $(($START + 1)) $LIMIT`; do
-                                echo $i >$FILE
-                                printf -v t "%01d:%02d:%02d" $((i / 3600)) $((i / 60 % 60)) $((i % 60))
-
-                                if [[ $PULSE ]]; then
-                                        echo "#Countup: $t"  # unlimited
-                                else
-                                        echo "$((${i}00 / $LIMIT))\n#Countup: $t"  # fixed
-                                fi
+                                echo "#Countup: $t"
                                 sleep 1
-                        done | WINDOWID=  $CMD --progress $PULSE --cancel-label='Quit' --ok-label='Pause' --title="${2-Timer}"
+                        done | WINDOWID=  $CMD --progress --pulsate \
+                                                --cancel-label='Quit' --ok-label='Pause' --title="${2-Timer}"
 
                         # zenity return value: okay = 0, quit = 1
                         (($?)) && break
 
                         START=$(< $FILE)
-                        (($START == $LIMIT)) && break
-
                         printf -v t "%01d:%02d:%02d" $((START / 3600)) $((START / 60 % 60)) $((START % 60))
 
                         # shell handles the pause/restart
-                        read -sn1 -p "Last: $t (key to continue | q to quit | r to reset)"
+                        read -sn1 -p "Last: $t (key to continue / q to quit / r|R to reset)"
                         echo
                         [[ $REPLY = q ]] && break
-                        [[ $REPLY = r ]] && START=0
+                        [[ $REPLY = r ]] && START=$HOT
+                        [[ $REPLY = R ]] && START=0
                 done
-                # I try not to litter.
                 \rm $FILE
 
         # alarm timer
@@ -417,7 +407,7 @@ Ftimer ()
                 echo "
         $FUNCNAME d seconds [title]         # countdown timer (*uses zenity*)
 
-        $FUNCNAME u [seconds] [title]       # countup timer (max: ${LIMIT}s)
+        $FUNCNAME u [start] [title]         # countup timer  (with hot start)
 
         $FUNCNAME a time(GNU date) [title]  # alarm clock            (zenity)
 
