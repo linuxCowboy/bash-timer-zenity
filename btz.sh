@@ -66,7 +66,7 @@ Ftimer ()
         local sep='perl -pe'\''while(/\d{5,}/){$b=$`;$m=$&;$a=$'\'"\'"\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/'$CHR'/;$_="$b$m$a"}'\'
 
         # needs zenity
-        [[ $1 =~ ^(d|u|a|t|i) ]] && ! type ${CMD%% *} >/dev/null && return
+        [[ $1 =~ ^(d|u|a|A|t|i) ]] && ! type ${CMD%% *} >/dev/null && return
 
         # needs ncal for year
         [[ $1 =~ ^y ]] && ! type ${CAL%% *} >/dev/null && return
@@ -81,7 +81,7 @@ Ftimer ()
         # countup
         elif [[ $1 =~ ^u ]]; then
                 local HOT=0
-                [[ $2 =~ ^((([1-9][0-9]*):)?(([1-9][0-9]*):))?([1-9][0-9]*)$ ]] &&
+                [[ $2 =~ ^((([0-9]*):)?(([0-9]*):))?([0-9]+)$ ]] &&
                         HOT=$((${BASH_REMATCH[3]:-0} * 3600 + ${BASH_REMATCH[5]:-0} * 60 + ${BASH_REMATCH[6]})) &&
                         shift
 
