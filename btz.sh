@@ -82,7 +82,7 @@ Ftimer ()
         elif [[ $1 =~ ^u ]]; then
                 local HOT=0
                 [[ $2 =~ ^((([0-9]*):)?(([0-9]*):))?([0-9]+)$ ]] &&
-                        HOT=$((${BASH_REMATCH[3]:-0} * 3600 + ${BASH_REMATCH[5]:-0} * 60 + ${BASH_REMATCH[6]})) &&
+                        HOT=$((${BASH_REMATCH[3]:-0} * 3600 + 10#${BASH_REMATCH[5]:-0} * 60 + 10#${BASH_REMATCH[6]})) &&
                         shift
 
                 local START=$HOT
