@@ -81,12 +81,20 @@ Ftimer ()
         # countup
         elif [[ $1 =~ ^u ]]; then
                 local HOT=0
-                [[ $2 =~ ^[0-9]+$ ]] && HOT=$2 && shift
+                if [[ $2 =~ ^[1-9][0-9]*$ ]]; then
+                        HOT=$2
+
+                elif [[ $2 =~ ^((([1-9][0-9]*):)?(([1-9][0-9]?):))?([1-9][0-9]?)$ ]]; then
+                        HOT=$((${BASH_REMATCH[3]:-0} * 3600 + ${BASH_REMATCH[5]:-0} * 60 + ${BASH_REMATCH[6]}))
+                else
+                        [[ $2 ]] && echo "Format: $2!" && return 1
+                fi
+                ((HOT)) && shift
                 local START=$HOT
                 local FILE=$(mktemp)  # get the counter back from subshell
 
                 while :; do
-                        for (( ; ;++START)); do
+                        for ((; ; ++START)); do
                                 echo $START >$FILE
                                 printf -v t "%01d:%02d:%02d" $((START / 3600)) $((START / 60 % 60)) $((START % 60))
 
