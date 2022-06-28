@@ -418,23 +418,23 @@ Ftimer ()
         # diff
         elif [[ $1 =~ ^h && $2 ]]; then
                 date -d "$2" >/dev/null || return
-                local ONE=`date -d "$2" +%s`
+                local ASK=`date -d "$2" +%s`
 
-                local TWO=`date +%s`
+                local NOW=`date +%s`
                 if [[ $3 ]]; then
                         date -d "$3" >/dev/null || return
-                        TWO=`date -d "$3" +%s`
+                        NOW=`date -d "$3" +%s`
                 fi
 
-                local DIFF=$((ONE - TWO < 0 ? TWO - ONE : ONE - TWO))
+                local DIFF=$((ASK - NOW < 0 ? NOW - ASK : ASK - NOW))
 
                 local SEC=$((DIFF % 60))
                 local MIN=$((DIFF / 60))
                 local HOU=$((DIFF / 60 / 60))
                 local DAY=$((DIFF / 60 / 60 / 24))
 
-                date -d "@$TWO" +%c
-                date -d "@$ONE" +%c
+                date -d "@$NOW" +%c
+                date -d "@$ASK" +%c
                         echo "---"
                 printf "%d day  %d hour  %d min  %d sec\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC
                 printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF | eval "$sep"
