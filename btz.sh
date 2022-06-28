@@ -475,6 +475,8 @@ Ftimer ()
         $FUNCNAME w [day [month [year]]]    # weekday               (console)
 
         $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th       (console)
+
+        $FUNCNAME h date1 [date2{now}]      # hour/day difference   (console)
         " | eval "$sep"
         fi
 }
