@@ -40,4 +40,16 @@ time Ftimer c 5
 Ftimer cmdline 0 $((60*60*24-5))
 
 Ftimer a +10min &
+
+Ftimer h 22-02-22T22:02:22
+```
+
+```
+ $ Ftimer h -3day-4hour-5min-6sec
+Tue 28 Jun 2022 05:02:38 PM CEST
+Sat 25 Jun 2022 12:57:32 PM CEST
+---
+3 day 4 hour 5 min 6 sec
+76 Hours  or  4565 Minutes  or  273.906 Seconds
+
 ```
