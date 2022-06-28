@@ -428,24 +428,13 @@ Ftimer ()
 
                 local DIFF=$((TWO - ONE < 0 ? ONE - TWO : TWO - ONE))
 
-                local DIFF=$((TWO - ONE))
-                ((DIFF < 0)) && DIFF=$ONE && ONE=$TWO && TWO=$DIFF && DIFF=$((TWO - ONE))
-
-                local DIFF=$((TWO - ONE))
-                if ((DIFF < 0)); then
-                       DIFF=$ONE
-                       ONE=$TWO
-                       TWO=$DIFF
-                       DIFF=$((TWO - ONE))
-                fi
-
                 local SEC=$((DIFF % 60))
                 local MIN=$((DIFF / 60))
                 local HOU=$((DIFF / 60 / 60))
                 local DAY=$((DIFF / 60 / 60 / 24))
 
-                date -d "@$ONE" +%c
                 date -d "@$TWO" +%c
+                date -d "@$ONE" +%c
                         echo "---"
                 printf "%d day  %d hour  %d min  %d sec\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC
                 printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF | eval "$sep"
