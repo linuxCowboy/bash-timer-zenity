@@ -441,9 +441,8 @@ Ftimer ()
 
                 date -d "@$ONE" +%c
                 date -d "@$TWO" +%c
-
+                        echo "---"
                 printf "%d day  %d hour  %d min  %d sec\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC
-
                 printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF | eval "$sep"
                 return
 
