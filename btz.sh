@@ -426,6 +426,11 @@ Ftimer ()
                         TWO=`date -d "$3" +%s`
                 fi
 
+                local DIFF=$((TWO - ONE < 0 ? ONE - TWO : TWO - ONE))
+
+                local DIFF=$((TWO - ONE))
+                ((DIFF < 0)) && DIFF=$ONE && ONE=$TWO && TWO=$DIFF && DIFF=$((TWO - ONE))
+
                 local DIFF=$((TWO - ONE))
                 if ((DIFF < 0)); then
                        DIFF=$ONE
