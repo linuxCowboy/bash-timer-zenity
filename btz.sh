@@ -436,8 +436,8 @@ Ftimer ()
                 date -d "@$NOW" +%c
                 date -d "@$ASK" +%c
                         echo "---"
-                printf "%d day  %d hour  %d min  %d sec\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC
-                printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF | eval "$sep"
+                printf "%d day %d hour %d min %d sec\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC
+                printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF |eval "$sep"
                 return
 
         # fall through to help
