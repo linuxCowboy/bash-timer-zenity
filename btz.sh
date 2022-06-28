@@ -337,38 +337,6 @@ Ftimer ()
                 echo "$p$q $r$f$N$r"
             )\n"
 
-        # diff
-        elif [[ $1 =~ ^h && $2 ]]; then
-                date -d "$2" >/dev/null || return
-                local ONE=`date -d "$2" +%s`
-
-                local TWO=`date +%s`
-                if [[ $3 ]]; then
-                        date -d "$3" >/dev/null || return
-                        TWO=`date -d "$3" +%s`
-                fi
-
-                local DIFF=$((TWO - ONE))
-                if ((DIFF < 0)); then
-                       DIFF=$ONE
-                       ONE=$TWO
-                       TWO=$DIFF
-                       DIFF=$((TWO - ONE))
-                fi
-
-                local SEC=$((DIFF % 60))
-                local MIN=$((DIFF / 60))
-                local HOU=$((DIFF / 60 / 60))
-                local DAY=$((DIFF / 60 / 60 / 24))
-
-                date -d "@$ONE" +%c
-                date -d "@$TWO" +%c
-
-                printf "%d day  %d hour  %d min  %d sec\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC
-
-                printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF | eval "$sep"
-                return
-
         # weekday
         elif [[ $1 =~ ^w ]]; then
                 # set format
@@ -446,6 +414,38 @@ Ftimer ()
 
                         ((END - BEG < 5 || y % 5)) || echo
                 done
+
+        # diff
+        elif [[ $1 =~ ^h && $2 ]]; then
+                date -d "$2" >/dev/null || return
+                local ONE=`date -d "$2" +%s`
+
+                local TWO=`date +%s`
+                if [[ $3 ]]; then
+                        date -d "$3" >/dev/null || return
+                        TWO=`date -d "$3" +%s`
+                fi
+
+                local DIFF=$((TWO - ONE))
+                if ((DIFF < 0)); then
+                       DIFF=$ONE
+                       ONE=$TWO
+                       TWO=$DIFF
+                       DIFF=$((TWO - ONE))
+                fi
+
+                local SEC=$((DIFF % 60))
+                local MIN=$((DIFF / 60))
+                local HOU=$((DIFF / 60 / 60))
+                local DAY=$((DIFF / 60 / 60 / 24))
+
+                date -d "@$ONE" +%c
+                date -d "@$TWO" +%c
+
+                printf "%d day  %d hour  %d min  %d sec\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC
+
+                printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF | eval "$sep"
+                return
 
         # fall through to help
         else
