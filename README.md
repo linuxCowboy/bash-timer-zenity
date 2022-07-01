@@ -33,6 +33,8 @@ You can set an icon for *alarm*, *time* and *info*.
 
 examples:
 ```
+Ftimer u 1:23:
+
 time Ftimer c 5
 
 Ftimer cmdline 0 $((60*60*24-5))

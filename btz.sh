@@ -81,8 +81,8 @@ Ftimer ()
         # countup
         elif [[ $1 =~ ^u ]]; then
                 local HOT=0
-                [[ $2 =~ ^((([0-9]*):)?(([0-9]*):))?([0-9]+)$ ]] &&
-                        HOT=$((${BASH_REMATCH[3]:-0} * 3600 + 10#${BASH_REMATCH[5]:-0} * 60 + 10#${BASH_REMATCH[6]})) &&
+                [[ $2 =~ ^((((([0-9]*):)?)(([0-9]*):)?)([0-9]*))$ ]] &&
+                        HOT=$((10#${BASH_REMATCH[5]:-0} * 3600 + 10#${BASH_REMATCH[7]:-0} * 60 + 10#${BASH_REMATCH[8]:-0})) &&
                         shift
 
                 local START=$HOT
