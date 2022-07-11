@@ -169,11 +169,13 @@ Ftimer ()
         # cmdline only (no zenity)
         elif [[ $1 =~ ^c ]]; then
                 [[ $2 && ! $2 =~ ^[0-9]+$ ]] ||
-                [[ $3 && ! $3 =~ ^[0-9]+$ ]] && return 1
+                [[ $3 && ! $3 =~ ^[0-9]+$ ]] &&
+                        return 1
 
                 local START=${3-1}
+                local PAUSE=0
 
-                for ((i=$START; ; ++i)); do
+                for ((i=$START; ; $PAUSE || ++i)); do
                         # bonus: value 0 falls through/runs forever
                         (( $2 )) && ((i > $2)) && return
 
@@ -181,6 +183,7 @@ Ftimer ()
                         read -sn1 -t1
                         [[ $REPLY = q ]] && return
                         [[ $REPLY = r ]] && i=$START
+                        [[ $REPLY = p ]] && ((PAUSE ^= 1))
 
                         # sparse print
                         t=$((i % 60))
@@ -420,7 +423,7 @@ Ftimer ()
 
         $FUNCNAME l $LOG # alarm clock log       (console)
 
-        $FUNCNAME c [seconds [start]]       # cmdline timer (q quit, r reset)
+        $FUNCNAME c [seconds [start]]       # cmdline timer     (keys: q r p)
 
         $FUNCNAME t [title]                 # current time       (background)
 
