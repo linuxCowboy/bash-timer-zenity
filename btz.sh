@@ -181,9 +181,18 @@ Ftimer ()
 
                         # delay and input in one call :-)
                         read -sn1 -t1
-                        [[ $REPLY = q ]] && return
-                        [[ $REPLY = r ]] && i=$START
-                        [[ $REPLY = p ]] && ((PAUSE ^= 1))
+
+                        # bonus: Enter for pause
+                        (( ! $? )) && [[ ! $REPLY ]] && ((PAUSE ^= 1))
+                        [[ $REPLY = p ]]             && ((PAUSE ^= 1))
+
+                        # bonus: Esc for quit
+                        [[ $REPLY = $'\x1b' ]] && return
+                        [[ $REPLY = q ]]       && return
+
+                        # bonus: Space for restart
+                        [[ $REPLY = ' ' ]] && i=$START
+                        [[ $REPLY = r ]]   && i=$START
 
                         # sparse print
                         t=$((i % 60))
@@ -423,7 +432,7 @@ Ftimer ()
 
         $FUNCNAME l $LOG # alarm clock log       (console)
 
-        $FUNCNAME c [seconds [start]]       # cmdline timer     (keys: q r p)
+        $FUNCNAME c [seconds [start]]       # cmdline timer  (quit rst pause)
 
         $FUNCNAME t [title]                 # current time       (background)
 
