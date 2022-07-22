@@ -437,6 +437,7 @@ Ftimer ()
                 ((DAY > 364)) && YEAR=`perl -e 'printf "%.1f", eval '$DAY/365` && YEAR="(~$YEAR years)"
                 ((DAY > 364)) && YEAR="(~`echo 'scale=1;'$DAY/365 |bc` years)"
                 ((DAY > 364)) && YEAR=`bc <<< 'scale=1;'$DAY/365`
+                ((DAY > 364)) && YEAR=`perl -e 'printf "%.1f", eval '$DAY/365`
 
                 date -d "@$NOW" +%c
                 date -d "@$ASK" +%c
@@ -444,6 +445,7 @@ Ftimer ()
                 printf "%d day %d hour %d min %d sec %s\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC "$YEAR"
                 printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF |eval "$sep"
                 [[ $YEAR ]] && type bc >/dev/null 2>&1 && echo "~$YEAR years" || :
+                [[ ! $YEAR ]] || echo "~$YEAR years"
                 return
 
         # fall through to help
