@@ -433,10 +433,13 @@ Ftimer ()
                 local HOU=$((DIFF / 60 / 60))
                 local DAY=$((DIFF / 60 / 60 / 24))
 
+                local YEAR
+                ((DAY > 364)) && YEAR=`perl -e 'printf "%.1f", eval '$DAY/365` && YEAR="(~$YEAR years)"
+
                 date -d "@$NOW" +%c
                 date -d "@$ASK" +%c
                         echo "---"
-                printf "%d day %d hour %d min %d sec\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC
+                printf "%d day %d hour %d min %d sec %s\n" $DAY $((HOU % 24)) $((MIN % 60)) $SEC "$YEAR"
                 printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF |eval "$sep"
                 return
 
