@@ -435,6 +435,7 @@ Ftimer ()
 
                 local YEAR
                 ((DAY > 364)) && YEAR=`perl -e 'printf "%.1f", eval '$DAY/365` && YEAR="(~$YEAR years)"
+                ((DAY > 364)) && YEAR="(~`echo 'scale=1;'$DAY/365 |bc` years)"
 
                 date -d "@$NOW" +%c
                 date -d "@$ASK" +%c
