@@ -446,6 +446,7 @@ Ftimer ()
                 printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF |eval "$sep"
                 [[ $YEAR ]] && type bc >/dev/null 2>&1 && echo "~$YEAR years" || :
                 [[ ! $YEAR ]] || echo "~$YEAR years"
+                ! ([[ $YEAR ]] && type bc >/dev/null) || echo "~$YEAR years"
                 return
 
         # fall through to help
