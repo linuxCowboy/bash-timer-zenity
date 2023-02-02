@@ -15,7 +15,7 @@ Ftimer
 ```
 
 help screen:\
-![help](pics/screenshot.png)
+![help](pics/help.png)
 
 year:\
 ![year](pics/year.png)
