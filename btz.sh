@@ -465,6 +465,8 @@ Ftimer ()
 
         $FUNCNAME c [seconds [start]]       # cmdline timer  (quit rst pause)
 
+        $FUNCNAME C [seconds [start]]       # Cmdline Timer      *7 segment*
+
         $FUNCNAME t [title]                 # current time       (background)
 
         $FUNCNAME i text [title]            # info window            (zenity)
