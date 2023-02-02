@@ -202,14 +202,9 @@ Ftimer ()
                         ((i >= 3600)) && t="$((i / 3600)):$t"
 
                         # no need for tput ;-)
-                        if [[ $1 =~ ^c ]]; then
-                                printf "% 12s\r" $t
-                        else
-                                perl -C -e '$t = "'$t'";
-                                        $t =~ y/0123456789/\N{U+1FBF0}-\N{U+1FBF9}/;
-                                        printf "% 12s\r", $t;
-                                '
-                        fi
+                        [[ $1 =~ ^C ]] && t=$(echo -n $t |perl -C -pe 'y/0123456789/\N{U+1FBF0}-\N{U+1FBF9}/')
+
+                        printf "    %s\r" $t
                 done
 
         # time
