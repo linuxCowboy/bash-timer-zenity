@@ -468,7 +468,7 @@ Ftimer ()
 
         $FUNCNAME c [seconds [start]]       # cmdline timer  (Quit Rst Pause)
 
-        $FUNCNAME C [seconds [start]]       # Cmdline Timer       (7 segment)
+        $FUNCNAME C [seconds [start]]       # Cmdline Timer       (\U1FBF7 segment)
 
         $FUNCNAME t [title]                 # current time       (background)
 
