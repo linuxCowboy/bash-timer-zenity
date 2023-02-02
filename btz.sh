@@ -163,7 +163,7 @@ Ftimer ()
         # alarm log
         elif [[ $1 =~ ^l ]]; then
                 [[ -f $LOG ]] && cat $LOG || echo "No Log."
-                echo ===
+                echo "=== now ==="
                 date
 
         # cmdline only (no zenity)
