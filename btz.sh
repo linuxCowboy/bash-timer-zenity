@@ -466,7 +466,7 @@ Ftimer ()
 
         $FUNCNAME l $LOG # alarm clock log       (console)
 
-        $FUNCNAME c [seconds [start]]       # cmdline timer  (quit rst pause)
+        $FUNCNAME c [seconds [start]]       # cmdline timer  (Quit Rst Pause)
 
         $FUNCNAME C [seconds [start]]       # Cmdline Timer       (7 segment)
 
