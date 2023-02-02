@@ -167,7 +167,7 @@ Ftimer ()
                 date
 
         # cmdline only (no zenity)
-        elif [[ $1 =~ ^c ]]; then
+        elif [[ $1 =~ ^(c|C) ]]; then
                 [[ $2 && ! $2 =~ ^[0-9]+$ ]] ||
                 [[ $3 && ! $3 =~ ^[0-9]+$ ]] &&
                         return 1
@@ -202,9 +202,14 @@ Ftimer ()
                         ((i >= 3600)) && t="$((i / 3600)):$t"
 
                         # no need for tput ;-)
-#                        printf "% 12s\r" $t
-#                        echo -n $t | perl -C -ne 'y/0123456789/\N{U+1FBF0}-\N{U+1FBF9}/; printf "% 12s\r",$_'
-                        perl -C -e '$t="'$t'";$t=~y/0123456789/\N{U+1FBF0}-\N{U+1FBF9}/; printf "% 12s\r",$t'
+                        if [[ $1 =~ ^c ]]; then
+                                printf "% 12s\r" $t
+                        else
+                                perl -C -e '$t = "'$t'";
+                                        $t =~ y/0123456789/\N{U+1FBF0}-\N{U+1FBF9}/;
+                                        printf "% 12s\r", $t;
+                                '
+                        fi
                 done
 
         # time
