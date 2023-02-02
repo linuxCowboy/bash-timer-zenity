@@ -201,9 +201,10 @@ Ftimer ()
                         ((i >= 3600)) && ((i / 60 % 60 < 10)) && t="0$t"
                         ((i >= 3600)) && t="$((i / 3600)):$t"
 
-                        # no need for tput ;-)
+                        # 7 segment digits
                         [[ $1 =~ ^C ]] && t=$(echo -n $t |perl -C -pe 'y/0123456789/\N{U+1FBF0}-\N{U+1FBF9}/')
 
+                        # no need for tput ;-)
                         printf "    %s\r" $t
                 done
 
