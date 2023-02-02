@@ -202,10 +202,12 @@ Ftimer ()
                         ((i >= 3600)) && t="$((i / 3600)):$t"
 
                         # 7 segment digits
-                        [[ $1 =~ ^C ]] && t=$(echo -n $t |perl -C -pe 'y/0123456789/\N{U+1FBF0}-\N{U+1FBF9}/')
-
-                        # no need for tput ;-)
-                        printf "    %s\r" $t
+                        if [[ $1 =~ ^C ]]; then
+                                t=$(echo -n $t |perl -C -pe 'y/0123456789/\N{U+1FBF0}-\N{U+1FBF9}/')
+                                printf "%6s%s%24s\r" "" "$t" ""  # unicode probs
+                        else
+                                printf "%12s\r" $t
+                        fi
                 done
 
         # time
