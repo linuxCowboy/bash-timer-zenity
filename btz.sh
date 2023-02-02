@@ -27,7 +27,7 @@ Ftimer ()
 
         # alarm tone if set
         local PLAYER='/usr/bin/mpg321 -q'  # full path
-        local MIXER='/usr/bin/amixer -q set Master unmute 70%'
+        local MIXER='/usr/bin/amixer -q set Master unmute 60%'
         local FILE='/usr/local/bin/okay.mp3'
 
         # commands
