@@ -237,12 +237,24 @@ Ftimer ()
                 m=`date +%-m`  # hyphen
                 d=`date +%-d`
                 YEAR=${2-$y}
+                FIX=
+
+                while :; do
+                        shift
+                        [[ $1 ]] || break
+
+                        [[ $1 =~ / ]] && VID+=" $1" || { YEAR=$1; FIX=1; }
+                done
+
+                for i in $VID; do
+                        date -d $i >/dev/null || return
+                done
 
                 YEAR=`date -d $YEAR-1-1 +%Y` || return  # check + 4 digits
 
                 ncal $YEAR >/dev/null || return
 
-                [[ ! $2 && $m =~ 11|12 ]] && ((++YEAR))  # Winter is Coming
+                [[ ! $FIX && $m =~ 11|12 ]] && ((++YEAR))  # Winter is Coming
 
                 r="$(tput sgr0)"
                 M=(`for i in 11 12 {1..10};do date -d $i/1 +%B;done`)  # full month
@@ -255,13 +267,13 @@ Ftimer ()
 
                         if [[ $YEAR = $y && $i = $m ]] ||
                                 [[ $YEAR = $((y + 1)) && $i = ${m}p ]]; then  # today
-                                        f="$(tput rev)"  # alternative
-                                        f="$(tput rev)$(tput bold)$(tput setaf 3)"
+                                        c="$(tput rev)"  # alternative
+                                        c="$(tput rev)$(tput bold)$(tput setaf 3)"
 
                                         if ((d < 10)); then
-                                                X=(`echo "${X[*]}" |sed 's/:'$d'\b/'"$r$f:$d$r-"/`)
+                                                X=(`echo "${X[*]}" |sed 's/:'$d'\b/'"$r$c:$d$r-"/`)
                                         else  # - is marker
-                                                X=(`echo "${X[*]}" |sed 's/\b'$d'\b/'"$r$f$d$r-"/`)
+                                                X=(`echo "${X[*]}" |sed 's/\b'$d'\b/'"$r$c$d$r-"/`)
                                         fi
                         fi
                 done
