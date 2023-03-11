@@ -42,6 +42,10 @@ Ftimer cmdline 0 $((60*60*24-5))
 Ftimer a +10min &
 
 Ftimer h 22-02-22T22:02:22
+
+Ftimer y 6/21 12/31  # Very Important Day
+
+Ftimer y 2024/2/29 2024  # corner case
 ```
 
 ```
