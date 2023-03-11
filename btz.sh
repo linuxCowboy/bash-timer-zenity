@@ -276,6 +276,21 @@ Ftimer ()
                                                 X=(`echo "${X[*]}" |sed 's/\b'$d'\b/'"$r$c$d$r-"/`)
                                         fi
                         fi
+
+                        for j in $VID; do
+                                [[ `date -d $j +%-m:%-d` =~ ([0-9]+):([0-9]+) ]] &&
+                                        vm=${BASH_REMATCH[1]} && vd=${BASH_REMATCH[2]}
+
+                                if [[ $i = $vm || $i = ${vm}p ]]; then  # vid
+                                        c="$(tput bold)$(tput setab 1)"
+
+                                        if ((vd < 10)); then
+                                                X=(`echo "${X[*]}" |sed 's/:'$vd'\b/'"$c:$vd$r-"/`)
+                                        else  # no color reset
+                                                X=(`echo "${X[*]}" |sed 's/'$vd'\b/'"$c$vd$r-"/`)
+                                        fi
+                                fi
+                        done
                 done
 
                 # winter
@@ -292,7 +307,7 @@ Ftimer ()
                                 w="$(tput bold)$(tput setaf 2)"  # day number
                                 h="$(tput bold)$(tput setaf 4)"  # day name
                         fi
-                        l=`echo "${A11p[$i]} ${A12p[$i]} ${A1[$i]} ${A2[$i]}" |sed s/-/"$w"/`
+                        l=`echo "${A11p[$i]} ${A12p[$i]} ${A1[$i]} ${A2[$i]}" |sed s/-/"$w"/g`
                         echo "$p$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'  # highlight today
                 done
                 f="$(tput setaf 6)"
@@ -311,7 +326,7 @@ Ftimer ()
                                 w="$(tput bold)$(tput setaf 2)"
                                 h="$(tput bold)$(tput setaf 4)"
                         fi
-                        l=`echo "${A3[$i]} ${A4[$i]}" |sed s/-/"$w"/`
+                        l=`echo "${A3[$i]} ${A4[$i]}" |sed s/-/"$w"/g`
                         echo "$p$q$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'
                 done
                 echo "$p$q $r$f$N$r"
@@ -333,7 +348,7 @@ Ftimer ()
                                 w="$(tput bold)$(tput setaf 2)"
                                 h="$(tput bold)$(tput setaf 4)"
                         fi
-                        l=`echo "${A5[$i]} ${A6[$i]} ${A7[$i]} ${A8[$i]}" |sed s/-/"$w"/`
+                        l=`echo "${A5[$i]} ${A6[$i]} ${A7[$i]} ${A8[$i]}" |sed s/-/"$w"/g`
                         echo "$p$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'
                 done
                 echo "$p $r$f$N$r"
@@ -350,7 +365,7 @@ Ftimer ()
                                 w="$(tput bold)$(tput setaf 2)"
                                 h="$(tput bold)$(tput setaf 4)"
                         fi
-                        l=`echo "${A9[$i]} ${A10[$i]}" |sed s/-/"$w"/`
+                        l=`echo "${A9[$i]} ${A10[$i]}" |sed s/-/"$w"/g`
                         echo "$p$q$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'
                 done
                 echo "$p$q $r$f$N$r"
