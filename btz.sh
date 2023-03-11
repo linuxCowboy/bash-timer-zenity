@@ -236,7 +236,7 @@ Ftimer ()
                 y=`date +%Y`
                 m=`date +%-m`  # hyphen
                 d=`date +%-d`
-                YEAR=${2-$y}
+                YEAR=$y
                 FIX=
 
                 while :; do
