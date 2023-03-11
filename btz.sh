@@ -503,7 +503,7 @@ Ftimer ()
 
         $FUNCNAME i text [title]            # info window            (zenity)
 
-        $FUNCNAME y [year]                  # seasonal calendar     (console)
+        $FUNCNAME y [year] [VID...]         # seasonal calendar     (console)
 
         $FUNCNAME w [day [month [year]]]    # weekday               (console)
 
