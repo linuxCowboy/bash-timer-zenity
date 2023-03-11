@@ -231,10 +231,12 @@ Ftimer ()
         elif [[ $1 =~ ^y ]]; then
             # 0-black 1-red 2-green 3-brown [yellow] 4-blue 5-purple [magenta] 6-cyan 7-white
             echo "$(
+                VID='2/14 4/5 5/9 7/31 9/5'  # very important day
+
                 y=`date +%Y`
                 m=`date +%-m`  # hyphen
                 d=`date +%-d`
-                local YEAR=${2-$y}  # if no subshell
+                YEAR=${2-$y}
 
                 YEAR=`date -d $YEAR-1-1 +%Y` || return  # check + 4 digits
 
@@ -244,7 +246,7 @@ Ftimer ()
 
                 r="$(tput sgr0)"
                 M=(`for i in 11 12 {1..10};do date -d $i/1 +%B;done`)  # full month
-                W=(Mon Tue Wed Thu Fri Sat Sun)  # 3 char
+                W=(Mon Tue Wed Thu Fri Sat Sun)  # 3 chars
 
                 # core
                 for i in 11p 12p {1..10}; do
