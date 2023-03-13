@@ -233,7 +233,7 @@ Ftimer ()
             echo "$(
                 VID='2/14 4/5 5/9 7/31 9/5'  # very important day
 
-                HOLS='1/1 12/25 12/26'  # holiday
+                HOLS='1/1 12/25-1year 12/26-1year'  # holiday
 
                 y=`date +%Y`
                 m=`date +%-m`  # hyphen
