@@ -241,7 +241,6 @@ Ftimer ()
                 YEAR=$y
                 FIX=
 
-set -vx
                 while :; do
                         shift
                         [[ $1 ]] || break
@@ -250,7 +249,7 @@ set -vx
                                 x=${1#*+}
                                 H=${1%+*}
 
-                                for ((++x; x; --x)); do
+                                for ((x++; x; --x)); do
                                         HOLS+=" $H"
                                         H=`date -d $H+1day +%F`
                                 done
@@ -265,9 +264,7 @@ set -vx
                                 FIX=1
                         fi
                 done
-set +vx
-e $HOLS
-return
+
                 for i in $VID; do
                         date -d $i >/dev/null || return
                 done
