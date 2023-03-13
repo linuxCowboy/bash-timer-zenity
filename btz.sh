@@ -233,9 +233,9 @@ Ftimer ()
             echo "$(
                 VID='2/14 4/5 5/9 7/31 9/5'  # very important day
 
-                HOLS='1/1 12/25-1year 12/26-1year'  # holiday
+                HOLS='2023-04-07+3'  # holiday
 
-                PERM='1/1 12/25 12/26'  # permanent == hols
+                PERM='1/1 12/25 12/26'  # permanent hols
 
                 y=`date +%Y`
                 m=`date +%-m`  # hyphen
@@ -298,7 +298,22 @@ Ftimer ()
                                         fi
                         fi
 
-                        for j in $HOLS $PERMS; do
+                        for j in $PERMS; do
+                                [[ `date -d $j +%-m:%-d` =~ ([0-9]+):([0-9]+) ]] &&
+                                        pm=${BASH_REMATCH[1]} && pd=${BASH_REMATCH[2]}
+
+                                if [[ $i = $pm || $i = ${pm}p ]]; then  # perm
+                                        c="$(tput bold)$(tput setab 5)"
+
+                                        if ((pd < 10)); then
+                                                X=(`echo "${X[*]}" |sed 's/:'$pd'\b/'"$c:$pd$r-"/`)
+                                        else  # no color reset
+                                                X=(`echo "${X[*]}" |sed 's/'$pd'\b/'"$c$pd$r-"/`)
+                                        fi
+                                fi
+                        done
+
+                        for j in $HOLS; do
                                 k=`date -d $j +%Y:%-m:%-d`
                                 hy=${k%%:*}
                                 hm=${k%:*}
