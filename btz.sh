@@ -249,11 +249,10 @@ set -vx
                         if [[ $1 =~ \+ ]]; then
                                 x=${1#*+}
                                 H=${1%+*}
-                                HOLS+=" $H"
 
-                                while ((x--)); do
-                                        H=`date -d $H+1day +%F`
+                                for ((++x; x; --x)); do
                                         HOLS+=" $H"
+                                        H=`date -d $H+1day +%F`
                                 done
 
                         elif [[ $1 =~ - ]]; then
