@@ -296,6 +296,25 @@ Ftimer ()
                                         fi
                         fi
 
+                        for j in $HOLS; do
+                                k=`date -d $j +%Y:%-m:%-d`
+                                hy=${k%%:*}
+                                hm=${k%:*}
+                                hm=${hm#*:}
+                                hd=${k##*:}
+
+                                if [[ $YEAR = $hy && $i = $hm ]] ||
+                                        [[ $YEAR = $((hy + 1)) && $i = ${hm}p ]]; then  # hols
+                                                c="$(tput bold)$(tput setab 5)"
+
+                                                if ((hd < 10)); then
+                                                        X=(`echo "${X[*]}" |sed 's/:'$hd'\b/'"$c:$hd$r-"/`)
+                                                else  # no color reset
+                                                        X=(`echo "${X[*]}" |sed 's/'$hd'\b/'"$c$hd$r-"/`)
+                                                fi
+                                fi
+                        done
+
                         for j in $VID; do
                                 [[ `date -d $j +%-m:%-d` =~ ([0-9]+):([0-9]+) ]] &&
                                         vm=${BASH_REMATCH[1]} && vd=${BASH_REMATCH[2]}
