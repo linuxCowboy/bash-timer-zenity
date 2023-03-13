@@ -243,10 +243,7 @@ Ftimer ()
                 YEAR=$y
                 FIX=
 
-                while :; do
-                        shift
-                        [[ $1 ]] || break
-
+                while [[ $1 ]]; do
                         if [[ $1 =~ [+-] ]]; then
                                 HOLS+=" $1"
 
@@ -256,6 +253,7 @@ Ftimer ()
                                 YEAR=$1
                                 FIX=1
                         fi
+                        shift
                 done
 
                 for i in $HOLS; do
