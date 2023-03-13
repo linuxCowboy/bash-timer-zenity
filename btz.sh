@@ -231,11 +231,11 @@ Ftimer ()
         elif [[ $1 =~ ^y ]]; then
             # 0-black 1-red 2-green 3-brown [yellow] 4-blue 5-purple [magenta] 6-cyan 7-white
             echo "$(
-                VID='2/14 4/5 5/9 7/31 9/5'  # very important day
+                VID='2/14 4/5 5/9 7/31 9/5'  # very important day:  month/day  +=cmdline
 
-                HOLS='2023-04-07+3'  # holiday
+                HOLS='2023-04-07+3'  # holiday: full year-month-day  [+x next days]  +=cmdline
 
-                PERM='1/1 12/25 12/26'  # permanent hols
+                PERM='1/1 12/25 12/26'  # permanent hols:  like vid
 
                 y=`date +%Y`
                 m=`date +%-m`  # hyphen
