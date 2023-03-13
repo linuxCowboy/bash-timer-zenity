@@ -233,6 +233,8 @@ Ftimer ()
             echo "$(
                 VID='2/14 4/5 5/9 7/31 9/5'  # very important day
 
+                HOLS='1/1 12/25 12/26'  # holiday
+
                 y=`date +%Y`
                 m=`date +%-m`  # hyphen
                 d=`date +%-d`
@@ -243,7 +245,25 @@ Ftimer ()
                         shift
                         [[ $1 ]] || break
 
-                        [[ $1 =~ / ]] && VID+=" $1" || { YEAR=$1; FIX=1; }
+                        if [[ $1 =~ \+ ]]; then
+                                x=${x#*+}
+                                H=${x%+*}
+
+                                while ((x--)); do
+                                        HOLS+=" $H"
+
+                                        H=`date -d $H+1day +%F`
+                                done
+
+                        elif [[ $1 =~ - ]]; then
+                                HOLS+=" $1"
+
+                        elif [[ $1 =~ / ]]; then
+                                VID+=" $1"
+                        else
+                                YEAR=$1
+                                FIX=1
+                        fi
                 done
 
                 for i in $VID; do
