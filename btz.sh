@@ -22,10 +22,14 @@ Ftimer ()
         #     sed -rn '/GtkButton.*zenity_progress_ok_button/, \%/object%p' |
         #         grep --colour=always sensitive
 
-        # year holiday + VID
-        local HOLS='2023-04-07+3'  # holiday: full year-month-day  [+x next days]  +=cmdline
-        local VID='2/14 4/5 5/9 7/31 9/5'  # very important day:  month/day  +=cmdline
-        local PERM='1/1 12/25 12/26'  # permanent hols:  month/day
+        # holiday: full year-month-day  [+x next days]  +=cmdline
+        local HOLS='2023-04-07+3'
+
+        # very important day:  month/day  +=cmdline
+        local VID='2/14 4/5 5/9 7/31 9/5'
+
+        # permanent hols:  month/day
+        local PERM='1/1 12/25 12/26'
 
         # alarm clock logging if set
         local LOG='/tmp/Ftimer.log'
