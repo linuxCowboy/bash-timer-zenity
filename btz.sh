@@ -243,14 +243,14 @@ Ftimer ()
                 YEAR=$y
                 FIX=
 
-                while [[ $1 ]]; do
-                        if [[ $1 =~ [+-] ]]; then
-                                HOLS+=" $1"
+                while [[ $2 ]]; do
+                        if [[ $2 =~ [+-] ]]; then
+                                HOLS+=" $2"
 
-                        elif [[ $1 =~ / ]]; then
-                                VID+=" $1"
+                        elif [[ $2 =~ / ]]; then
+                                VID+=" $2"
                         else
-                                YEAR=$1
+                                YEAR=$2
                                 FIX=1
                         fi
                         shift
