@@ -235,6 +235,8 @@ Ftimer ()
 
                 HOLS='1/1 12/25-1year 12/26-1year'  # holiday
 
+                PERM='1/1 12/25 12/26'  # permanent == hols
+
                 y=`date +%Y`
                 m=`date +%-m`  # hyphen
                 d=`date +%-d`
@@ -265,7 +267,7 @@ Ftimer ()
                         fi
                 done
 
-                for i in $VID $HOLS; do
+                for i in $VID $HOLS $PERMS; do
                         date -d $i >/dev/null || return
                 done
 
@@ -296,7 +298,7 @@ Ftimer ()
                                         fi
                         fi
 
-                        for j in $HOLS; do
+                        for j in $HOLS $PERMS; do
                                 k=`date -d $j +%Y:%-m:%-d`
                                 hy=${k%%:*}
                                 hm=${k%:*}
