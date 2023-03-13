@@ -235,7 +235,7 @@ Ftimer ()
 
                 HOLS='2023-04-07+3'  # holiday: full year-month-day  [+x next days]  +=cmdline
 
-                PERM='1/1 12/25 12/26'  # permanent hols:  like vid
+                PERM='1/1 12/25 12/26'  # permanent hols:  month/day
 
                 y=`date +%Y`
                 m=`date +%-m`  # hyphen
