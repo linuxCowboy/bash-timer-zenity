@@ -265,7 +265,7 @@ Ftimer ()
                         fi
                 done
 
-                for i in $VID; do
+                for i in $VID $HOLS; do
                         date -d $i >/dev/null || return
                 done
 
