@@ -272,7 +272,7 @@ Ftimer ()
                         fi
                 done
 
-                for i in $VID $HOLSX $PERMS; do
+                for i in $VID $HOLSX $PERM; do
                         date -d $i >/dev/null || return
                 done
 
@@ -303,7 +303,7 @@ Ftimer ()
                                         fi
                         fi
 
-                        for j in $PERMS; do
+                        for j in $PERM; do
                                 [[ `date -d $j +%-m:%-d` =~ ([0-9]+):([0-9]+) ]] &&
                                         pm=${BASH_REMATCH[1]} && pd=${BASH_REMATCH[2]}
 
