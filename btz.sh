@@ -247,16 +247,7 @@ Ftimer ()
                         shift
                         [[ $1 ]] || break
 
-                        if [[ $1 =~ \+ ]]; then
-                                x=${1#*+}
-                                H=${1%+*}
-
-                                for ((x++; x; --x)); do
-                                        HOLS+=" $H"
-                                        H=`date -d $H+1day +%F`
-                                done
-
-                        elif [[ $1 =~ - ]]; then
+                        if [[ $1 =~ [+-] ]]; then
                                 HOLS+=" $1"
 
                         elif [[ $1 =~ / ]]; then
@@ -267,7 +258,21 @@ Ftimer ()
                         fi
                 done
 
-                for i in $VID $HOLS $PERMS; do
+                for i in $HOLS; do
+                        if [[ $i =~ \+ ]]; then
+                                x=${i#*+}
+                                h=${i%+*}
+
+                                for ((x++; x; --x)); do
+                                        HOLSX+=" $h"
+                                        h=`date -d $h+1day +%F`
+                                done
+                        else
+                                HOLSX+=" $i"
+                        fi
+                done
+
+                for i in $VID $HOLSX $PERMS; do
                         date -d $i >/dev/null || return
                 done
 
@@ -313,7 +318,7 @@ Ftimer ()
                                 fi
                         done
 
-                        for j in $HOLS; do
+                        for j in $HOLSX; do
                                 k=`date -d $j +%Y:%-m:%-d`
                                 hy=${k%%:*}
                                 hm=${k%:*}
