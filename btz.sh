@@ -26,7 +26,7 @@ Ftimer ()
         local HOLS='2023-4-7+3 2023-5-18 2023-5-28+1'
 
         # very important day:  month/day  +=cmdline
-        local VID='2/14 4/5 5/9 7/31 9/5'
+        local VID='2/14 4/5  7/31  5/9 9/5  3/26 10/29'
 
         # permanent hols:  month/day
         local PERM='1/1 5/1 10/3 12/25 12/26'
