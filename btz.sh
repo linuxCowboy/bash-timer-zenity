@@ -349,9 +349,6 @@ Ftimer ()
                                         ($YEAR = $((vy + 1)) && $i = ${vm}p)) ]] &&
                                                 continue
 
-                                [[ `date -d $j +%-m:%-d` =~ ([0-9]+):([0-9]+) ]] &&
-                                        vm=${BASH_REMATCH[1]} && vd=${BASH_REMATCH[2]}
-
                                 if [[ $i = $vm || $i = ${vm}p ]]; then  # vid
                                         c="$(tput bold)$(tput setab 1)"
 
