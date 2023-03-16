@@ -345,7 +345,7 @@ Ftimer ()
                                 vm=${BASH_REMATCH[3]}
                                 vd=${BASH_REMATCH[4]}
 
-                                if ($vy && (! ([[ $YEAR = $vy && $i = $vm ]] ||
+                                if ([[ $vy ]] && (! ([[ $YEAR = $vy && $i = $vm ]] ||
                                         [[ $YEAR = $((vy + 1)) && $i = ${vm}p ]]))); then
                                         continue
                                 fi
