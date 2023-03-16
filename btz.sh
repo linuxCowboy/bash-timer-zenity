@@ -25,8 +25,8 @@ Ftimer ()
         # holiday: full year-month-day  [+x next days]  +=cmdline
         local HOLS='2023-4-7+3 2023-5-18 2023-5-28+1'
 
-        # very important day:  month/day  +=cmdline
-        local VID='2/14 4/5  7/31  5/9 9/5  3/26 10/29'
+        # very important day:  [full year/]month/day  +=cmdline
+        local VID='2/14 4/5  7/31  5/9 9/5  2023/3/26 2023/10/29'
 
         # permanent hols:  month/day
         local PERM='1/1 5/1 10/3 12/25 12/26'
@@ -339,6 +339,16 @@ Ftimer ()
                         done
 
                         for j in $VID; do
+                                if [[ $j =~ ([0-9]+)/([0-9]+)/ ]]; then
+                                        vy=${BASH_REMATCH[1]}
+                                        vm=${BASH_REMATCH[2]}
+
+                                        if ! ([[ $YEAR = $vy && $i = $vm ]] ||
+                                                [[ $YEAR = $((vy + 1)) && $i = ${vm}p ]]); then
+                                                continue
+                                        fi
+                                fi
+
                                 [[ `date -d $j +%-m:%-d` =~ ([0-9]+):([0-9]+) ]] &&
                                         vm=${BASH_REMATCH[1]} && vd=${BASH_REMATCH[2]}
 
