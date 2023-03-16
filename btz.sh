@@ -345,10 +345,9 @@ Ftimer ()
                                 vm=${BASH_REMATCH[3]}
                                 vd=${BASH_REMATCH[4]}
 
-                                if ([[ $vy ]] && (! ([[ $YEAR = $vy && $i = $vm ]] ||
-                                        [[ $YEAR = $((vy + 1)) && $i = ${vm}p ]]))); then
-                                        continue
-                                fi
+                                [[ $vy && ! (($YEAR = $vy && $i = $vm) ||
+                                        ($YEAR = $((vy + 1)) && $i = ${vm}p)) ]] &&
+                                                continue
 
                                 [[ `date -d $j +%-m:%-d` =~ ([0-9]+):([0-9]+) ]] &&
                                         vm=${BASH_REMATCH[1]} && vd=${BASH_REMATCH[2]}
