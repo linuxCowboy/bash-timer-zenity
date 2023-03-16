@@ -339,7 +339,7 @@ Ftimer ()
                         done
 
                         for j in $VID; do
-                                if [[ $j =~ ([0-9]+)/([0-9]+)/ ]]; then
+                                if [[ $j =~ ([0-9]+)/([0-9]+)/ ]]; then  # year optional
                                         vy=${BASH_REMATCH[1]}
                                         vm=${BASH_REMATCH[2]}
 
