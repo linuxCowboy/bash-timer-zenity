@@ -338,16 +338,18 @@ Ftimer ()
                                 fi
                         done
 
+                        ### 4/5/2020 and 2020/4/5 are both valid! ###
                         for j in $VID; do
-                                [[ $j =~ (([0-9]+)/)?([0-9]+)/([0-9]+) ]]  # year optional
+                                k=`date -d $j +%Y:%-m:%-d`
 
-                                vy=${BASH_REMATCH[2]}
-                                vm=${BASH_REMATCH[3]}
-                                vd=${BASH_REMATCH[4]}
+                                vy=${k%%:*}
+                                vm=${k%:*}
+                                vm=${vm#*:}
+                                vd=${k##*:}
 
-                                [[ $vy && ! (($YEAR = $vy && $i = $vm) ||
+                                [[ $j =~ /.+/ && ! (($YEAR = $vy && $i = $vm) ||
                                         ($YEAR = $((vy + 1)) && $i = ${vm}p)) ]] &&
-                                                continue
+                                                continue  # year optional
 
                                 if [[ $i = $vm || $i = ${vm}p ]]; then  # vid
                                         c="$(tput bold)$(tput setab 1)"
