@@ -22,6 +22,16 @@ Ftimer ()
         #     sed -rn '/GtkButton.*zenity_progress_ok_button/, \%/object%p' |
         #         grep --colour=always sensitive
 
+        # Post-it Note
+        local POST=(
+                '┌──────────────┐'
+                '│              │'
+                '│              │'
+                '│              │'
+                '│              │'
+                '│              │'
+                '└──────────────┘')
+
         # holiday: full year-month-day  [+x next days]  +=cmdline
         local HOLS='2023-4-7+3 2023-5-18 2023-5-28+1'
 
@@ -398,7 +408,7 @@ Ftimer ()
                         fi
                         l=`echo "${A3[$i]} ${A4[$i]}" |sed s/-/"$w"/g`
                         l=`echo "$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'`
-                        echo "$p$q$l"
+                        echo "$p${POST[$i]}  $l"
                 done
                 echo "$p$q $r$f$N$r"
 
