@@ -23,7 +23,34 @@ Ftimer ()
         #         grep --colour=always sensitive
 
         # Post-it Note
-        local POST=(
+        local P1=(
+                '┌──────────────┐'
+                '│              │'
+                '│              │'
+                '│              │'
+                '│              │'
+                '│              │'
+                '└──────────────┘')
+
+        local P2=(
+                '┌──────────────┐'
+                '│              │'
+                '│              │'
+                '│              │'
+                '│              │'
+                '│              │'
+                '└──────────────┘')
+
+        local P3=(
+                '┌──────────────┐'
+                '│              │'
+                '│              │'
+                '│              │'
+                '│              │'
+                '│              │'
+                '└──────────────┘')
+
+        local P4=(
                 '┌──────────────┐'
                 '│              │'
                 '│              │'
@@ -408,7 +435,7 @@ Ftimer ()
                         fi
                         l=`echo "${A3[$i]} ${A4[$i]}" |sed s/-/"$w"/g`
                         l=`echo "$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'`
-                        echo "$p${POST[$i]}  $l"
+                        echo "$p${P1[$i]}  $l${P2[$i]}"
                 done
                 echo "$p$q $r$f$N$r"
 
@@ -448,7 +475,7 @@ Ftimer ()
                         fi
                         l=`echo "${A9[$i]} ${A10[$i]}" |sed s/-/"$w"/g`
                         l=`echo "$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'`
-                        echo "$p$q$l"
+                        echo "$p${P3[$i]}  $l${P4[$i]}"
                 done
                 echo "$p$q $r$f$N$r"
             )\n"
