@@ -397,7 +397,8 @@ Ftimer ()
                                 h="$(tput bold)$(tput setaf 4)"
                         fi
                         l=`echo "${A3[$i]} ${A4[$i]}" |sed s/-/"$w"/g`
-                        echo "$p$q$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'
+                        l=`echo "$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'`
+                        echo "$p$q$l"
                 done
                 echo "$p$q $r$f$N$r"
 
@@ -436,7 +437,8 @@ Ftimer ()
                                 h="$(tput bold)$(tput setaf 4)"
                         fi
                         l=`echo "${A9[$i]} ${A10[$i]}" |sed s/-/"$w"/g`
-                        echo "$p$q$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'
+                        l=`echo "$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'`
+                        echo "$p$q$l"
                 done
                 echo "$p$q $r$f$N$r"
             )\n"
