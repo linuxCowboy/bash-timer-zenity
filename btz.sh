@@ -134,7 +134,7 @@ Ftimer ()
                         shift
 
                 local START=$HOT
-                local FILE=$(mktemp)  # get the counter back from subshell
+                local FILE=$(mktemp -p ${XDG_RUNTIME_DIR:-/tmp})  # get the counter back from subshell
 
                 while :; do
                         for ((; ; ++START)); do
