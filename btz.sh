@@ -1,5 +1,6 @@
-my_ftimer_postit ()
+my_ftimer_edits ()
 {
+        # Post-it Note
         P1=(  # 16 x 7
                 '┌──────────────┐'
                 '│              │'
@@ -35,6 +36,12 @@ my_ftimer_postit ()
                 '│           │'
                 '│           │'
                 '└───────────┘')
+
+        # holiday: full year-month-day  [+x next days]  +=cmdline
+        HOLS='2023-4-7+3 2023-5-18 2023-5-28+1'
+
+        # very important day:  [full year/]month/day  +=cmdline
+        VID='2/14 4/5  7/31  5/9 9/5  2023/3/26 2023/10/29'
 }
 
 Ftimer ()
@@ -61,17 +68,12 @@ Ftimer ()
         #     sed -rn '/GtkButton.*zenity_progress_ok_button/, \%/object%p' |
         #         grep --colour=always sensitive
 
-        # Post-it Note
-        local P1 P2 P3 P4
+        # define vars for outsourced edit
+        local P1 P2 P3 P4  # Post-it
+        local HOLS         # Holiday
+        local VID          # Very Important Day
 
-        # outsource edits
-        my_ftimer_postit
-
-        # holiday: full year-month-day  [+x next days]  +=cmdline
-        local HOLS='2023-4-7+3 2023-5-18 2023-5-28+1'
-
-        # very important day:  [full year/]month/day  +=cmdline
-        local VID='2/14 4/5  7/31  5/9 9/5  2023/3/26 2023/10/29'
+        my_ftimer_edits
 
         # permanent hols:  month/day
         local PERM='1/1 5/1 10/3 12/25 12/26'
