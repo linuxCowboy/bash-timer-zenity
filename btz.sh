@@ -44,7 +44,7 @@ my_ftimer_edits ()
         VID='2/14 4/5  7/31  5/9 9/5  2023/3/26 2023/10/29'
 }
 
-Ftimer ()
+Ftimer ()  ##:t
 {
         #######################################
         ### bash shell function with zenity ###
@@ -631,4 +631,4 @@ Ftimer ()
         $FUNCNAME h date1 [date2{now}]      # hour/day difference   (console)
         " | eval "$sep"
         fi
-}
+} # Ftimer
