@@ -451,7 +451,7 @@ Ftimer ()  ##:t
                         fi
                         l=`echo "${A3[$i]} ${A4[$i]}" |sed s/-/"$w"/g`
                         l=`echo "$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'`
-                        printf "$p%16s  $l  %13s\n" "${P1+${P1[$i]}}" "${P2+${P2[$i]}}"
+                        printf "$p%16s  $l  %13s\n" "${P1[$i]}" "${P2[$i]}"
                 done
                 echo "$p$q $r$f$N$r"
 
@@ -491,7 +491,7 @@ Ftimer ()  ##:t
                         fi
                         l=`echo "${A9[$i]} ${A10[$i]}" |sed s/-/"$w"/g`
                         l=`echo "$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'`
-                        printf "$p%16s  $l  %13s\n" "${P3+${P3[$i]}}" "${P4+${P4[$i]}}"
+                        printf "$p%16s  $l  %13s\n" "${P3[$i]}" "${P4[$i]}"
                 done
                 echo "$p$q $r$f$N$r"
             )\n"
