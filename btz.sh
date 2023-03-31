@@ -38,10 +38,10 @@ my_ftimer_edits ()
                 '└───────────┘')
 
         # disable Notes
-        P1=
-        P2=
-        P3=
-        P4=
+#        unset P1
+#        unset P2
+#        unset P3
+#        unset P4
 
         # holiday: full year-month-day  [+x next days]  +=cmdline
         HOLS='2023-4-7+3 2023-5-18 2023-5-28+1'
@@ -451,7 +451,7 @@ Ftimer ()  ##:t
                         fi
                         l=`echo "${A3[$i]} ${A4[$i]}" |sed s/-/"$w"/g`
                         l=`echo "$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'`
-                        printf "$p%16s  $l  %13s\n" "${P1:+${P1[$i]}}" "${P2:+${P2[$i]}}"
+                        printf "$p%16s  $l  %13s\n" "${P1+${P1[$i]}}" "${P2+${P2[$i]}}"
                 done
                 echo "$p$q $r$f$N$r"
 
@@ -491,7 +491,7 @@ Ftimer ()  ##:t
                         fi
                         l=`echo "${A9[$i]} ${A10[$i]}" |sed s/-/"$w"/g`
                         l=`echo "$r$h${W[$i]}$r $w$l$r" |sed 's/:*$//; s/:/ /g'`
-                        printf "$p%16s  $l  %13s\n" "${P3:+${P3[$i]}}" "${P4:+${P4[$i]}}"
+                        printf "$p%16s  $l  %13s\n" "${P3+${P3[$i]}}" "${P4+${P4[$i]}}"
                 done
                 echo "$p$q $r$f$N$r"
             )\n"
