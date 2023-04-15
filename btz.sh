@@ -635,6 +635,8 @@ Ftimer ()  ##:t
         $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th       (console)
 
         $FUNCNAME h date1 [date2{now}]      # hour/day difference   (console)
+
+        $FUNCNAME s                         # sunrise / sunset      (console)
         " | eval "$sep"
         fi
 } # Ftimer
