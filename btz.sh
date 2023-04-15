@@ -76,7 +76,7 @@ Ftimer ()  ##:t
 
         # define vars for outsourced edit
         local P1 P2 P3 P4  # Post-it
-        local HOLS         # Holiday
+        local HOLS HOLSX   # Holiday
         local VID          # Very Important Day
 
         my_ftimer_edits
