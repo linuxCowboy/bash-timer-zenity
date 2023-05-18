@@ -48,6 +48,10 @@ my_ftimer_edits ()
 
         # very important day:  [full year/]month/day  +=cmdline
         VID='2/14 4/5  7/31  5/9 9/5  2023/3/26 2023/10/29'
+
+        # sun/moon basis
+        CTRY='germany'
+        CITY='stuttgart'
 }
 
 Ftimer ()  ##:t
@@ -78,6 +82,8 @@ Ftimer ()  ##:t
         local P1 P2 P3 P4  # Post-it
         local HOLS HOLSX   # Holiday
         local VID          # Very Important Day
+        local CTRY
+        local CITY
 
         my_ftimer_edits
 
@@ -99,6 +105,7 @@ Ftimer ()  ##:t
         # scrape sun/moon and debug
         local GET='curl --fail --silent'
         local CHK='curl --fail --verbose'
+        local URL="https://www.timeanddate.com/sun/$CTRY/$CITY"
 
         ##### thousands separator #####
         #
