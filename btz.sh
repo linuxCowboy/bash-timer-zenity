@@ -639,6 +639,8 @@ Ftimer ()  ##:t
                         return $r
                 fi
 
+                printf "\nSunlight:  %02d.%02d.%d  ---  %s / %s\n\n" $d $m $y ${CITY^} ${CTRY^}
+
                 echo "$o" | perl -nE '
                         if (/<table[^>]*id=as-monthsun/) {
                                 if(/<tr[^>]*data-day='$d'\b.*?<\/tr>/) {
