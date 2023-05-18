@@ -618,12 +618,21 @@ Ftimer ()  ##:t
 
         # sun
         elif [[ $1 =~ ^s ]]; then
-                o=`$GET $URL`
+                read d m y <<<`date +"%-d %-m %Y"`
+
+                if [[ $2 =~ ^[0-9/-]+$ ]]; then
+                        date -d $2 >/dev/null || return
+                        read d m y <<<`date -d $2 +"%-d %-m %Y"`
+                        shift
+                fi
+
+                u="$URL?month=$m&year=$y"
+                o=`$GET "$u"`
 
                 if (($?)); then
-                        echo $URL
+                        echo "$u"
                                 perl -E 'say "=" x '$COLUMNS
-                        o=`$CHK $URL`
+                        o=`$CHK "$u"`
                         r=$?
                                 perl -E 'say "=" x '$COLUMNS
                         echo "$o"
@@ -632,7 +641,7 @@ Ftimer ()  ##:t
 
                 echo "$o" | perl -nE '
                         if (/<table[^>]*id=as-monthsun/) {
-                                if(/<tr[^>]*data-day=16\b.*?<\/tr>/) {
+                                if(/<tr[^>]*data-day='$d'\b.*?<\/tr>/) {
                                         $s = $&;
                                         while ($s =~ /<td.*?>(.*?)</g) {
                                                 push @a, $1;
