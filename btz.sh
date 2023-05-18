@@ -662,11 +662,11 @@ Ftimer ()  ##:t
 say "0: |$t|";
                                                 $t =~ s/<br>/ /;
 say "1: |$t|";
-                                                $t =~ s/^([^<]*).*/$1/;
+                                                $t =~ /^[^<]*/;
 say "2: |$t|";
 
                                                 while ($c--) {
-                                                        push @a, $t;
+                                                        push @a, $&;
                                                         push @A, $T;
                                                 }
                                         }
