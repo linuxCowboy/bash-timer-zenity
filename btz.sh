@@ -618,7 +618,19 @@ Ftimer ()  ##:t
 
         # sun
         elif [[ $1 =~ ^s ]]; then
-                :
+                o=`$GET $URL`
+
+                if (($?)); then
+                        echo $URL
+                                echo
+                        o=`$CHK $URL`
+                        r=$?
+                                echo
+                        perl -E 'say "=" x '$COLUMNS
+                                echo
+                        echo "$o"
+                        return $r
+                fi
 
         # fall through to help
         else
