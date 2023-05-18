@@ -540,7 +540,7 @@ Ftimer ()  ##:t
                 # year
                 [[ $2 && $2 =~ ^[0-9]+$ ]] && YEAR=$2
                 [[ $YEAR =~ ^[0-9]$ ]] && YEAR=0$YEAR
-                [[ $YEAR =~ ^[0-9][0-9]$ ]] && YEAR=`date -d $YEAR-1-1 +%Y`
+                [[ $YEAR =~ ^[0-9][0-9]$ ]] && YEAR="`date -d $YEAR-1-1 +%Y`"
 
                 # range + sign
                 [[ $3 && $3 =~ ^([+-]?)([0-9]+)$ ]] && SIGN=${BASH_REMATCH[1]} && RANGE=${BASH_REMATCH[2]}
