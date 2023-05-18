@@ -105,7 +105,7 @@ Ftimer ()  ##:t
         # scrape sun/moon and debug
         local GET='curl --fail --silent'
         local CHK='curl --fail --verbose'
-        local URL="https://www.timeanddate.com/sun/$CTRY/$CITY"
+        local URL="https://www.timeanddate.com/sun/${CTRY:-ERROR}/${CITY:-ERROR}"
 
         ##### thousands separator #####
         #
