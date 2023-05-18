@@ -653,36 +653,36 @@ Ftimer ()  ##:t
         else
                 (( ${#LOG} > 21 )) && LOG="${LOG:0:7}...${LOG: -11}"
 
-                printf -v LOG "%-23.23s" "(${LOG:-no log})"
+                printf -v LOG "%-23s" "(${LOG:-no log})"
 
                 echo "
-        $FUNCNAME d seconds [title]         # countdown timer (*uses zenity*)
+        $FUNCNAME d seconds [title]          # countdown timer (*uses zenity*)
 
-        $FUNCNAME u [start] [title]         # countup timer  (with hot start)
+        $FUNCNAME u [start] [title]          # countup timer  (with hot start)
 
-        $FUNCNAME a time(GNU date) [title]  # alarm clock            (zenity)
+        $FUNCNAME a time(GNU date) [title]   # alarm clock            (zenity)
 
-        $FUNCNAME A time(GNU date) [title]  # Alarm Clock silent     (zenity)
+        $FUNCNAME A time(GNU date) [title]   # Alarm Clock silent     (zenity)
 
-        $FUNCNAME l $LOG # alarm clock log       (console)
+        $FUNCNAME l $LOG  # alarm clock log       (console)
 
-        $FUNCNAME c [seconds [start]]       # cmdline timer  (Quit Rst Pause)
+        $FUNCNAME c [seconds [start]]        # cmdline timer  (Quit Rst Pause)
 
-        $FUNCNAME C [seconds [start]]       # Cmdline Timer       (\U1FBF7 segment)
+        $FUNCNAME C [seconds [start]]        # Cmdline Timer       (\U1FBF7 segment)
 
-        $FUNCNAME t [title]                 # current time       (background)
+        $FUNCNAME t [title]                  # current time       (background)
 
-        $FUNCNAME i text [title]            # info window            (zenity)
+        $FUNCNAME i text [title]             # info window            (zenity)
 
-        $FUNCNAME y [year] [hols] [VID]     # seasonal calendar     (console)
+        $FUNCNAME y [year] [hols] [VID]      # seasonal calendar     (console)
 
-        $FUNCNAME w [day [month [year]]]    # weekday               (console)
+        $FUNCNAME w [day [month [year]]]     # weekday               (console)
 
-        $FUNCNAME f [year [[+-]range{1}]]   # Friday the 13th       (console)
+        $FUNCNAME f [year [[+-]range{1}]]    # Friday the 13th       (console)
 
-        $FUNCNAME h date1 [date2{now}]      # hour/day difference   (console)
+        $FUNCNAME h date1 [date2{now}]       # hour/day difference   (console)
 
-        $FUNCNAME s                         # sunrise / sunset      (console)
-        " | eval "$sep"
+        $FUNCNAME s [date] [city [country]]  # sunrise / sunset      (console)
+        "
         fi
 } # Ftimer
