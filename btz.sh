@@ -659,13 +659,9 @@ Ftimer ()  ##:t
                                                         $c = $1;
                                                 }
 
-say "0: |$t|";
                                                 $t =~ s|<span.*span>||;
-say "1: |$t|";
                                                 $t =~ s/\s*<br>/ /;
-say "2: |$t|";
                                                 $t =~ /^[^<]*/;
-say "3: |$t|";
 
                                                 while ($c--) {
                                                         push @a, $&;
@@ -698,8 +694,8 @@ say "3: |$t|";
                                         say "          Night:  $a[5]";
                                                 say "";
                                         say "\nRemaining Slots:" if '$DEBUG';
-                                        say "\n|$A[2]|" if '$DEBUG';
-                                        say "\n|$A[3]|" if '$DEBUG';
+                                        say "\n|$A[2]| " if '$DEBUG';
+                                        say "\n|$A[3]| " if '$DEBUG';
                                         say "\n|$A[10]|" if '$DEBUG';
                                         say "\n|$A[11]|" if '$DEBUG';
                                 }
