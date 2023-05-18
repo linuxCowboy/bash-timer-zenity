@@ -644,7 +644,7 @@ Ftimer ()  ##:t
                         return $r
                 fi
 
-                printf "\nSunlight:  %02d.%02d.%d  %s / %s\n\n" $d $m $y ${CITY^} ${CTRY^}
+                printf "\nSunlight:  %02d.%02d.%d  %s / %s\n" $d $m $y ${CITY^} ${CTRY^}
 
                 echo "$o" | perl -nE '
                         if (/<table[^>]*id=as-monthsun/) {
@@ -659,6 +659,7 @@ Ftimer ()  ##:t
                                                         push @a, $1;
                                                 }
                                         }
+                                                say "";
                                         say "|$A[4]|" if '$DEBUG';
                                         say "Astro  Twilight:  $a[4]";
 
