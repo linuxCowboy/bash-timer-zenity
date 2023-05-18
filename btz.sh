@@ -683,6 +683,11 @@ Ftimer ()  ##:t
                                         say "\n|$A[5]|" if '$DEBUG';
                                         say "          Night:  $a[5]";
                                                 say "";
+                                        say "\nRemaining Slots:" if '$DEBUG';
+                                        say "\n|$A[2]|" if '$DEBUG';
+                                        say "\n|$A[3]|" if '$DEBUG';
+                                        say "\n|$A[10]|" if '$DEBUG';
+                                        say "\n|$A[11]|" if '$DEBUG';
                                 }
                         }'
 
