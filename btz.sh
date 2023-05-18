@@ -655,9 +655,8 @@ Ftimer ()  ##:t
                                                 push @A, $&;
 
                                                 $t =~ s/<br>/ /;
-                                                if ($t =~ /^([^<]*).*/) {
-                                                        push @a, $1;
-                                                }
+                                                $t =~ /^([^<]*).*/;
+                                                push @a, $1;
                                         }
                                                 say "";
                                         say "|$A[4]|" if '$DEBUG';
