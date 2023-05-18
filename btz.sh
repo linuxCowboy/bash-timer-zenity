@@ -651,11 +651,11 @@ Ftimer ()  ##:t
                                 if(/<tr[^>]*data-day='$d'\b.*?<\/tr>/) {
                                         $s = $&;
                                         while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {
+                                                $T = $&;
                                                 $t = $1;
-                                                push @A, $&;
 
                                                 $c = 1;
-                                                if ($& =~ /colspan=(\d+)/) {
+                                                if ($T =~ /colspan=(\d+)/) {
                                                         $c = $1;
                                                 }
 
@@ -664,6 +664,7 @@ Ftimer ()  ##:t
 
                                                 while ($c--) {
                                                         push @a, $&;
+                                                        push @A, $T;
                                                 }
                                         }
                                                 say "";
