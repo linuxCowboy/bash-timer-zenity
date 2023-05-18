@@ -96,6 +96,10 @@ Ftimer ()  ##:t
         local CMD='zenity --modal'
         local CAL='ncal -M -w -W5'  # start Monday, number weeks, 1. Week 5 days
 
+        # scrape sun/moon and debug
+        local GET='curl --fail --silent'
+        local CHK='curl --fail --verbose'
+
         ##### thousands separator #####
         #
         # #!/usr/bin/perl
@@ -127,11 +131,13 @@ Ftimer ()  ##:t
         local CHR="."
         local sep='perl -pe'\''while(/\d{5,}/){$b=$`;$m=$&;$a=$'\'"\'"\'';$m=~s/(?<=\d)(?=(\d{3})+\b)/'$CHR'/;$_="$b$m$a"}'\'
 
-        # needs zenity
+        # check commands
         [[ $1 =~ ^(d|u|a|A|t|i) ]] && ! type ${CMD%% *} >/dev/null && return
 
-        # needs ncal for year
-        [[ $1 =~ ^y ]] && ! type ${CAL%% *} >/dev/null && return
+        [[ $1 =~ ^y ]]             && ! type ${CAL%% *} >/dev/null && return
+
+        [[ $1 =~ ^(s|m) ]]         && ! type ${GET%% *} >/dev/null && return
+        [[ $1 =~ ^(s|m) ]]         && ! type ${CHK%% *} >/dev/null && return
 
         # countdown
         if [[ $1 =~ ^d && $2 =~ ^[0-9]+$ ]]; then
@@ -602,6 +608,10 @@ Ftimer ()  ##:t
                 printf "%d Hours  or  %d Minutes  or  %d Seconds\n" $HOU $MIN $DIFF |eval "$sep"
                 [[ ! $YEAR ]] || echo "~$YEAR years"
                 return
+
+        # sun
+        elif [[ $1 =~ ^s ]]; then
+                :
 
         # fall through to help
         else
