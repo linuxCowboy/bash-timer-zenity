@@ -105,7 +105,7 @@ Ftimer ()  ##:t
         # scrape sun/moon and debug
         local GET='curl --fail --silent'
         local CHK='curl --fail --verbose'
-        local URL="https://www.timeanddate.com/sun/${CTRY:-ERROR}/${CITY:-ERROR}"
+        local SUN="https://www.timeanddate.com/sun"
 
         ##### thousands separator #####
         #
@@ -626,7 +626,7 @@ Ftimer ()  ##:t
                         shift
                 fi
 
-                u="$URL?month=$m&year=$y"
+                u="$SUN/${4-$CTRY}/${3-$CITY}?month=$m&year=$y"
                 o=`$GET "$u"`
 
                 if (($?)); then
