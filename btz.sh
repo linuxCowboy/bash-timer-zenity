@@ -622,12 +622,10 @@ Ftimer ()  ##:t
 
                 if (($?)); then
                         echo $URL
-                                echo
+                                perl -E 'say "=" x '$COLUMNS
                         o=`$CHK $URL`
                         r=$?
-                                echo
-                        perl -E 'say "=" x '$COLUMNS
-                                echo
+                                perl -E 'say "=" x '$COLUMNS
                         echo "$o"
                         return $r
                 fi
