@@ -652,22 +652,29 @@ Ftimer ()  ##:t
                                         $s = $&;
                                         while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {
                                                 $t = $1;
-                                                if ('$DEBUG') {
-                                                        say $i++,": |$&|";
-                                                }
+                                                push @A, $&;
+
                                                 $t =~ s/<br>/ /;
                                                 if ($t =~ /^([^<]*).*/) {
                                                         push @a, $1;
                                                 }
                                         }
+                                        say "$A[4]" if '$DEBUG';
                                         say "Astro  Twilight:  $a[4]";
+                                        say "$A[6]" if '$DEBUG';
                                         say "Nautic Twilight:  $a[6]";
+                                        say "$A[8]" if '$DEBUG';
                                         say "Civil  Twilight:  $a[8]";
+                                        say "$A[0]" if '$DEBUG';
                                         say "       Daylight:  $a[0]";
                                         say "";
+                                        say "$A[1]" if '$DEBUG';
                                         say "Civil  Twilight:  $a[1]";
+                                        say "$A[9]" if '$DEBUG';
                                         say "Nautic Twilight:  $a[9]";
+                                        say "$A[7]" if '$DEBUG';
                                         say "Astro  Twilight:  $a[7]";
+                                        say "$A[5]" if '$DEBUG';
                                         say "          Night:  $a[5]";
                                 }
                         }'
