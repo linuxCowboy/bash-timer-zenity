@@ -630,6 +630,25 @@ Ftimer ()  ##:t
                         return $r
                 fi
 
+                echo "$o" | perl -nE '
+                        if (/<table[^>]*id=as-monthsun/) {
+                                if(/<tr[^>]*data-day=16\b.*?<\/tr>/) {
+                                        $s = $&;
+                                        while ($s =~ /<td.*?>(.*?)</g) {
+                                                push @a, $1;
+                                        }
+                                        say "Astro  Twilight:  $a[4]";
+                                        say "Nautic Twilight:  $a[6]";
+                                        say "Civil  Twilight:  $a[8]";
+                                        say "       Daylight:  $a[0]";
+                                        say "";
+                                        say "Civil  Twilight:  $a[1]";
+                                        say "Nautic Twilight:  $a[9]";
+                                        say "Astro  Twilight:  $a[7]";
+                                        say "          Night:  $a[5]";
+                                }
+                        }'
+
         # fall through to help
         else
                 (( ${#LOG} > 21 )) && LOG="${LOG:0:7}...${LOG: -11}"
