@@ -617,7 +617,10 @@ Ftimer ()  ##:t
                 return
 
         # sun
-        elif [[ $1 =~ ^s ]]; then
+        elif [[ $1 =~ ^(s|S) ]]; then
+                local DEBUG=0
+                [[ $1 == 'S' ]] && DEBUG=1
+
                 read d m y <<<`date +"%-d %-m %Y"`
 
                 if [[ $2 =~ ^[0-9/-]+$ ]]; then
@@ -641,7 +644,7 @@ Ftimer ()  ##:t
                         return $r
                 fi
 
-                printf "\nSunlight:  %02d.%02d.%d  ---  %s / %s\n\n" $d $m $y ${CITY^} ${CTRY^}
+                printf "\nSunlight:  %02d.%02d.%d  --  %s / %s\n\n" $d $m $y ${CITY^} ${CTRY^}
 
                 echo "$o" | perl -nE '
                         if (/<table[^>]*id=as-monthsun/) {
@@ -649,12 +652,11 @@ Ftimer ()  ##:t
                                         $s = $&;
                                         while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {
                                                 $t = $1;
-say $i++,": |$&|";
-say "1: |$t|";
+                                                if ('$DEBUG') {
+                                                        say $i++,": |$&|";
+                                                }
                                                 $t =~ s/<br>/ /;
-say "2: |$t|";
                                                 if ($t =~ /^([^<]*).*/) {
-say "3: |$1|";
                                                         push @a, $1;
                                                 }
                                         }
@@ -704,6 +706,8 @@ say "3: |$1|";
         $FUNCNAME h date1 [date2{now}]       # hour/day difference   (console)
 
         $FUNCNAME s [date] [city [country]]  # sunrise / sunset      (console)
+
+        $FUNCNAME S [date] [city [country]]  # sun debug             (console)
         "
         fi
 } # Ftimer
