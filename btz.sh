@@ -647,8 +647,15 @@ Ftimer ()  ##:t
                         if (/<table[^>]*id=as-monthsun/) {
                                 if(/<tr[^>]*data-day='$d'\b.*?<\/tr>/) {
                                         $s = $&;
-                                        while ($s =~ /<td.*?>(.*?)</g) {
-                                                push @a, $1;
+                                        while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {
+                                                $t = $1;
+say "1: |$t|";
+                                                $t =~ s/<br>/ /;
+say "2: |$t|";
+                                                if ($t =~ /^([^<]*).*/) {
+say "3: |$1|";
+                                                        push @a, $1;
+                                                }
                                         }
                                         say "Astro  Twilight:  $a[4]";
                                         say "Nautic Twilight:  $a[6]";
