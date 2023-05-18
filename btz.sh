@@ -654,9 +654,17 @@ Ftimer ()  ##:t
                                                 $t = $1;
                                                 push @A, $&;
 
+                                                $c = 1;
+                                                if ($& =~ /colspan=(\d+)/) {
+                                                        $c = $1;
+                                                }
+
                                                 $t =~ s/<br>/ /;
                                                 $t =~ /^[^<]*/;
-                                                push @a, $&;
+
+                                                while ($c--) {
+                                                        push @a, $&;
+                                                }
                                         }
                                                 say "";
                                         say "|$A[4]|" if '$DEBUG';
