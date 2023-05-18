@@ -644,7 +644,7 @@ Ftimer ()  ##:t
                         return $r
                 fi
 
-                printf "\nSunlight:  %02d.%02d.%d  --  %s / %s\n\n" $d $m $y ${CITY^} ${CTRY^}
+                printf "\nSunlight:  %02d.%02d.%d  --  %s / %s\n" $d $m $y ${CITY^} ${CTRY^}
 
                 echo "$o" | perl -nE '
                         if (/<table[^>]*id=as-monthsun/) {
@@ -659,23 +659,32 @@ Ftimer ()  ##:t
                                                         push @a, $1;
                                                 }
                                         }
-                                        say "$A[4]" if '$DEBUG';
+                                        say "";
+                                        say "|$A[4]|" if '$DEBUG';
                                         say "Astro  Twilight:  $a[4]";
-                                        say "$A[6]" if '$DEBUG';
+                                        say "";
+                                        say "|$A[6]|" if '$DEBUG';
                                         say "Nautic Twilight:  $a[6]";
-                                        say "$A[8]" if '$DEBUG';
+                                        say "";
+                                        say "|$A[8]|" if '$DEBUG';
                                         say "Civil  Twilight:  $a[8]";
-                                        say "$A[0]" if '$DEBUG';
+                                        say "";
+                                        say "|$A[0]|" if '$DEBUG';
                                         say "       Daylight:  $a[0]";
                                         say "";
-                                        say "$A[1]" if '$DEBUG';
+                                        say "";
+                                        say "|$A[1]|" if '$DEBUG';
                                         say "Civil  Twilight:  $a[1]";
-                                        say "$A[9]" if '$DEBUG';
+                                        say "";
+                                        say "|$A[9]|" if '$DEBUG';
                                         say "Nautic Twilight:  $a[9]";
-                                        say "$A[7]" if '$DEBUG';
+                                        say "";
+                                        say "|$A[7]|" if '$DEBUG';
                                         say "Astro  Twilight:  $a[7]";
-                                        say "$A[5]" if '$DEBUG';
+                                        say "";
+                                        say "|$A[5]|" if '$DEBUG';
                                         say "          Night:  $a[5]";
+                                        say "";
                                 }
                         }'
 
