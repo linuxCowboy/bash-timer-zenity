@@ -655,9 +655,7 @@ Ftimer ()  ##:t
                                                 $t = $1;
 
                                                 $c = 1;
-                                                if ($T =~ /colspan=(\d+)/) {
-                                                        $c = $1;
-                                                }
+                                                $c = $1 if ($T =~ /colspan=(\d+)/);
 
                                                 $t =~ s|<span.*span>||;
                                                 $t =~ s/\s*<br>/ /;
