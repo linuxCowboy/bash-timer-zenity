@@ -626,7 +626,9 @@ Ftimer ()  ##:t
                         shift
                 fi
 
-                u="$SUN/${4-$CTRY}/${3-$CITY}?month=$m&year=$y"
+                CITY=${2-$CITY}
+                CTRY=${3-$CTRY}
+                u="$SUN/$CTRY/$CITY?month=$m&year=$y"
                 o=`$GET "$u"`
 
                 if (($?)); then
