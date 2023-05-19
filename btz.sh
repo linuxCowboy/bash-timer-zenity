@@ -646,22 +646,21 @@ Ftimer ()  ##:t
                         return $r
                 fi
 
-                printf -v o "\nSunlight:  %02d.%02d.%d  %s / %s" $d $m $y ${CITY^} ${CTRY^}
+                printf "\nSunlight:  %02d.%02d.%d  %s / %s  " $d $m $y ${CITY^} ${CTRY^}
 
                 echo "$h" | perl -ne '
                         if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
                                 $s = $&;
                                 if ($s =~ /<td.*?>\s*(\d+)°.*?([NESW]).*(\d+)°.*([NESW])/) {
-                                        $l = sprintf("%d %s / %d %s", $1, $2, $3, $4);
+                                        printf("%d %s / %d %s  ", $1, $2, $3, $4);
                                 }
                         }
                         if (/<tr><th[^>]*Elevation.*?<\/tr>/) {
                                 $s = $&;
                                 if ($s =~ /<td.*>\s*(.*)<\/td>/) {
-                                        $h = sprintf("%s", $1);
+                                        printf("%s\n\n", $1);
                                 }
                         }
-                        printf("%s  %s  %s\n", '"\"$o\""', $l, $h);
                 '
 
                 u="$SUN/$CTRY/$CITY?month=$m&year=$y"
