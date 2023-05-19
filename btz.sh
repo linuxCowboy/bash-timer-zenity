@@ -655,7 +655,7 @@ Ftimer ()  ##:t
                                 $s = $&;
                                 say "\n|$s|" if '$DEBUG';
 
-                                if ($s =~ /<td.*?>\s*(\d+)°.*?([NESW]).*(\d+)°.*([NESW])/) {
+                                if ($s =~ /<td.*?>\s*(\d+)°.*?([NESW]).*?(\d+)°.*([NESW])/) {
                                         printf("%d %s / %d %s  ", $1, $2, $3, $4);
                                 }
                         }
@@ -664,7 +664,7 @@ Ftimer ()  ##:t
                                 say "\n|$s|" if '$DEBUG';
 
                                 if ($s =~ /<td.*>\s*(.*)<\/td>/) {
-                                        printf("%s\n\n", $1);
+                                        printf("%s\n", $1);
                                 }
                         }
                 '
