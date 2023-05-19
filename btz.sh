@@ -664,6 +664,11 @@ Ftimer ()  ##:t
                                                 while ($c--) {
                                                         push @A, $T;
                                                         push @a, $t;
+
+                                                        $h = $m = 0;
+                                                        if ($t =~ /(\d+):(\d+)/) {
+                                                                say "$t: ", $1 * 60 + $2;
+                                                        }
                                                 }
                                         }
                                                 say "";
