@@ -659,11 +659,11 @@ Ftimer ()  ##:t
 
                                                 $t =~ s|<span.*span>||;
                                                 $t =~ s/\s*<br>/ /;
-                                                $t =~ /^[^<]*/;
+                                                $t =~ s/^([^<]*).*/$1/;
 
                                                 while ($c--) {
-                                                        push @a, $&;
                                                         push @A, $T;
+                                                        push @a, $t;
                                                 }
                                         }
                                                 say "";
