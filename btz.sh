@@ -646,10 +646,12 @@ Ftimer ()  ##:t
                         return $r
                 fi
 
+                (($DEBUG)) && echo "$u"
                 printf "\nSunlight:  %02d.%02d.%d  %s / %s  " $d $m $y ${CITY^} ${CTRY^}
 
                 echo "$h" | perl -nE '
-                        if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
+                        $h = $_;
+                        if ($h =~ /<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
                                 $s = $&;
                                 say "\n|$s|" if '$DEBUG';
 
@@ -657,7 +659,7 @@ Ftimer ()  ##:t
                                         printf("%d %s / %d %s  ", $1, $2, $3, $4);
                                 }
                         }
-                        if (/<tr><th[^>]*Elevation.*?<\/tr>/) {
+                        if ($h =~ /<tr><th[^>]*Altitude.*?<\/tr>/) {
                                 $s = $&;
                                 say "\n|$s|" if '$DEBUG';
 
