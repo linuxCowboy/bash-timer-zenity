@@ -679,6 +679,7 @@ Ftimer ()  ##:t
                         return $r
                 fi
 
+                (($DEBUG)) && echo "\n$u"
                 echo "$h" | perl -nE '
                         if (/<table[^>]*id=as-monthsun/) {
                                 if(/<tr[^>]*data-day='$d'\b.*?<\/tr>/) {
