@@ -684,15 +684,15 @@ Ftimer ()  ##:t
                                         say "       Daylight:  $a[0]";
                                                 say "";
                                         say "\n|$A[1]|" if '$DEBUG';
-                                        $d4 = "(+" . ($d[9] - $d[1]) . ")" if ($d[1] && $d[9]);
+                                        $d4 = "(+" . ($d[9] - $d[1]) . ")" if ($d[1] && $d[9] && $d[9] > $d[1]);
                                         say "Civil  Twilight:  $a[1] $d4";
 
                                         say "\n|$A[9]|" if '$DEBUG';
-                                        $d5 = "(+" . ($d[7] - $d[9]) . ")" if ($d[9] && $d[7]);
+                                        $d5 = "(+" . ($d[7] - $d[9]) . ")" if ($d[9] && $d[7] && $d[7] > $d[9]);
                                         say "Nautic Twilight:  $a[9] $d5";
 
                                         say "\n|$A[7]|" if '$DEBUG';
-                                        $d6 = "(+" . ($d[5] - $d[7]) . ")" if ($d[7] && $d[5]);
+                                        $d6 = "(+" . ($d[5] - $d[7]) . ")" if ($d[7] && $d[5] && $d[5] > $d[7]);
                                         say "Astro  Twilight:  $a[7] $d6";
 
                                         say "\n|$A[5]|" if '$DEBUG';
