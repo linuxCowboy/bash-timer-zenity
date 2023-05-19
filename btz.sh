@@ -651,18 +651,16 @@ Ftimer ()  ##:t
 
                 echo "$h" | perl -nE '
                         if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
-                                $s = $&;
-                                say "\n|$s|" if '$DEBUG';
+                                say "\n|$&|" if '$DEBUG';
 
-                                if ($s =~ /<td.*?>\s*(\d+)°.*?([NESW]).*?(\d+)°.*([NESW])/) {
+                                if ($& =~ /<td.*?>\s*(\d+)°.*?([NESW]).*?(\d+)°.*([NESW])/) {
                                         printf("%d %s / %d %s  ", $1, $2, $3, $4);
                                 }
                         }
                         if (/<tr><th[^>]*Altitude.*?<\/tr>/) {
-                                $s = $&;
-                                say "\n|$s|" if '$DEBUG';
+                                say "\n|$&|" if '$DEBUG';
 
-                                if ($s =~ /<td.*>\s*(.*)<\/td>/) {
+                                if ($& =~ /<td.*>\s*(.*)<\/td>/) {
                                         printf("%s\n", $1);
                                 }
                         }
