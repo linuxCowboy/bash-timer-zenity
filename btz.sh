@@ -106,6 +106,7 @@ Ftimer ()  ##:t
         local GET='curl --fail --silent'
         local CHK='curl --fail --verbose'
         local SUN="https://www.timeanddate.com/sun"
+        local AUX="https://www.timeanddate.com/worldclock"
 
         ##### thousands separator #####
         #
@@ -631,7 +632,8 @@ Ftimer ()  ##:t
 
                 CITY=${2-$CITY}
                 CTRY=${3-$CTRY}
-                u="$SUN/$CTRY/$CITY?month=$m&year=$y"
+
+                u="$AUX/$CTRY/$CITY";
                 o=`$GET "$u"`
 
                 if (($?)); then
@@ -645,6 +647,19 @@ Ftimer ()  ##:t
                 fi
 
                 printf "\nSunlight:  %02d.%02d.%d  %s / %s\n" $d $m $y ${CITY^} ${CTRY^}
+
+                u="$SUN/$CTRY/$CITY?month=$m&year=$y"
+                o=`$GET "$u"`
+
+                if (($?)); then
+                        echo "$u"
+                                perl -E 'say "=" x '$COLUMNS
+                        o=`$CHK "$u"`
+                        r=$?
+                                perl -E 'say "=" x '$COLUMNS
+                        echo "$o"
+                        return $r
+                fi
 
                 echo "$o" | perl -nE '
                         if (/<table[^>]*id=as-monthsun/) {
