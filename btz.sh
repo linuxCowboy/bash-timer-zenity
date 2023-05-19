@@ -634,34 +634,65 @@ Ftimer ()  ##:t
                 CTRY=${3-$CTRY}
 
                 u="$AUX/$CTRY/$CITY";
-                o=`$GET "$u"`
+                h=`$GET "$u"`
 
                 if (($?)); then
                         echo "$u"
                                 perl -E 'say "=" x '$COLUMNS
-                        o=`$CHK "$u"`
+                        h=`$CHK "$u"`
                         r=$?
                                 perl -E 'say "=" x '$COLUMNS
-                        echo "$o"
+                        echo "$h"
                         return $r
                 fi
 
-                printf "\nSunlight:  %02d.%02d.%d  %s / %s\n" $d $m $y ${CITY^} ${CTRY^}
+
+<tr>
+<th class=four title="Latitude and Longitude (Coordinates)">Lat/Long:
+</th>
+<td title="48.78° North / 9.18° East">48°47'N / 9°11'E
+</td>
+</tr>
+
+<tr>
+<th class=four title=Altitude>Elevation:
+</th>
+<td title="Height above mean sea level: 245 meters">245 m
+</td>
+</tr>
+
+                printf -v $o "\nSunlight:  %02d.%02d.%d  %s / %s\n" $d $m $y ${CITY^} ${CTRY^}
+
+                echo "$h" | perl -ne '
+                        if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
+                                $s = $&;
+                                if ($s =~ /<td.*?>\s*(\d+)°.*?([NESW]).*(\d+)°.*([NESW])/) {
+                                        $l = sprintf("%d %s / %d %s", $1, $2, $3, $4);
+                                }
+                        }
+                        if (/<tr><th[^>]*Elevation.*?<\/tr>/) {
+                                $s = $&;
+                                if ($s =~ /<td.*>\s*(.*)<\/td>/) {
+                                        $h = sprintf("%s", $1);
+                                }
+                        }
+                '
+
 
                 u="$SUN/$CTRY/$CITY?month=$m&year=$y"
-                o=`$GET "$u"`
+                h=`$GET "$u"`
 
                 if (($?)); then
                         echo "$u"
                                 perl -E 'say "=" x '$COLUMNS
-                        o=`$CHK "$u"`
+                        h=`$CHK "$u"`
                         r=$?
                                 perl -E 'say "=" x '$COLUMNS
-                        echo "$o"
+                        echo "$h"
                         return $r
                 fi
 
-                echo "$o" | perl -nE '
+                echo "$h" | perl -nE '
                         if (/<table[^>]*id=as-monthsun/) {
                                 if(/<tr[^>]*data-day='$d'\b.*?<\/tr>/) {
                                         $s = $&;
