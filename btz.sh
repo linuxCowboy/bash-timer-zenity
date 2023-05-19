@@ -665,36 +665,38 @@ Ftimer ()  ##:t
                                                         push @A, $T;
                                                         push @a, $t;
 
-                                                        $h = $m = 0;
                                                         if ($t =~ /(\d+):(\d+)/) {
-                                                                say "$t: ", $1 * 60 + $2;
+                                                                push @d, $1 * 60 + $2;
+                                                        }
+                                                        else {
+                                                                push @d, "";
                                                         }
                                                 }
                                         }
                                                 say "";
                                         say "|$A[4]|" if '$DEBUG';
-                                        say "Astro  Twilight:  $a[4]";
+                                        say "Astro  Twilight:  $a[4] $d[4]";
 
                                         say "\n|$A[6]|" if '$DEBUG';
-                                        say "Nautic Twilight:  $a[6]";
+                                        say "Nautic Twilight:  $a[6] $d[6]";
 
                                         say "\n|$A[8]|" if '$DEBUG';
-                                        say "Civil  Twilight:  $a[8]";
+                                        say "Civil  Twilight:  $a[8] $d[8]";
 
                                         say "\n|$A[0]|" if '$DEBUG';
-                                        say "       Daylight:  $a[0]";
+                                        say "       Daylight:  $a[0] $d[0]";
                                                 say "";
                                         say "\n|$A[1]|" if '$DEBUG';
-                                        say "Civil  Twilight:  $a[1]";
+                                        say "Civil  Twilight:  $a[1] $d[1]";
 
                                         say "\n|$A[9]|" if '$DEBUG';
-                                        say "Nautic Twilight:  $a[9]";
+                                        say "Nautic Twilight:  $a[9] $d[9]";
 
                                         say "\n|$A[7]|" if '$DEBUG';
-                                        say "Astro  Twilight:  $a[7]";
+                                        say "Astro  Twilight:  $a[7] $d[7]";
 
                                         say "\n|$A[5]|" if '$DEBUG';
-                                        say "          Night:  $a[5]";
+                                        say "          Night:  $a[5] $d[5]";
                                                 say "";
                                         say "\nRemaining Slots:" if '$DEBUG';
                                         say "\n|$A[2]| " if '$DEBUG';
