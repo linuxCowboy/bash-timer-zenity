@@ -646,21 +646,6 @@ Ftimer ()  ##:t
                         return $r
                 fi
 
-
-<tr>
-<th class=four title="Latitude and Longitude (Coordinates)">Lat/Long:
-</th>
-<td title="48.78° North / 9.18° East">48°47'N / 9°11'E
-</td>
-</tr>
-
-<tr>
-<th class=four title=Altitude>Elevation:
-</th>
-<td title="Height above mean sea level: 245 meters">245 m
-</td>
-</tr>
-
                 printf -v $o "\nSunlight:  %02d.%02d.%d  %s / %s\n" $d $m $y ${CITY^} ${CTRY^}
 
                 echo "$h" | perl -ne '
