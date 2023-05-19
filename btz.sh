@@ -654,11 +654,11 @@ Ftimer ()  ##:t
                                                 $T = $&;
                                                 $t = $1;
 
-                                                $c = ($T =~ /colspan=(\d+)/) ? $1 : 1;
-
                                                 $t =~ s|\s*<span.*span>||;
                                                 $t =~ s/\s*<br>/ /g;
                                                 $t =~ s/([^<]*).*/$1/;
+
+                                                $c = ($T =~ /colspan=(\d+)/) ? $1 : 1;
 
                                                 while ($c--) {
                                                         push @A, $T;
