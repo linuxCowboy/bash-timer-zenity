@@ -144,8 +144,8 @@ Ftimer ()  ##:t
 
         [[ $1 =~ ^y ]]             && ! type ${CAL%% *} >/dev/null && return
 
-        [[ $1 =~ ^(s|m) ]]         && ! type ${GET%% *} >/dev/null && return
-        [[ $1 =~ ^(s|m) ]]         && ! type ${CHK%% *} >/dev/null && return
+        [[ $1 =~ ^(s|S) ]]         && ! type ${GET%% *} >/dev/null && return
+        [[ $1 =~ ^(s|S) ]]         && ! type ${CHK%% *} >/dev/null && return
 
         # countdown
         if [[ $1 =~ ^d && $2 =~ ^[0-9]+$ ]]; then
