@@ -684,7 +684,7 @@ Ftimer ()  ##:t
                 (($DEBUG)) && echo "\n$u"
 
                 # today
-                H=`echo "$h" |sed 's/id=as-monthsun/&'$m'`
+                H=`echo "$h" |sed 's/id=as-monthsun/&'$m/`
 
                 read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
 
@@ -704,7 +704,7 @@ Ftimer ()  ##:t
                 (($DEBUG)) && echo "\n$u"
 
                 # yesterday
-                H+=`echo "$h" |sed 's/id=as-monthsun/&'$m'`
+                H+=`echo "$h" |sed 's/id=as-monthsun/&'$m/`
 
                 read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
 
@@ -724,9 +724,15 @@ Ftimer ()  ##:t
                 (($DEBUG)) && echo "\n$u"
 
                 # tomorrow
-                H+=`echo "$h" |sed 's/id=as-monthsun/&'$m'`
+                H+=`echo "$h" |sed 's/id=as-monthsun/&'$m/`
 
                 echo "$H" | perl -nE '
+                        BEGIN {
+                                $yes = '`date -d $NOW-1day +%d`';
+                                $now = '`date -d $NOW      +%d`';
+                                $tom = '`date -d $NOW+1day +%d`';
+                        }
+say "$yes $now $tom";exit;
                         if (/<table[^>]*id=as-monthsun/) {
                                 if(/<tr[^>]*data-day='$d'\b.*?<\/tr>/) {
                                         $s = $&;
