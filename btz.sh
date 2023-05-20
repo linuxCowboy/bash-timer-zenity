@@ -623,7 +623,6 @@ Ftimer ()  ##:t
                 [[ $1 == 'S' ]] && DEBUG=1
 
                 local NOW=now
-
                 if [[ $2 =~ ^[0-9/-]+$ ]]; then
                         date -d $2 >/dev/null || return
                         NOW=$2
@@ -698,9 +697,9 @@ Ftimer ()  ##:t
                                                 $c = ($T =~ /colspan=(\d+)/) ? $1 : 1;
 
                                                 while ($c--) {
-                                                        push @An, $T;
-                                                        push @an, $t;
-                                                        push @dn, ($t =~ /(\d+):(\d+)/) ? $1 * 60 + $2 : "";
+                                                        push @A, $T;
+                                                        push @a, $t;
+                                                        push @d, ($t =~ /(\d+):(\d+)/) ? $1 * 60 + $2 : "";
                                                 }
                                         }
                                 }
