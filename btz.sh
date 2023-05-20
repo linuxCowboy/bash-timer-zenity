@@ -622,11 +622,11 @@ Ftimer ()  ##:t
                 local DEBUG=0
                 [[ $1 == 'S' ]] && DEBUG=1
 
-                read d m y <<<`date +"%-d %-m %Y"`
+                local NOW=now
 
                 if [[ $2 =~ ^[0-9/-]+$ ]]; then
                         date -d $2 >/dev/null || return
-                        read d m y <<<`date -d $2 +"%-d %-m %Y"`
+                        NOW=$2
                         shift
                 fi
 
@@ -647,7 +647,8 @@ Ftimer ()  ##:t
                 fi
 
                 (($DEBUG)) && echo "$u"
-                printf "\nSunlight:  %02d.%02d.%d  %s / %s  " $d $m $y ${CITY^} ${CTRY^}
+#                printf "\nSunlight:  %02d.%02d.%d  %s / %s  " $d $m $y ${CITY^} ${CTRY^}
+                printf "\nSunlight:  %s / %s  " ${CITY^} ${CTRY^}
 
                 echo "$h" | perl -nE '
                         if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
@@ -665,6 +666,8 @@ Ftimer ()  ##:t
                                 }
                         }
                 '
+
+                read d m y <<<`date -d $NOW +"%-d %-m %Y"`
 
                 u="$SUN/$CTRY/$CITY?month=$m&year=$y"
                 h=`$GET "$u"`
