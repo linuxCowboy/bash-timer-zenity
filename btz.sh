@@ -683,9 +683,50 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "\n$u"
 
+                # today
                 H=`echo "$h" |sed 's/id=as-monthsun/&'$m'`
 
-                echo "$h" | perl -nE '
+                read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
+
+                u="$SUN/$CTRY/$CITY?month=$m&year=$y"
+                h=`$GET "$u"`
+
+                if (($?)); then
+                        echo "$u"
+                                perl -E 'say "=" x '$COLUMNS
+                        h=`$CHK "$u"`
+                        r=$?
+                                perl -E 'say "=" x '$COLUMNS
+                        echo "$h"
+                        return $r
+                fi
+
+                (($DEBUG)) && echo "\n$u"
+
+                # yesterday
+                H+=`echo "$h" |sed 's/id=as-monthsun/&'$m'`
+
+                read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
+
+                u="$SUN/$CTRY/$CITY?month=$m&year=$y"
+                h=`$GET "$u"`
+
+                if (($?)); then
+                        echo "$u"
+                                perl -E 'say "=" x '$COLUMNS
+                        h=`$CHK "$u"`
+                        r=$?
+                                perl -E 'say "=" x '$COLUMNS
+                        echo "$h"
+                        return $r
+                fi
+
+                (($DEBUG)) && echo "\n$u"
+
+                # tomorrow
+                H+=`echo "$h" |sed 's/id=as-monthsun/&'$m'`
+
+                echo "$H" | perl -nE '
                         if (/<table[^>]*id=as-monthsun/) {
                                 if(/<tr[^>]*data-day='$d'\b.*?<\/tr>/) {
                                         $s = $&;
