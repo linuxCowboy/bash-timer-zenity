@@ -684,7 +684,7 @@ Ftimer ()  ##:t
                 (($DEBUG)) && echo "\n$u"
 
                 # today
-                H=`echo "$h" |sed 's/id=as-monthsun/&'$m/`
+                H=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
                 read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
 
@@ -704,7 +704,7 @@ Ftimer ()  ##:t
                 (($DEBUG)) && echo "\n$u"
 
                 # yesterday
-                H+=`echo "$h" |sed 's/id=as-monthsun/&'$m/`
+                H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
                 read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
 
@@ -724,7 +724,7 @@ Ftimer ()  ##:t
                 (($DEBUG)) && echo "\n$u"
 
                 # tomorrow
-                H+=`echo "$h" |sed 's/id=as-monthsun/&'$m/`
+                H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
                 echo "$H" | perl -nE '
                         BEGIN {
@@ -732,27 +732,32 @@ Ftimer ()  ##:t
                                 $now = '`date -d $NOW      +%d`';
                                 $tom = '`date -d $NOW+1day +%d`';
                         }
-say "$yes $now $tom";exit;
-                        if (/<table[^>]*id=as-monthsun/) {
-                                if(/<tr[^>]*data-day='$d'\b.*?<\/tr>/) {
-                                        $s = $&;
-                                        while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {
-                                                $T = $&;
-                                                $t = $1;
+                        for $i ($yes, $now, $tom) {
+                                $A = "A$i";
+                                $a = "a$i";
+                                $d = "d$i";
+                                if (/<table[^>]*id=as-monthsun$i/) {
+                                        if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {
+                                                $s = $&;
+                                                while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {
+                                                        $T = $&;
+                                                        $t = $1;
 
-                                                $t =~ s|\s*<span.*span>||;
-                                                $t =~ s/\s*<br>/ /g;
-                                                $t =~ s/([^<]*).*/$1/;
+                                                        $t =~ s|\s*<span.*span>||;
+                                                        $t =~ s/\s*<br>/ /g;
+                                                        $t =~ s/([^<]*).*/$1/;
 
-                                                $c = ($T =~ /colspan=(\d+)/) ? $1 : 1;
+                                                        $c = ($T =~ /colspan=(\d+)/) ? $1 : 1;
 
-                                                while ($c--) {
-                                                        push @A, $T;
-                                                        push @a, $t;
-                                                        push @d, ($t =~ /(\d+):(\d+)/) ? $1 * 60 + $2 : "";
+                                                        while ($c--) {
+                                                                push @$A, $T;
+                                                                push @$a, $t;
+                                                                push @$d, ($t =~ /(\d+):(\d+)/) ? $1 * 60 + $2 : "";
+                                                        }
                                                 }
                                         }
                                 }
+                        }
 
                                                 say "";
                                 say "|$A[4]|" if '$DEBUG';
@@ -790,7 +795,7 @@ say "$yes $now $tom";exit;
                                 say "\n|$A[3]| " if '$DEBUG';
                                 say "\n|$A[10]|" if '$DEBUG';
                                 say "\n|$A[11]|" if '$DEBUG';
-                        }'
+                        '
 
         # fall through to help
         else
