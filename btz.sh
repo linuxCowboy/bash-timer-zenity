@@ -818,7 +818,10 @@ Ftimer ()  ##:t
                         }
 
                         END {
-                                say "";
+                                printf "\n%16s  %s  %20s  %20s\n\n", "",
+                                        "'`date -d $NOW-1day +"%d.%m.%Y"`'",
+                                        "'`date -d $NOW      +"%d.%m.%Y"`'",
+                                        "'`date -d $NOW+1day +"%d.%m.%Y"`'";
                                 say "$AT";
                                 say "$NT";
                                 say "$CT";
