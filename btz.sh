@@ -739,7 +739,8 @@ Ftimer ()  ##:t
                                 $yes = '`date -d $NOW-1day +%d`';
                                 $now = '`date -d $NOW      +%d`';
                                 $tom = '`date -d $NOW+1day +%d`';
-                                ($x, $x, $x, $yes) = localtime(time - 86400);
+
+                                ($x, $x, $x, $yes) = localtime(time - 60*60*24);
                                 ($x, $x, $x, $now) = localtime;
                                 ($x, $x, $x, $tom) = localtime(time + 86400);
 
