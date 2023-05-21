@@ -706,7 +706,7 @@ Ftimer ()  ##:t
                                 return $r
                         fi
 
-                        (($DEBUG)) && echo "\n$u"
+                        (($DEBUG)) && echo "$u"
                 fi
 
                 H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
@@ -729,7 +729,7 @@ Ftimer ()  ##:t
                                 return $r
                         fi
 
-                        (($DEBUG)) && echo "\n$u"
+                        (($DEBUG)) && echo "$u"
                 fi
 
                 H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
