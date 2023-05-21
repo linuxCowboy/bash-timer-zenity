@@ -20,6 +20,11 @@ help screen:\
 year:\
 ![year](pics/year.png)
 
+sun:\
+![sun](pics/sun.png)
+
+Uses www.timeanddate.com *Sun Calculator*.
+
 For full functionality you have to enable the _OK_ button in the zenity progress dialog! It is disabled by default.
 
 check:
