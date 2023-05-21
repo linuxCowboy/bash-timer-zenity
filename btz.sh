@@ -740,7 +740,7 @@ Ftimer ()  ##:t
                         $ct = "Civil  Twilight:";
                         $nt = "Nautic Twilight:";
                         $at = "Astro  Twilight:";
-                        $nt = "          Night:";
+                        $dt = "          Night:";
 
                         for $i ($yes, $now, $tom) {
                                 $A = "A$i";
@@ -795,7 +795,7 @@ Ftimer ()  ##:t
                                                 $at .= "  @$a[7] $d6";
 
                                                 say "\n|@$A[5]|" if '$DEBUG';
-                                                $nt .= "  @$a[5]";
+                                                $dt .= "  @$a[5]";
                                                         say "";
                                                 say "\nRemaining Slots:" if '$DEBUG';
                                                 say "\n|@$A[2]| " if '$DEBUG';
@@ -810,7 +810,7 @@ Ftimer ()  ##:t
                                         say "$ct";
                                         say "$nt";
                                         say "$at";
-                                        say "$nt";
+                                        say "$dt";
                                 }
                         }
                 '
