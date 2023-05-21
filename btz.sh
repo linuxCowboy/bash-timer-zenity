@@ -732,6 +732,15 @@ Ftimer ()  ##:t
                                 $now = '`date -d $NOW      +%d`';
                                 $tom = '`date -d $NOW+1day +%d`';
                         }
+                        $AT = "Astro  Twilight:";
+                        $NT = "Nautic Twilight:";
+                        $CT = "Civil  Twilight:";
+                        $DT = "       Daylight:";
+                        $ct = "Civil  Twilight:";
+                        $nt = "Nautic Twilight:";
+                        $at = "Astro  Twilight:";
+                        $nt = "          Night:";
+
                         for $i ($yes, $now, $tom) {
                                 $A = "A$i";
                                 $a = "a$i";
