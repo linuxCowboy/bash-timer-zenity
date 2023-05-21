@@ -666,6 +666,7 @@ Ftimer ()  ##:t
                         }
                 '
 
+                # today
                 read d m y <<<`date -d $NOW +"%-d %-m %Y"`
 
                 u="$SUN/$CTRY/$CITY?month=$m&year=$y"
@@ -683,9 +684,9 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "\n$u"
 
-                # today
                 H=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
+                # yesterday
                 read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
 
                 u="$SUN/$CTRY/$CITY?month=$m&year=$y"
@@ -703,9 +704,9 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "\n$u"
 
-                # yesterday
                 H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
+                # tomorrow
                 read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
 
                 u="$SUN/$CTRY/$CITY?month=$m&year=$y"
@@ -723,7 +724,6 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "\n$u"
 
-                # tomorrow
                 H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
                 echo "$H" | perl -nE '
