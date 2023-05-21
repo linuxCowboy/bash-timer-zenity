@@ -819,15 +819,16 @@ Ftimer ()  ##:t
 
                         END {
                                 printf "\n%16s  %-20s  %-20s  %-20s\n", "",
-                                        "'`date  -d $NOW-1day +"%d.%m.%Y"`'",
+                                        "'`date   -d $NOW-1day +"%d.%m.%Y"`'",
                                         "* '`date -d $NOW      +"%d.%m.%Y"`' *",
-                                        "'`date  -d $NOW+1day +"%d.%m.%Y"`'";
+                                        "'`date   -d $NOW+1day +"%d.%m.%Y"`'";
                                 printf "%16s  %-20s  %-20s\n", "", "", "=" x 14;
+
                                 say ($AT =~ s/°/° /gr);
                                 say ($NT =~ s/°/° /gr);
                                 say ($CT =~ s/°/° /gr);
                                 say ($DT =~ s/°/° /gr);
-                                say "";
+                                        say "";
                                 say ($ct =~ s/°/° /gr);
                                 say ($nt =~ s/°/° /gr);
                                 say ($at =~ s/°/° /gr);
