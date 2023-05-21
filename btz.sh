@@ -648,7 +648,7 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "$u"
 
-                printf "\nSunlight:  %s / %s  " ${CITY^} ${CTRY^}
+                printf "\n * Sunlight *  :  %s / %s  " ${CITY^} ${CTRY^}
 
                 echo "$h" | perl -nE '
                         if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
@@ -833,6 +833,7 @@ Ftimer ()  ##:t
                                 say ($nt =~ s/°/° /gr);
                                 say ($at =~ s/°/° /gr);
                                 say ($dt =~ s/°/° /gr);
+                                        say "";
                         }
                 '
 
