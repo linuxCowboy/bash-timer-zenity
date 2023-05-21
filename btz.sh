@@ -764,7 +764,7 @@ Ftimer ()  ##:t
                                                         $T = $&;
                                                         $t = $1;
 
-                                                        $t =~ s|\s*<span.*span>||;
+                                                        $t =~ s|\s*<span.*?/span>||g;
                                                         $t =~ s/\s*<br>/ /g;
                                                         $t =~ s/([^<]*).*/$1/;
 
