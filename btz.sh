@@ -822,15 +822,15 @@ Ftimer ()  ##:t
                                         "'`date -d $NOW-1day +"%d.%m.%Y"`'",
                                         "'`date -d $NOW      +"%d.%m.%Y"`'",
                                         "'`date -d $NOW+1day +"%d.%m.%Y"`'";
-                                say "$AT";
-                                say "$NT";
-                                say "$CT";
-                                say "$DT";
+                                say ($AT =~ s/°/° /gr);
+                                say ($NT =~ s/°/° /gr);
+                                say ($CT =~ s/°/° /gr);
+                                say ($DT =~ s/°/° /gr);
                                 say "";
-                                say "$ct";
-                                say "$nt";
-                                say "$at";
-                                say "$dt";
+                                say ($ct =~ s/°/° /gr);
+                                say ($nt =~ s/°/° /gr);
+                                say ($at =~ s/°/° /gr);
+                                say ($dt =~ s/°/° /gr);
                         }
                 '
 
