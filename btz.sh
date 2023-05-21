@@ -803,15 +803,17 @@ Ftimer ()  ##:t
                                                 say "\n|@$A[10]|" if '$DEBUG';
                                                 say "\n|@$A[11]|" if '$DEBUG';
                                         }
-                                        say "$AT";
-                                        say "$NT";
-                                        say "$CT";
-                                        say "$DT";
-                                        say "$ct";
-                                        say "$nt";
-                                        say "$at";
-                                        say "$dt";
                                 }
+                        }
+                        END {
+                                say "$AT";
+                                say "$NT";
+                                say "$CT";
+                                say "$DT";
+                                say "$ct";
+                                say "$nt";
+                                say "$at";
+                                say "$dt";
                         }
                 '
 
