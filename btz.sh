@@ -752,9 +752,9 @@ Ftimer ()  ##:t
                         }
 
                         for $i ($yes, $now, $tom) {
-                                $A = "A$i";  # <tr>
-                                $a = "a$i";  # <td>
-                                $d = "d$i";  # diff
+                                $A = "A$i";  # origin <td>
+                                $a = "a$i";  # parsed <td>
+                                $d = "d$i";  # calced mins
 
                                 if (/<table[^>]*id=as-monthsun$i/) {
                                         if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {
