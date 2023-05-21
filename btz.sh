@@ -787,37 +787,37 @@ Ftimer ()  ##:t
                                                 $d1 = "(+" . (@$d[6] - @$d[4]) . ")" if (@$d[4] && @$d[6]);
                                                 $AT .= "  @$a[4] $d1";
 
-                                                say "\n|@$A[6]|" if '$DEBUG';
+                                                say "|@$A[6]|" if '$DEBUG';
                                                 $d2 = "(+" . (@$d[8] - @$d[6]) . ")" if (@$d[6] && @$d[8]);
                                                 $NT .= "  @$a[6] $d2";
 
-                                                say "\n|@$A[8]|" if '$DEBUG';
+                                                say "|@$A[8]|" if '$DEBUG';
                                                 $d3 = "(+" . (@$d[0] - @$d[8]) . ")" if (@$d[8] && @$d[0]);
                                                 $CT .= "  @$a[8] $d3";
 
-                                                say "\n|@$A[0]|" if '$DEBUG';
+                                                say "|@$A[0]|" if '$DEBUG';
                                                 $DT .= "  @$a[0]";
 
                                                 say "\n|@$A[1]|" if '$DEBUG';
                                                 $d4 = "(+" . (@$d[9] - @$d[1]) . ")" if (@$d[1] && @$d[9] && @$d[9] > @$d[1]);
                                                 $ct .= "  @$a[1] $d4";
 
-                                                say "\n|@$A[9]|" if '$DEBUG';
+                                                say "|@$A[9]|" if '$DEBUG';
                                                 $d5 = "(+" . (@$d[7] - @$d[9]) . ")" if (@$d[9] && @$d[7] && @$d[7] > @$d[9]);
                                                 $nt .= "  @$a[9] $d5";
 
-                                                say "\n|@$A[7]|" if '$DEBUG';
+                                                say "|@$A[7]|" if '$DEBUG';
                                                 $d6 = "(+" . (@$d[5] - @$d[7]) . ")" if (@$d[7] && @$d[5] && @$d[5] > @$d[7]);
                                                 $at .= "  @$a[7] $d6";
 
-                                                say "\n|@$A[5]|" if '$DEBUG';
+                                                say "|@$A[5]|" if '$DEBUG';
                                                 $dt .= "  @$a[5]";
 
                                                 say "\nRemaining Slots:" if '$DEBUG';
-                                                say "\n|@$A[2]| " if '$DEBUG';
-                                                say "\n|@$A[3]| " if '$DEBUG';
-                                                say "\n|@$A[10]|" if '$DEBUG';
-                                                say "\n|@$A[11]|" if '$DEBUG';
+                                                say "|@$A[2]| " if '$DEBUG';
+                                                say "|@$A[3]| " if '$DEBUG';
+                                                say "|@$A[10]|" if '$DEBUG';
+                                                say "|@$A[11]|" if '$DEBUG';
                                                 say "=" x '$COLUMNS' if '$DEBUG';
                                         }
                                 }
