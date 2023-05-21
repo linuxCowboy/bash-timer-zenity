@@ -758,9 +758,14 @@ Ftimer ()  ##:t
                                 $A = "A$i";
                                 $a = "a$i";
                                 $d = "d$i";
+
                                 if (/<table[^>]*id=as-monthsun$i/) {
                                         if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {
                                                 $s = $&;
+                                                say "trow: $A" if '$DEBUG';
+                                                say "data: $a" if '$DEBUG';
+                                                say "diff: $d" if '$DEBUG';
+
                                                 while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {
                                                         $T = $&;
                                                         $t = $1;
