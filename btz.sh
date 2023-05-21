@@ -757,7 +757,6 @@ Ftimer ()  ##:t
                                                 }
                                         }
                                 }
-                        }
 
                                                 say "";
                                 say "|$A[4]|" if '$DEBUG';
@@ -795,6 +794,7 @@ Ftimer ()  ##:t
                                 say "\n|$A[3]| " if '$DEBUG';
                                 say "\n|$A[10]|" if '$DEBUG';
                                 say "\n|$A[11]|" if '$DEBUG';
+                        }
                         '
 
         # fall through to help
