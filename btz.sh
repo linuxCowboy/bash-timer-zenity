@@ -802,6 +802,7 @@ Ftimer ()  ##:t
                                                 say "\n|@$A[3]| " if '$DEBUG';
                                                 say "\n|@$A[10]|" if '$DEBUG';
                                                 say "\n|@$A[11]|" if '$DEBUG';
+                                                say "=" x '$COLUMNS';
                                         }
                                 }
                         }
