@@ -734,6 +734,7 @@ Ftimer ()  ##:t
 
                 H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
+                # parser
                 echo "$H" | perl -nE '
                         BEGIN {
                                 $now = '`date -d $NOW      +%-d`';
@@ -751,9 +752,9 @@ Ftimer ()  ##:t
                         }
 
                         for $i ($yes, $now, $tom) {
-                                $A = "A$i";
-                                $a = "a$i";
-                                $d = "d$i";
+                                $A = "A$i";  # <tr>
+                                $a = "a$i";  # <td>
+                                $d = "d$i";  # diff
 
                                 if (/<table[^>]*id=as-monthsun$i/) {
                                         if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {
