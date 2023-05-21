@@ -658,6 +658,7 @@ Ftimer ()  ##:t
                                         printf("%d %s / %d %s  ", $1, $2, $3, $4);
                                 }
                         }
+
                         if (/<tr><th[^>]*Altitude.*?<\/tr>/) {
                                 say "\n|$&|" if '$DEBUG';
 
@@ -666,26 +667,6 @@ Ftimer ()  ##:t
                                 }
                         }
                 '
-
-                # today
-                read d m y <<<`date -d $NOW +"%-d %-m %Y"`
-
-                u="$SUN/$CTRY/$CITY?month=$m&year=$y"
-                h=`$GET "$u"`
-
-                if (($?)); then
-                        echo "$u"
-                                perl -E 'say "=" x '$COLUMNS
-                        h=`$CHK "$u"`
-                        r=$?
-                                perl -E 'say "=" x '$COLUMNS
-                        echo "$h"
-                        return $r
-                fi
-
-                (($DEBUG)) && echo "\n$u"
-
-                H=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
                 # yesterday
                 read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
@@ -705,25 +686,51 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "\n$u"
 
+                H=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
+
+                # today
+                l=$m
+                read d m y <<<`date -d $NOW +"%-d %-m %Y"`
+
+                if ((l != m)) {
+                        u="$SUN/$CTRY/$CITY?month=$m&year=$y"
+                        h=`$GET "$u"`
+
+                        if (($?)); then
+                                echo "$u"
+                                        perl -E 'say "=" x '$COLUMNS
+                                h=`$CHK "$u"`
+                                r=$?
+                                        perl -E 'say "=" x '$COLUMNS
+                                echo "$h"
+                                return $r
+                        fi
+
+                        (($DEBUG)) && echo "\n$u"
+                }
+
                 H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
                 # tomorrow
+                l=$m
                 read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
 
-                u="$SUN/$CTRY/$CITY?month=$m&year=$y"
-                h=`$GET "$u"`
+                if ((l != m)) {
+                        u="$SUN/$CTRY/$CITY?month=$m&year=$y"
+                        h=`$GET "$u"`
 
-                if (($?)); then
-                        echo "$u"
-                                perl -E 'say "=" x '$COLUMNS
-                        h=`$CHK "$u"`
-                        r=$?
-                                perl -E 'say "=" x '$COLUMNS
-                        echo "$h"
-                        return $r
-                fi
+                        if (($?)); then
+                                echo "$u"
+                                        perl -E 'say "=" x '$COLUMNS
+                                h=`$CHK "$u"`
+                                r=$?
+                                        perl -E 'say "=" x '$COLUMNS
+                                echo "$h"
+                                return $r
+                        fi
 
-                (($DEBUG)) && echo "\n$u"
+                        (($DEBUG)) && echo "\n$u"
+                }
 
                 H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
