@@ -692,7 +692,7 @@ Ftimer ()  ##:t
                 l=$m
                 read d m y <<<`date -d $NOW +"%-d %-m %Y"`
 
-                if ((l != m)) {
+                if ((l != m)); then
                         u="$SUN/$CTRY/$CITY?month=$m&year=$y"
                         h=`$GET "$u"`
 
@@ -707,7 +707,7 @@ Ftimer ()  ##:t
                         fi
 
                         (($DEBUG)) && echo "\n$u"
-                }
+                fi
 
                 H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
@@ -715,7 +715,7 @@ Ftimer ()  ##:t
                 l=$m
                 read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
 
-                if ((l != m)) {
+                if ((l != m)); then
                         u="$SUN/$CTRY/$CITY?month=$m&year=$y"
                         h=`$GET "$u"`
 
@@ -730,7 +730,7 @@ Ftimer ()  ##:t
                         fi
 
                         (($DEBUG)) && echo "\n$u"
-                }
+                fi
 
                 H+=`echo "$h" |sed 's/id=as-monthsun/&'$d/`
 
