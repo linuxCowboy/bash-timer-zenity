@@ -779,35 +779,35 @@ Ftimer ()  ##:t
                                                         }
                                                 }
 
-                                                say "\n|@$A[4]|" if '$DEBUG';
                                                 $d1 = "(+" . (@$d[6] - @$d[4]) . ")" if (@$d[4] && @$d[6]);
                                                 $AT .= sprintf "  %-20s", "@$a[4] $d1";
+                                                say "\n|@$a[4]|$d1|@$A[4]|" if '$DEBUG';
 
-                                                say "|@$A[6]|" if '$DEBUG';
                                                 $d2 = "(+" . (@$d[8] - @$d[6]) . ")" if (@$d[6] && @$d[8]);
                                                 $NT .= sprintf "  %-20s", "@$a[6] $d2";
+                                                say "\n|@$a[6]|$d2|@$A[6]|" if '$DEBUG';
 
-                                                say "|@$A[8]|" if '$DEBUG';
                                                 $d3 = "(+" . (@$d[0] - @$d[8]) . ")" if (@$d[8] && @$d[0]);
                                                 $CT .= sprintf "  %-20s", "@$a[8] $d3";
+                                                say "\n|@$a[8]|$d3|@$A[8]|" if '$DEBUG';
 
-                                                say "|@$A[0]|" if '$DEBUG';
                                                 $DT .= sprintf "  %-20s", "@$a[0]";
+                                                say "\n|@$a[0]|@$A[0]|" if '$DEBUG';
 
-                                                say "\n|@$A[1]|" if '$DEBUG';
                                                 $d4 = "(+" . (@$d[9] - @$d[1]) . ")" if (@$d[1] && @$d[9] && @$d[9] > @$d[1]);
                                                 $ct .= sprintf "  %-20s", "@$a[1] $d4";
+                                                say "\n|@$a[1]|$d4|@$A[1]|" if '$DEBUG';
 
-                                                say "|@$A[9]|" if '$DEBUG';
                                                 $d5 = "(+" . (@$d[7] - @$d[9]) . ")" if (@$d[9] && @$d[7] && @$d[7] > @$d[9]);
                                                 $nt .= sprintf "  %-20s", "@$a[9] $d5";
+                                                say "\n|@$a[9]|$d5|@$A[9]|" if '$DEBUG';
 
-                                                say "|@$A[7]|" if '$DEBUG';
                                                 $d6 = "(+" . (@$d[5] - @$d[7]) . ")" if (@$d[7] && @$d[5] && @$d[5] > @$d[7]);
                                                 $at .= sprintf "  %-20s", "@$a[7] $d6";
+                                                say "\n|@$a[7]|$d6|@$A[7]|" if '$DEBUG';
 
-                                                say "|@$A[5]|" if '$DEBUG';
                                                 $dt .= sprintf "  %-20s", "@$a[5]";
+                                                say "\n|@$a[5]|@$A[5]|" if '$DEBUG';
 
                                                 say "\nRemaining Slots:" if '$DEBUG';
                                                 say "|@$A[2]| " if '$DEBUG';
