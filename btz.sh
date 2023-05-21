@@ -783,8 +783,7 @@ Ftimer ()  ##:t
                                                         }
                                                 }
 
-                                                                say "";
-                                                say "|@$A[4]|" if '$DEBUG';
+                                                say "\n|@$A[4]|" if '$DEBUG';
                                                 $d1 = "(+" . (@$d[6] - @$d[4]) . ")" if (@$d[4] && @$d[6]);
                                                 $AT .= "  @$a[4] $d1";
 
@@ -798,7 +797,7 @@ Ftimer ()  ##:t
 
                                                 say "\n|@$A[0]|" if '$DEBUG';
                                                 $DT .= "  @$a[0]";
-                                                        say "";
+
                                                 say "\n|@$A[1]|" if '$DEBUG';
                                                 $d4 = "(+" . (@$d[9] - @$d[1]) . ")" if (@$d[1] && @$d[9] && @$d[9] > @$d[1]);
                                                 $ct .= "  @$a[1] $d4";
@@ -813,7 +812,7 @@ Ftimer ()  ##:t
 
                                                 say "\n|@$A[5]|" if '$DEBUG';
                                                 $dt .= "  @$a[5]";
-                                                        say "";
+
                                                 say "\nRemaining Slots:" if '$DEBUG';
                                                 say "\n|@$A[2]| " if '$DEBUG';
                                                 say "\n|@$A[3]| " if '$DEBUG';
