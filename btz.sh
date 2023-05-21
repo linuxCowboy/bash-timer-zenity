@@ -753,6 +753,7 @@ Ftimer ()  ##:t
                                 $at = "Astro  Twilight:";
                                 $dt = "          Night:";
                         }
+
                         for $i ($yes, $now, $tom) {
                                 $A = "A$i";
                                 $a = "a$i";
@@ -813,15 +814,17 @@ Ftimer ()  ##:t
                                                 say "\n|@$A[3]| " if '$DEBUG';
                                                 say "\n|@$A[10]|" if '$DEBUG';
                                                 say "\n|@$A[11]|" if '$DEBUG';
-                                                say "=" x '$COLUMNS';
+                                                say "=" x '$COLUMNS' if '$DEBUG';
                                         }
                                 }
                         }
+
                         END {
                                 say "$AT";
                                 say "$NT";
                                 say "$CT";
                                 say "$DT";
+                                say "";
                                 say "$ct";
                                 say "$nt";
                                 say "$at";
