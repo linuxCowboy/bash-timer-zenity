@@ -740,10 +740,6 @@ Ftimer ()  ##:t
                                 ($x, $x, $x, $yes) = localtime(time - 86400);
                                 ($x, $x, $x, $tom) = localtime(time + 86400);
 
-                                $now = '`date -d $NOW      +%-d`';
-                                $yes = '`date -d $NOW-1day +%-d`';
-                                $tom = '`date -d $NOW+1day +%-d`';
-
                                 $AT = "Astro  Twilight:";
                                 $NT = "Nautic Twilight:";
                                 $CT = "Civil  Twilight:";
