@@ -632,6 +632,7 @@ Ftimer ()  ##:t
                 CITY=${2-$CITY}
                 CTRY=${3-$CTRY}
 
+                # header
                 u="$AUX/$CTRY/$CITY";
                 h=`$GET "$u"`
 
@@ -646,7 +647,7 @@ Ftimer ()  ##:t
                 fi
 
                 (($DEBUG)) && echo "$u"
-#                printf "\nSunlight:  %02d.%02d.%d  %s / %s  " $d $m $y ${CITY^} ${CTRY^}
+
                 printf "\nSunlight:  %s / %s  " ${CITY^} ${CTRY^}
 
                 echo "$h" | perl -nE '
