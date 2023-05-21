@@ -824,6 +824,7 @@ Ftimer ()  ##:t
                         }
 
                         END {
+                                say "";
                                 say "$AT";
                                 say "$NT";
                                 say "$CT";
