@@ -50,8 +50,8 @@ my_ftimer_edits ()
         VID='2/14 4/5  7/31  5/9 9/5  2023/3/26 2023/10/29'
 
         # sun/moon basis
-        CTRY='germany'
-        CITY='stuttgart'
+        CTRY='Germany'
+        CITY='Stuttgart'
 }
 
 Ftimer ()  ##:t
