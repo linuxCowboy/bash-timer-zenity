@@ -629,8 +629,8 @@ Ftimer ()  ##:t
                         shift
                 fi
 
-                CITY=${2-$CITY}
-                CTRY=${3-$CTRY}
+                CITY=`echo ${2-$CITY} |sed 's/.*/\L&/'`
+                CTRY=`echo ${3-$CTRY} |sed 's/.*/\L&/'`
 
                 # header
                 u="$AUX/$CTRY/$CITY";
