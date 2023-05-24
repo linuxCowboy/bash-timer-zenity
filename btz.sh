@@ -746,14 +746,14 @@ Ftimer ()  ##:t
                                 $yes = '`date -d $NOW-1day +%-d`';
                                 $tom = '`date -d $NOW+1day +%-d`';
 
-                                $AT = "Astro  Twilight:";
-                                $NT = "Nautic Twilight:";
-                                $CT = "Civil  Twilight:";
-                                $DT = "       Daylight:";
-                                $ct = "Civil  Twilight:";
-                                $nt = "Nautic Twilight:";
-                                $at = "Astro  Twilight:";
-                                $dt = "          Night:";
+                                $AT = "Astro  Twilight:  ";
+                                $NT = "Nautic Twilight:  ";
+                                $CT = "Civil  Twilight:  ";
+                                $DT = "       Daylight:  ";
+                                $ct = "Civil  Twilight:  ";
+                                $nt = "Nautic Twilight:  ";
+                                $at = "Astro  Twilight:  ";
+                                $dt = "          Night:  ";
                         }
 
                         for $i ($yes, $now, $tom) {
@@ -784,33 +784,33 @@ Ftimer ()  ##:t
                                                 }
 
                                                 $d1 = "(+" . (@$d[6] - @$d[4]) . ")" if (@$d[4] && @$d[6]);
-                                                $AT .= sprintf "  %-20s", "@$a[4] $d1";
+                                                $AT .= sprintf "%-20s", "@$a[4] $d1";
                                                 say "\n|@$a[4]|$d1|@$A[4]|" if '$DEBUG';
 
                                                 $d2 = "(+" . (@$d[8] - @$d[6]) . ")" if (@$d[6] && @$d[8]);
-                                                $NT .= sprintf "  %-20s", "@$a[6] $d2";
+                                                $NT .= sprintf "%-20s", "@$a[6] $d2";
                                                 say "|@$a[6]|$d2|@$A[6]|" if '$DEBUG';
 
                                                 $d3 = "(+" . (@$d[0] - @$d[8]) . ")" if (@$d[8] && @$d[0]);
-                                                $CT .= sprintf "  %-20s", "@$a[8] $d3";
+                                                $CT .= sprintf "%-20s", "@$a[8] $d3";
                                                 say "|@$a[8]|$d3|@$A[8]|" if '$DEBUG';
 
-                                                $DT .= sprintf "  %-20s", "@$a[0]";
+                                                $DT .= sprintf "%-20s", "@$a[0]";
                                                 say "|@$a[0]|@$A[0]|" if '$DEBUG';
 
                                                 $d4 = "(+" . (@$d[9] - @$d[1]) . ")" if (@$d[1] && @$d[9] && @$d[9] > @$d[1]);
-                                                $ct .= sprintf "  %-20s", "@$a[1] $d4";
+                                                $ct .= sprintf "%-20s", "@$a[1] $d4";
                                                 say "\n|@$a[1]|$d4|@$A[1]|" if '$DEBUG';
 
                                                 $d5 = "(+" . (@$d[7] - @$d[9]) . ")" if (@$d[9] && @$d[7] && @$d[7] > @$d[9]);
-                                                $nt .= sprintf "  %-20s", "@$a[9] $d5";
+                                                $nt .= sprintf "%-20s", "@$a[9] $d5";
                                                 say "|@$a[9]|$d5|@$A[9]|" if '$DEBUG';
 
                                                 $d6 = "(+" . (@$d[5] - @$d[7]) . ")" if (@$d[7] && @$d[5] && @$d[5] > @$d[7]);
-                                                $at .= sprintf "  %-20s", "@$a[7] $d6";
+                                                $at .= sprintf "%-20s", "@$a[7] $d6";
                                                 say "|@$a[7]|$d6|@$A[7]|" if '$DEBUG';
 
-                                                $dt .= sprintf "  %-20s", "@$a[5]";
+                                                $dt .= sprintf "%-20s", "@$a[5]";
                                                 say "|@$a[5]|@$A[5]|" if '$DEBUG';
 
                                                 say "\nRemaining Slots:" if '$DEBUG';
@@ -824,11 +824,11 @@ Ftimer ()  ##:t
                         }
 
                         END {
-                                printf "\n%16s  %-20s  %-20s  %-20s\n", "",
+                                printf "\n%18s%-20s  %-20s  %-20s\n", "",
                                         "'`date   -d $NOW-1day +"%d.%m.%Y"`'",
                                         "* '`date -d $NOW      +"%d.%m.%Y"`' *",
                                         "'`date   -d $NOW+1day +"%d.%m.%Y"`'";
-                                printf "%16s  %-20s  %-20s\n", "", "", "=" x 14;
+                                printf "%18s%-20s  %-20s\n", "", "", "=" x 14;
 
                                 say ($AT =~ s/°/° /gr);
                                 say ($NT =~ s/°/° /gr);
