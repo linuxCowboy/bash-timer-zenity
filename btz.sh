@@ -830,6 +830,7 @@ Ftimer ()  ##:t
                                         "'`date -d $NOW+1day +"%d.%m.%Y"`'";
                                 printf "%18s%-20s%-20s\n", "", "", "=" x 10;
 
+                                # compensate misalignment
                                 say ($AT =~ s/°/° /gr);
                                 say ($NT =~ s/°/° /gr);
                                 say ($CT =~ s/°/° /gr);
