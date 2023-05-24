@@ -632,8 +632,12 @@ Ftimer ()  ##:t
                 CITY=`echo ${2-$CITY} |sed 's/.*/\L&/'`
                 CTRY=`echo ${3-$CTRY} |sed 's/.*/\L&/'`
 
+                # support @-places
+                local SLASH='/'
+                [[ $CITY =~ @ ]] && SLASH= && CTRY=
+
                 # header
-                u="$AUX/$CTRY/$CITY";
+                u="$AUX/$CTRY$SLASH$CITY";
                 h=`$GET "$u"`
 
                 if (($?)); then
@@ -648,7 +652,7 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "$u"
 
-                printf "\n * Sunlight *  :  %s / %s  " ${CITY^} ${CTRY^}
+                printf "\n * Sunlight *  :  %s %s %s  " ${CITY^} $SLASH ${CTRY^}
 
                 echo "$h" | perl -nE '
                         if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
@@ -671,7 +675,7 @@ Ftimer ()  ##:t
                 # yesterday
                 read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
 
-                u="$SUN/$CTRY/$CITY?month=$m&year=$y"
+                u="$SUN/$CTRY$SLASH$CITY?month=$m&year=$y"
                 h=`$GET "$u"`
 
                 if (($?)); then
@@ -693,7 +697,7 @@ Ftimer ()  ##:t
                 read d m y <<<`date -d $NOW +"%-d %-m %Y"`
 
                 if ((l != m)); then
-                        u="$SUN/$CTRY/$CITY?month=$m&year=$y"
+                        u="$SUN/$CTRY$SLASH$CITY?month=$m&year=$y"
                         h=`$GET "$u"`
 
                         if (($?)); then
@@ -716,7 +720,7 @@ Ftimer ()  ##:t
                 read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
 
                 if ((l != m)); then
-                        u="$SUN/$CTRY/$CITY?month=$m&year=$y"
+                        u="$SUN/$CTRY$SLASH$CITY?month=$m&year=$y"
                         h=`$GET "$u"`
 
                         if (($?)); then
