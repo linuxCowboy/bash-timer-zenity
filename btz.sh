@@ -667,10 +667,11 @@ Ftimer ()  ##:t
                                 say "\n|$&|" if '$DEBUG';
 
                                 if ($& =~ /<td.*>\s*(.*)<\/td>/) {
-                                        printf("%s\n", $1);
+                                        printf("%s", $1);
                                 }
                         }
                 '
+                        echo
 
                 # yesterday
                 read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
