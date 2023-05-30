@@ -652,7 +652,23 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "$u"
 
-                printf "\n * Sunlight *  :  %s %s %s  " ${CITY^} $SLASH ${CTRY^}
+                printf "\n * Sunlight *  :  %s %s %s  " ${CITY^} ${SLASH:-:} ${CTRY^}
+
+                if [[ $CITY =~ @ ]]; then
+                        echo "$h" | perl -nE '
+                                if (/<div[^>]*fs-city>(.*?)<\/div>/) {
+                                        say "\n|$&|" if '$DEBUG';
+
+                                        print "$1 ";
+                                }
+
+                                if (/<div[^>]*fs-country>(.*?)<\/div>/) {
+                                        say "\n|$&|" if '$DEBUG';
+
+                                        print "/ $1  ";
+                                }
+                        '
+                fi
 
                 echo "$h" | perl -nE '
                         if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
