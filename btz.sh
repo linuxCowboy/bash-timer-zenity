@@ -761,8 +761,8 @@ Ftimer ()  ##:t
                                 $a = "a$i";  # parsed <td>
                                 $d = "d$i";  # calced mins
 
-                                if (/<table[^>]*id=as-monthsun$i/) {  # marked line
-                                        if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {  # marker day
+                                if (/<table[^>]*id=as-monthsun$i\b/) {  # marked line
+                                        if (/<tr[^>]*data-day=$i\b.*?<\/tr>/) {  # marker day
                                                 $s = $&;
                                                 say "trow: $A  data: $a  diff: $d" if '$DEBUG';
 
