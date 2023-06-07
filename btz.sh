@@ -999,14 +999,13 @@ Ftimer ()  ##:t
                         }
 
                         for $i ($yes, $now, $tom) {
-                                $A = "A$i";  # origin <td>
-                                $a = "a$i";  # parsed <td>
-                                $d = "d$i";  # calced mins
+                                $A = "A$i";
+                                $a = "a$i";
 
-                                if (/id=tb-7dmn$i/) {  # marked line
-                                        if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {  # marker day
+                                if (/id=tb-7dmn$i/) {
+                                        if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {
                                                 $s = $&;
-                                                say "trow: $A  data: $a  diff: $d" if '$DEBUG';
+                                                say "trow: $A  data: $a" if '$DEBUG';
 
                                                 while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {  # 10 slots / day
                                                         $T = $&;
