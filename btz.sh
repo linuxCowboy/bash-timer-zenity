@@ -1050,6 +1050,23 @@ Ftimer ()  ##:t
                                         }
                                 }
                         }
+
+                        END {
+                                printf "\n%11s%-20s%-20s%-20s\n", "",
+                                        "'`date -d $NOW-1day +"%d.%m.%Y"`'",
+                                        "'`date -d $NOW      +"%d.%m.%Y"`'",
+                                        "'`date -d $NOW+1day +"%d.%m.%Y"`'";
+                                printf "%11s%-20s%-20s\n", "", "", "=" x 10;
+
+                                say ($MR =~ s/°/° /gr);
+                                say ($MS =~ s/°/° /gr);
+                                say ($mr =~ s/°/° /gr);
+                                        say "";
+                                say ($ME =~ s/°/° /gr);
+                                say ($AL =~ s/°/° /gr);
+                                say ($LU =~ s/°/° /gr);
+                                        say "";
+                        }
                 '
 
         # fall through to help
