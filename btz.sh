@@ -860,6 +860,62 @@ Ftimer ()  ##:t
                         }
                 '
 
+        # moon
+        elif [[ $1 =~ ^(m|M) ]]; then
+                local DEBUG=0
+                [[ $1 == 'M' ]] && DEBUG=1
+
+                local NOW=now
+                if [[ $2 =~ ^[0-9/-]+$ ]]; then
+                        date -d $2 >/dev/null || return
+                        NOW=$2
+                        shift
+                fi
+
+                CITY=`echo ${2-$CITY} |sed 's/.*/\L&/'`
+                CTRY=`echo ${3-$CTRY} |sed 's/.*/\L&/'`
+
+                # support @-places
+                local SLASH='/'
+                [[ $CITY =~ @ ]] && SLASH= && CTRY=
+
+                # header
+                u="$AUX/$CTRY$SLASH$CITY";
+                h=`$GET "$u"`
+
+                if (($?)); then
+                        echo "$u"
+                                perl -E 'say "=" x '$COLUMNS
+                        h=`$CHK "$u"`
+                        r=$?
+                                perl -E 'say "=" x '$COLUMNS
+                        echo "$h"
+                        return $r
+                fi
+
+                (($DEBUG)) && echo "$u"
+
+                printf "\n * Moon *  :  %s %s %s  " ${CITY^} $SLASH ${CTRY^}
+
+                echo "$h" | perl -nE '
+                        if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
+                                say "\n|$&|" if '$DEBUG';
+
+                                if ($& =~ /<td.*?>\s*(\d+)°.*?([NESW]).*?(\d+)°.*([NESW])/) {
+                                        printf("%d %s / %d %s  ", $1, $2, $3, $4);
+                                }
+                        }
+
+                        if (/<tr><th[^>]*Altitude.*?<\/tr>/) {
+                                say "\n|$&|" if '$DEBUG';
+
+                                if ($& =~ /<td.*>\s*(.*)<\/td>/) {
+                                        printf("%s", $1);
+                                }
+                        }
+                '
+                        echo
+
         # fall through to help
         else
                 (( ${#LOG} > 21 )) && LOG="${LOG:0:7}...${LOG: -11}"
