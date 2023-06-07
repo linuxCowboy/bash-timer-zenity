@@ -896,7 +896,7 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "$u"
 
-                printf "\n ° Moon °  :  %s %s %s  " ${CITY^} $SLASH ${CTRY^}
+                printf "\n ° Moon ° :  %s %s %s  " ${CITY^} $SLASH ${CTRY^}
 
                 echo "$h" | perl -nE '
                         if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
@@ -990,12 +990,12 @@ Ftimer ()  ##:t
                                 $yes = '`date -d $NOW-1day +%-d`';
                                 $tom = '`date -d $NOW+1day +%-d`';
 
-                                $MR = "Moonrise:  ";
-                                $MS = "Moonset :  ";
-                                $mr = "Moonrise:  ";
-                                $ME = "Meridian:  ";
-                                $AL = "Altitude:  ";
-                                $LU = "Luminate:  ";
+                                $MR = " Moonrise :  ";
+                                $MS = " Moonset  :  ";
+                                $mr = " Moonrise :  ";
+                                $ME = " Meridian :  ";
+                                $AL = " Altitude :  ";
+                                $LU = " Luminate :  ";
                         }
 
                         for $i ($yes, $now, $tom) {
@@ -1053,11 +1053,11 @@ Ftimer ()  ##:t
                         }
 
                         END {
-                                printf "\n%11s%-20s%-20s%-20s\n", "",
+                                printf "\n%13s%-20s%-20s%-20s\n", "",
                                         "'`date -d $NOW-1day +"%d.%m.%Y"`'",
                                         "'`date -d $NOW      +"%d.%m.%Y"`'",
                                         "'`date -d $NOW+1day +"%d.%m.%Y"`'";
-                                printf "%11s%-20s%-20s\n", "", "", "=" x 10;
+                                printf "%13s%-20s%-20s\n", "", "", "=" x 10;
 
                                 say ($MR =~ s/°/° /gr);
                                 say ($MS =~ s/°/° /gr);
