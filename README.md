@@ -14,7 +14,7 @@ run with
 Ftimer
 ```
 
-help screen:\
+help:\
 ![help](pics/help.png)
 
 year:\
@@ -23,7 +23,10 @@ year:\
 sun:\
 ![sun](pics/sun.png)
 
-Uses www.timeanddate.com *Sun Calculator*.
+moon:\
+![moon](pics/moon.png)
+
+Uses the www.timeanddate.com *Calculators*.
 
 For full functionality you have to enable the _OK_ button in the zenity progress dialog! It is disabled by default.
 
