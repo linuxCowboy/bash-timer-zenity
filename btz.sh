@@ -105,8 +105,9 @@ Ftimer ()  ##:t
         # scrape sun/moon and debug
         local GET='curl --fail --silent'
         local CHK='curl --fail --verbose'
-        local SUN="https://www.timeanddate.com/sun"
         local AUX="https://www.timeanddate.com/worldclock"
+        local SUN="https://www.timeanddate.com/sun"
+        local MOO="https://www.timeanddate.com/moon"
 
         ##### thousands separator #####
         #
@@ -915,6 +916,72 @@ Ftimer ()  ##:t
                         }
                 '
                         echo
+
+                # yesterday
+                read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
+
+                u="$MOO/$CTRY$SLASH$CITY?month=$m&year=$y"
+                h=`$GET "$u"`
+
+                if (($?)); then
+                        echo "$u"
+                                perl -E 'say "=" x '$COLUMNS
+                        h=`$CHK "$u"`
+                        r=$?
+                                perl -E 'say "=" x '$COLUMNS
+                        echo "$h"
+                        return $r
+                fi
+
+                (($DEBUG)) && echo "\n$u"
+
+                H=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
+
+                # today
+                l=$m
+                read d m y <<<`date -d $NOW +"%-d %-m %Y"`
+
+                if ((l != m)); then
+                        u="$MOO/$CTRY$SLASH$CITY?month=$m&year=$y"
+                        h=`$GET "$u"`
+
+                        if (($?)); then
+                                echo "$u"
+                                        perl -E 'say "=" x '$COLUMNS
+                                h=`$CHK "$u"`
+                                r=$?
+                                        perl -E 'say "=" x '$COLUMNS
+                                echo "$h"
+                                return $r
+                        fi
+
+                        (($DEBUG)) && echo "$u"
+                fi
+
+                H+=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
+
+                # tomorrow
+                l=$m
+                read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
+
+                if ((l != m)); then
+                        u="$MOO/$CTRY$SLASH$CITY?month=$m&year=$y"
+                        h=`$GET "$u"`
+
+                        if (($?)); then
+                                echo "$u"
+                                        perl -E 'say "=" x '$COLUMNS
+                                h=`$CHK "$u"`
+                                r=$?
+                                        perl -E 'say "=" x '$COLUMNS
+                                echo "$h"
+                                return $r
+                        fi
+
+                        (($DEBUG)) && echo "$u"
+                fi
+
+                H+=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
 
         # fall through to help
         else
