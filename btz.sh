@@ -989,6 +989,13 @@ Ftimer ()  ##:t
                                 $now = '`date -d $NOW      +%-d`';
                                 $yes = '`date -d $NOW-1day +%-d`';
                                 $tom = '`date -d $NOW+1day +%-d`';
+
+                                $MR = "Moonrise:  ";
+                                $MS = "Moonset :  ";
+                                $Mr = "Moonrise:  ";
+                                $ME = "Meridian:  ";
+                                $AL = "Altitude:  ";
+                                $LU = "Luminate:  ";
                         }
 
                         for $i ($yes, $now, $tom) {
