@@ -895,7 +895,7 @@ Ftimer ()  ##:t
 
                 (($DEBUG)) && echo "$u"
 
-                printf "\n * Moon *  :  %s %s %s  " ${CITY^} $SLASH ${CTRY^}
+                printf "\n ° Moon °  :  %s %s %s  " ${CITY^} $SLASH ${CTRY^}
 
                 echo "$h" | perl -nE '
                         if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
