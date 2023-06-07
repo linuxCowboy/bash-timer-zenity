@@ -1020,7 +1020,7 @@ Ftimer ()  ##:t
 
                                                         while ($c--) {
                                                                 push @$A, $T;
-                                                                push @$a, ($t =~ /[:°%]/) ? $t : "";
+                                                                push @$a, ($t =~ /meridian/) ? "Non-passing" : $t;
                                                         }
                                                 }
 
