@@ -983,6 +983,42 @@ Ftimer ()  ##:t
 
                 H+=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
 
+                # parser
+'                echo "$H" | perl -nE '
+                        BEGIN {
+                                $now = '`date -d $NOW      +%-d`';
+                                $yes = '`date -d $NOW-1day +%-d`';
+                                $tom = '`date -d $NOW+1day +%-d`';
+                        }
+
+                        for $i ($yes, $now, $tom) {
+                                $A = "A$i";  # origin <td>
+                                $a = "a$i";  # parsed <td>
+                                $d = "d$i";  # calced mins
+
+                                if (/id=tb-7dmn$i/) {  # marked line
+                                        if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {  # marker day
+                                                $s = $&;
+                                                say "trow: $A  data: $a  diff: $d" if '$DEBUG';
+
+                                                while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {  # 10 slots / day
+                                                        $T = $&;
+                                                        $t = $1;
+
+                                                        $t =~ s|\((\d+).*°\)(</span>)/$2($1°)|;
+                                                        $t =~ s|\s*<span.*?/span>||g;
+                                                        $t =~ s/\s*<br>/ /g;
+                                                        $t =~ s/([^<]*).*/$1/;
+
+                                                        $c = ($T =~ /colspan=(\d+)/) ? $1 : 1;
+
+                                                        while ($c--) {
+                                                                push @$A, $T;
+                                                                push @$a, $t;
+                                                                push @$d, ($t =~ /(\d+):(\d+)/) ? $1 * 60 + $2 : "";
+                                                        }
+                                                }
+
         # fall through to help
         else
                 (( ${#LOG} > 21 )) && LOG="${LOG:0:7}...${LOG: -11}"
