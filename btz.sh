@@ -984,7 +984,7 @@ Ftimer ()  ##:t
                 H+=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
 
                 # parser
-'                echo "$H" | perl -nE '
+                echo "$H" | perl -nE '
                         BEGIN {
                                 $now = '`date -d $NOW      +%-d`';
                                 $yes = '`date -d $NOW-1day +%-d`';
@@ -1011,19 +1011,22 @@ Ftimer ()  ##:t
                                                         $T = $&;
                                                         $t = $1;
 
-                                                        $t =~ s|\((\d+).*°\)(</span>)/$2($1°)|;
+                                                        $t =~ s|>\((\d+).*°\)(</span>)|$2($1°)|;
+                                                        $t =~ s|>(\d+).*%|>$1%|;
                                                         $t =~ s|\s*<span.*?/span>||g;
-                                                        $t =~ s/\s*<br>/ /g;
                                                         $t =~ s/([^<]*).*/$1/;
 
                                                         $c = ($T =~ /colspan=(\d+)/) ? $1 : 1;
 
                                                         while ($c--) {
                                                                 push @$A, $T;
-                                                                push @$a, $t;
-                                                                push @$d, ($t =~ /(\d+):(\d+)/) ? $1 * 60 + $2 : "";
+                                                                push @$t, ($t =~ /[:°%]/) ? $t : "";
                                                         }
                                                 }
+                                        }
+                                }
+                        }
+                '
 
         # fall through to help
         else
