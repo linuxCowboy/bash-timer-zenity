@@ -1027,29 +1027,29 @@ say "4: |$t|";
                                                         }
                                                 }
 
-                                                $MR .= sprintf "%-20s", "@$a[4]";
-                                                say "\n|@$a[4]|$d1|@$A[4]|" if '$DEBUG';
+                                                $MR .= sprintf "%-20s", "@$a[0]";
+                                                say "\n|@$a[0]|@$A[0]|" if '$DEBUG';
 
-                                                $MS .= sprintf "%-20s", "@$a[6]";
-                                                say "|@$a[6]|$d2|@$A[6]|" if '$DEBUG';
+                                                $MS .= sprintf "%-20s", "@$a[2]";
+                                                say "|@$a[2]|@$A[2]|" if '$DEBUG';
 
-                                                $mr .= sprintf "%-20s", "@$a[8]";
-                                                say "|@$a[8]|$d3|@$A[8]|" if '$DEBUG';
+                                                $mr .= sprintf "%-20s", "@$a[4]";
+                                                say "|@$a[4]|@$A[4]|" if '$DEBUG';
 
-                                                $ME .= sprintf "%-20s", "@$a[0]";
-                                                say "|@$a[0]|@$A[0]|" if '$DEBUG';
+                                                $ME .= sprintf "%-20s", "@$a[6]";
+                                                say "\n|@$a[6]|@$A[6]|" if '$DEBUG';
 
-                                                $AL .= sprintf "%-20s", "@$a[1]";
-                                                say "\n|@$a[1]|$d4|@$A[1]|" if '$DEBUG';
+                                                $AL .= sprintf "%-20s", "@$a[7]";
+                                                say "|@$a[7]|@$A[7]|" if '$DEBUG';
 
                                                 $LU .= sprintf "%-20s", "@$a[9]";
-                                                say "|@$a[9]|$d5|@$A[9]|" if '$DEBUG';
+                                                say "|@$a[9]|@$A[9]|" if '$DEBUG';
 
                                                 say "\nRemaining Slots:" if '$DEBUG';
-                                                say "|@$A[2]| " if '$DEBUG';
-                                                say "|@$A[3]| " if '$DEBUG';
-                                                say "|@$A[10]|" if '$DEBUG';
-                                                say "|@$A[11]|" if '$DEBUG';
+                                                say "|@$A[1]|" if '$DEBUG';
+                                                say "|@$A[3]|" if '$DEBUG';
+                                                say "|@$A[5]|" if '$DEBUG';
+                                                say "|@$A[8]|" if '$DEBUG';
                                                 say "=" x '$COLUMNS' if '$DEBUG';
                                         }
                                 }
