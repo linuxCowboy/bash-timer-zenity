@@ -895,7 +895,11 @@ Ftimer ()  ##:t
 
         $FUNCNAME s [date] [city [country]]  # sunrise / sunset      (console)
 
-        $FUNCNAME S [date] [city [country]]  # sun* debug            (console)
+        $FUNCNAME S [date] [city [country]]  # Sun* debug            (console)
+
+        $FUNCNAME m [date] [city [country]]  # moon phases           (console)
+
+        $FUNCNAME M [date] [city [country]]  # Moon debug            (console)
         "
         fi
 } # Ftimer
