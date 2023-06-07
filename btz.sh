@@ -863,86 +863,26 @@ Ftimer ()  ##:t
 
         # moon
         elif [[ $1 =~ ^(m|M) ]]; then
-                local DEBUG=0
-                [[ $1 == 'M' ]] && DEBUG=1
+                echo "$(
+                        local DEBUG=0
+                        [[ $1 == 'M' ]] && DEBUG=1
 
-                local NOW=now
-                if [[ $2 =~ ^[0-9/-]+$ ]]; then
-                        date -d $2 >/dev/null || return
-                        NOW=$2
-                        shift
-                fi
+                        local NOW=now
+                        if [[ $2 =~ ^[0-9/-]+$ ]]; then
+                                date -d $2 >/dev/null || return
+                                NOW=$2
+                                shift
+                        fi
 
-                CITY=`echo ${2-$CITY} |sed 's/.*/\L&/'`
-                CTRY=`echo ${3-$CTRY} |sed 's/.*/\L&/'`
+                        CITY=`echo ${2-$CITY} |sed 's/.*/\L&/'`
+                        CTRY=`echo ${3-$CTRY} |sed 's/.*/\L&/'`
 
-                # support @-places
-                local SLASH='/'
-                [[ $CITY =~ @ ]] && SLASH= && CTRY=
+                        # support @-places
+                        local SLASH='/'
+                        [[ $CITY =~ @ ]] && SLASH= && CTRY=
 
-                # header
-                u="$AUX/$CTRY$SLASH$CITY";
-                h=`$GET "$u"`
-
-                if (($?)); then
-                        echo "$u"
-                                perl -E 'say "=" x '$COLUMNS
-                        h=`$CHK "$u"`
-                        r=$?
-                                perl -E 'say "=" x '$COLUMNS
-                        echo "$h"
-                        return $r
-                fi
-
-                (($DEBUG)) && echo "$u"
-
-                printf "\n ° Moon °  :  %s %s %s  " ${CITY^} $SLASH ${CTRY^}
-
-                echo "$h" | perl -nE '
-                        if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
-                                say "\n|$&|" if '$DEBUG';
-
-                                if ($& =~ /<td.*?>\s*(\d+)°.*?([NESW]).*?(\d+)°.*([NESW])/) {
-                                        printf("%d %s / %d %s  ", $1, $2, $3, $4);
-                                }
-                        }
-
-                        if (/<tr><th[^>]*Altitude.*?<\/tr>/) {
-                                say "\n|$&|" if '$DEBUG';
-
-                                if ($& =~ /<td.*>\s*(.*)<\/td>/) {
-                                        printf("%s", $1);
-                                }
-                        }
-                '
-                        echo
-
-                # yesterday
-                read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
-
-                u="$MOO/$CTRY$SLASH$CITY?month=$m&year=$y"
-                h=`$GET "$u"`
-
-                if (($?)); then
-                        echo "$u"
-                                perl -E 'say "=" x '$COLUMNS
-                        h=`$CHK "$u"`
-                        r=$?
-                                perl -E 'say "=" x '$COLUMNS
-                        echo "$h"
-                        return $r
-                fi
-
-                (($DEBUG)) && echo "\n$u"
-
-                H=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
-
-                # today
-                l=$m
-                read d m y <<<`date -d $NOW +"%-d %-m %Y"`
-
-                if ((l != m)); then
-                        u="$MOO/$CTRY$SLASH$CITY?month=$m&year=$y"
+                        # header
+                        u="$AUX/$CTRY$SLASH$CITY";
                         h=`$GET "$u"`
 
                         if (($?)); then
@@ -956,119 +896,181 @@ Ftimer ()  ##:t
                         fi
 
                         (($DEBUG)) && echo "$u"
-                fi
 
-                H+=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
+                        printf "\n ° Moon °  :  %s %s %s  " ${CITY^} $SLASH ${CTRY^}
 
-                # tomorrow
-                l=$m
-                read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
+                        echo "$h" | perl -nE '
+                                if (/<tr><th[^>]*Latitude and Longitude.*?<\/tr>/) {
+                                        say "\n|$&|" if '$DEBUG';
 
-                if ((l != m)); then
-                        u="$MOO/$CTRY$SLASH$CITY?month=$m&year=$y"
-                        h=`$GET "$u"`
-
-                        if (($?)); then
-                                echo "$u"
-                                        perl -E 'say "=" x '$COLUMNS
-                                h=`$CHK "$u"`
-                                r=$?
-                                        perl -E 'say "=" x '$COLUMNS
-                                echo "$h"
-                                return $r
-                        fi
-
-                        (($DEBUG)) && echo "$u"
-                fi
-
-                H+=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
-
-                # parser
-                echo "$H" | perl -nE '
-                        BEGIN {
-                                $now = '`date -d $NOW      +%-d`';
-                                $yes = '`date -d $NOW-1day +%-d`';
-                                $tom = '`date -d $NOW+1day +%-d`';
-
-                                $MR = "Moonrise:  ";
-                                $MS = "Moonset :  ";
-                                $mr = "Moonrise:  ";
-                                $ME = "Meridian:  ";
-                                $AL = "Altitude:  ";
-                                $LU = "Luminate:  ";
-                        }
-
-                        for $i ($yes, $now, $tom) {
-                                $A = "A$i";
-                                $a = "a$i";
-
-                                if (/id=tb-7dmn$i/) {
-                                        if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {
-                                                $s = $&;
-                                                say "trow: $A  data: $a" if '$DEBUG';
-
-                                                while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {  # 10 slots / day
-                                                        $T = $&;
-                                                        $t = $1;
-
-                                                        $t =~ s|>\((-?\d+).(\d)°\)(</span>)|>$3$1.$2°|;
-                                                        $t =~ s|\s*<span.*?/span>||g;
-                                                        $t =~ s|(\d+).(\d)%|$1.$2%|;
-                                                        $t =~ s|\d+\.\d|sprintf "%0.f", $&|e;
-
-                                                        $c = ($T =~ /colspan=(\d+)/) ? $1 : 1;
-
-                                                        while ($c--) {
-                                                                push @$A, $T;
-                                                                push @$a, ($t =~ /meridian/) ? "Non-passing" : $t;
-                                                        }
-                                                }
-
-                                                $MR .= sprintf "%-20s", "@$a[0]";
-                                                say "\n|@$a[0]|@$A[0]|" if '$DEBUG';
-
-                                                $MS .= sprintf "%-20s", "@$a[2]";
-                                                say "|@$a[2]|@$A[2]|" if '$DEBUG';
-
-                                                $mr .= sprintf "%-20s", "@$a[4]";
-                                                say "|@$a[4]|@$A[4]|" if '$DEBUG';
-
-                                                $ME .= sprintf "%-20s", "@$a[6]";
-                                                say "\n|@$a[6]|@$A[6]|" if '$DEBUG';
-
-                                                $AL .= sprintf "%-20s", "@$a[7]";
-                                                say "|@$a[7]|@$A[7]|" if '$DEBUG';
-
-                                                $LU .= sprintf "%-20s", "@$a[9]";
-                                                say "|@$a[9]|@$A[9]|" if '$DEBUG';
-
-                                                say "\nRemaining Slots:" if '$DEBUG';
-                                                say "|@$A[1]|" if '$DEBUG';
-                                                say "|@$A[3]|" if '$DEBUG';
-                                                say "|@$A[5]|" if '$DEBUG';
-                                                say "|@$A[8]|" if '$DEBUG';
-                                                say "=" x '$COLUMNS' if '$DEBUG';
+                                        if ($& =~ /<td.*?>\s*(\d+)°.*?([NESW]).*?(\d+)°.*([NESW])/) {
+                                                printf("%d %s / %d %s  ", $1, $2, $3, $4);
                                         }
                                 }
-                        }
 
-                        END {
-                                printf "\n%11s%-20s%-20s%-20s\n", "",
-                                        "'`date -d $NOW-1day +"%d.%m.%Y"`'",
-                                        "'`date -d $NOW      +"%d.%m.%Y"`'",
-                                        "'`date -d $NOW+1day +"%d.%m.%Y"`'";
-                                printf "%11s%-20s%-20s\n", "", "", "=" x 10;
+                                if (/<tr><th[^>]*Altitude.*?<\/tr>/) {
+                                        say "\n|$&|" if '$DEBUG';
 
-                                say ($MR =~ s/°/° /gr);
-                                say ($MS =~ s/°/° /gr);
-                                say ($mr =~ s/°/° /gr);
-                                        say "";
-                                say ($ME =~ s/°/° /gr);
-                                say ($AL =~ s/°/° /gr);
-                                say ($LU =~ s/°/° /gr);
-                                        say "";
-                        }
-                '
+                                        if ($& =~ /<td.*>\s*(.*)<\/td>/) {
+                                                printf("%s", $1);
+                                        }
+                                }
+                        '
+                                echo
+
+                        # yesterday
+                        read d m y <<<`date -d $NOW-1day +"%-d %-m %Y"`
+
+                        u="$MOO/$CTRY$SLASH$CITY?month=$m&year=$y"
+                        h=`$GET "$u"`
+
+                        if (($?)); then
+                                echo "$u"
+                                        perl -E 'say "=" x '$COLUMNS
+                                h=`$CHK "$u"`
+                                r=$?
+                                        perl -E 'say "=" x '$COLUMNS
+                                echo "$h"
+                                return $r
+                        fi
+
+                        (($DEBUG)) && echo "\n$u"
+
+                        H=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
+
+                        # today
+                        l=$m
+                        read d m y <<<`date -d $NOW +"%-d %-m %Y"`
+
+                        if ((l != m)); then
+                                u="$MOO/$CTRY$SLASH$CITY?month=$m&year=$y"
+                                h=`$GET "$u"`
+
+                                if (($?)); then
+                                        echo "$u"
+                                                perl -E 'say "=" x '$COLUMNS
+                                        h=`$CHK "$u"`
+                                        r=$?
+                                                perl -E 'say "=" x '$COLUMNS
+                                        echo "$h"
+                                        return $r
+                                fi
+
+                                (($DEBUG)) && echo "$u"
+                        fi
+
+                        H+=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
+
+                        # tomorrow
+                        l=$m
+                        read d m y <<<`date -d $NOW+1day +"%-d %-m %Y"`
+
+                        if ((l != m)); then
+                                u="$MOO/$CTRY$SLASH$CITY?month=$m&year=$y"
+                                h=`$GET "$u"`
+
+                                if (($?)); then
+                                        echo "$u"
+                                                perl -E 'say "=" x '$COLUMNS
+                                        h=`$CHK "$u"`
+                                        r=$?
+                                                perl -E 'say "=" x '$COLUMNS
+                                        echo "$h"
+                                        return $r
+                                fi
+
+                                (($DEBUG)) && echo "$u"
+                        fi
+
+                        H+=`echo "$h" |sed 's/id=tb-7dmn/&'$d/`
+
+                        # parser
+                        echo "$H" | perl -nE '
+                                BEGIN {
+                                        $now = '`date -d $NOW      +%-d`';
+                                        $yes = '`date -d $NOW-1day +%-d`';
+                                        $tom = '`date -d $NOW+1day +%-d`';
+
+                                        $MR = "Moonrise:  ";
+                                        $MS = "Moonset :  ";
+                                        $mr = "Moonrise:  ";
+                                        $ME = "Meridian:  ";
+                                        $AL = "Altitude:  ";
+                                        $LU = "Luminate:  ";
+                                }
+
+                                for $i ($yes, $now, $tom) {
+                                        $A = "A$i";
+                                        $a = "a$i";
+
+                                        if (/id=tb-7dmn$i/) {
+                                                if(/<tr[^>]*data-day=$i\b.*?<\/tr>/) {
+                                                        $s = $&;
+                                                        say "trow: $A  data: $a" if '$DEBUG';
+
+                                                        while ($s =~ /<td[^>]*>(.*?)<\/td>/g) {  # 10 slots / day
+                                                                $T = $&;
+                                                                $t = $1;
+
+                                                                $t =~ s|>\((-?\d+).(\d)°\)(</span>)|>$3$1.$2°|;
+                                                                $t =~ s|\s*<span.*?/span>||g;
+                                                                $t =~ s|(\d+).(\d)%|$1.$2%|;
+                                                                $t =~ s|\d+\.\d|sprintf "%0.f", $&|e;
+
+                                                                $c = ($T =~ /colspan=(\d+)/) ? $1 : 1;
+
+                                                                while ($c--) {
+                                                                        push @$A, $T;
+                                                                        push @$a, ($t =~ /meridian/) ? "Non-passing" : $t;
+                                                                }
+                                                        }
+
+                                                        $MR .= sprintf "%-20s", "@$a[0]";
+                                                        say "\n|@$a[0]|@$A[0]|" if '$DEBUG';
+
+                                                        $MS .= sprintf "%-20s", "@$a[2]";
+                                                        say "|@$a[2]|@$A[2]|" if '$DEBUG';
+
+                                                        $mr .= sprintf "%-20s", "@$a[4]";
+                                                        say "|@$a[4]|@$A[4]|" if '$DEBUG';
+
+                                                        $ME .= sprintf "%-20s", "@$a[6]";
+                                                        say "\n|@$a[6]|@$A[6]|" if '$DEBUG';
+
+                                                        $AL .= sprintf "%-20s", "@$a[7]";
+                                                        say "|@$a[7]|@$A[7]|" if '$DEBUG';
+
+                                                        $LU .= sprintf "%-20s", "@$a[9]";
+                                                        say "|@$a[9]|@$A[9]|" if '$DEBUG';
+
+                                                        say "\nRemaining Slots:" if '$DEBUG';
+                                                        say "|@$A[1]|" if '$DEBUG';
+                                                        say "|@$A[3]|" if '$DEBUG';
+                                                        say "|@$A[5]|" if '$DEBUG';
+                                                        say "|@$A[8]|" if '$DEBUG';
+                                                        say "=" x '$COLUMNS' if '$DEBUG';
+                                                }
+                                        }
+                                }
+
+                                END {
+                                        printf "\n%11s%-20s%-20s%-20s\n", "",
+                                                "'`date -d $NOW-1day +"%d.%m.%Y"`'",
+                                                "'`date -d $NOW      +"%d.%m.%Y"`'",
+                                                "'`date -d $NOW+1day +"%d.%m.%Y"`'";
+                                        printf "%11s%-20s%-20s\n", "", "", "=" x 10;
+
+                                        say ($MR =~ s/°/° /gr);
+                                        say ($MS =~ s/°/° /gr);
+                                        say ($mr =~ s/°/° /gr);
+                                                say "";
+                                        say ($ME =~ s/°/° /gr);
+                                        say ($AL =~ s/°/° /gr);
+                                        say ($LU =~ s/°/° /gr);
+                                                say "";
+                                }
+                        '
+                )\n"
 
         # fall through to help
         else
