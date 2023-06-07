@@ -109,7 +109,17 @@ Ftimer ()  ##:t
         local SUN="https://www.timeanddate.com/sun"
         local MOO="https://www.timeanddate.com/moon"
 
-        ##### thousands separator #####
+        ##### the famous ruler #####
+        #
+        # seq $COLUMNS|perl -pe's/9$/_/;s/0//;s/.*(.)\n/$1/' # 50
+        #
+        #   ==> bash beats perl
+        #
+        # printf %c `seq $COLUMNS|sed s/9$/_/\;s/0//|rev` # 47
+        #
+        ######################################################
+
+        ##### the thousands separator #####
         #
         # #!/usr/bin/perl
         #
