@@ -992,7 +992,7 @@ Ftimer ()  ##:t
 
                                 $MR = "Moonrise:  ";
                                 $MS = "Moonset :  ";
-                                $Mr = "Moonrise:  ";
+                                $mr = "Moonrise:  ";
                                 $ME = "Meridian:  ";
                                 $AL = "Altitude:  ";
                                 $LU = "Luminate:  ";
@@ -1027,29 +1027,23 @@ say "4: |$t|";
                                                         }
                                                 }
 
-                                                $AT .= sprintf "%-20s", "@$a[4]";
+                                                $MR .= sprintf "%-20s", "@$a[4]";
                                                 say "\n|@$a[4]|$d1|@$A[4]|" if '$DEBUG';
 
-                                                $NT .= sprintf "%-20s", "@$a[6]";
+                                                $MS .= sprintf "%-20s", "@$a[6]";
                                                 say "|@$a[6]|$d2|@$A[6]|" if '$DEBUG';
 
-                                                $CT .= sprintf "%-20s", "@$a[8]";
+                                                $mr .= sprintf "%-20s", "@$a[8]";
                                                 say "|@$a[8]|$d3|@$A[8]|" if '$DEBUG';
 
-                                                $DT .= sprintf "%-20s", "@$a[0]";
+                                                $ME .= sprintf "%-20s", "@$a[0]";
                                                 say "|@$a[0]|@$A[0]|" if '$DEBUG';
 
-                                                $ct .= sprintf "%-20s", "@$a[1]";
+                                                $AL .= sprintf "%-20s", "@$a[1]";
                                                 say "\n|@$a[1]|$d4|@$A[1]|" if '$DEBUG';
 
-                                                $nt .= sprintf "%-20s", "@$a[9]";
+                                                $LU .= sprintf "%-20s", "@$a[9]";
                                                 say "|@$a[9]|$d5|@$A[9]|" if '$DEBUG';
-
-                                                $at .= sprintf "%-20s", "@$a[7]";
-                                                say "|@$a[7]|$d6|@$A[7]|" if '$DEBUG';
-
-                                                $dt .= sprintf "%-20s", "@$a[5]";
-                                                say "|@$a[5]|@$A[5]|" if '$DEBUG';
 
                                                 say "\nRemaining Slots:" if '$DEBUG';
                                                 say "|@$A[2]| " if '$DEBUG';
