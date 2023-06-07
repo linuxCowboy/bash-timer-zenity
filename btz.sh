@@ -1016,8 +1016,6 @@ say "0: |$t|";
 say "1: |$t|";
                                                         $t =~ s|\s*<span.*?/span>||g;
 say "2: |$t|";
-                                                        $t =~ s/([^<]*).*/$1/;
-say "3: |$t|";
                                                         $t =~ s|(\d+).*%|$1%|;
 say "4: |$t|";
 
@@ -1028,6 +1026,37 @@ say "4: |$t|";
                                                                 push @$a, ($t =~ /[:°%]/) ? $t : "";
                                                         }
                                                 }
+
+                                                $AT .= sprintf "%-20s", "@$a[4]";
+                                                say "\n|@$a[4]|$d1|@$A[4]|" if '$DEBUG';
+
+                                                $NT .= sprintf "%-20s", "@$a[6]";
+                                                say "|@$a[6]|$d2|@$A[6]|" if '$DEBUG';
+
+                                                $CT .= sprintf "%-20s", "@$a[8]";
+                                                say "|@$a[8]|$d3|@$A[8]|" if '$DEBUG';
+
+                                                $DT .= sprintf "%-20s", "@$a[0]";
+                                                say "|@$a[0]|@$A[0]|" if '$DEBUG';
+
+                                                $ct .= sprintf "%-20s", "@$a[1]";
+                                                say "\n|@$a[1]|$d4|@$A[1]|" if '$DEBUG';
+
+                                                $nt .= sprintf "%-20s", "@$a[9]";
+                                                say "|@$a[9]|$d5|@$A[9]|" if '$DEBUG';
+
+                                                $at .= sprintf "%-20s", "@$a[7]";
+                                                say "|@$a[7]|$d6|@$A[7]|" if '$DEBUG';
+
+                                                $dt .= sprintf "%-20s", "@$a[5]";
+                                                say "|@$a[5]|@$A[5]|" if '$DEBUG';
+
+                                                say "\nRemaining Slots:" if '$DEBUG';
+                                                say "|@$A[2]| " if '$DEBUG';
+                                                say "|@$A[3]| " if '$DEBUG';
+                                                say "|@$A[10]|" if '$DEBUG';
+                                                say "|@$A[11]|" if '$DEBUG';
+                                                say "=" x '$COLUMNS' if '$DEBUG';
                                         }
                                 }
                         }
