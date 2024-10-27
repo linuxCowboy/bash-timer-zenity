@@ -67,3 +67,19 @@ Sat 25 Jun 2022 12:57:32 PM CEST
 76 Hours  or  4565 Minutes  or  273.906 Seconds
 
 ```
+
+-----
+
+**Bad News!**  
+
+*zenity 4* uses the ugly *gtk4*. And there is no more *zenity.ui*. You have to edit the source:
+
+```
+src/progress.c:400
+
+adw_message_dialog_set_response_enabled (ADW_MESSAGE_DIALOG(dialog), "ok", TRUE);
+```
+
+and compile yourself!
+
+... and if you're unlucky also suppress a *libEGL* warning.
