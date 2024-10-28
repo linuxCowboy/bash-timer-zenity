@@ -1,0 +1,9 @@
+@@ -352,7 +352,7 @@
+ 	if (!auto_close)
+ 	{
+ 		adw_message_dialog_add_response (ADW_MESSAGE_DIALOG(dialog), "ok", _("_OK"));
+-		if (progress_data->percentage == 100) {
++		if (1||progress_data->percentage == 100) {
+ 			adw_message_dialog_set_response_enabled (ADW_MESSAGE_DIALOG(dialog), "ok", TRUE);
+ 			adw_message_dialog_set_default_response (ADW_MESSAGE_DIALOG(dialog), "ok");
+ 		} else {
