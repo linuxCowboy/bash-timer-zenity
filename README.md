@@ -72,12 +72,21 @@ Sat 25 Jun 2022 12:57:32 PM CEST
 
 **Bad News!**  
 
-*zenity 4* uses the imo ugly *gtk4*. And there is no more *zenity.ui*. You have to patch the source:
+*zenity 4* uses the imo ugly *gtk4*. And there is no more *zenity.ui*. You have to patch the source and compile yourself!
 
 ```
-patch --verbose src/progress.c ../enable_OK_in_progress.txt
-```
+git clone https://github.com/GNOME/zenity && cd zenity
 
-and compile yourself!
+patch --verbose src/progress.c ../enable_OK_in_progress.patch
+
+meson setup zen
+
+meson compile -C zen
+
+zen/src/zenity --progress --pulsate
+
+# OK/default: ret 0
+# Cancel:     ret 1
+```
 
 ... and if you're unlucky also suppress a *libEGL* warning.
