@@ -72,12 +72,10 @@ Sat 25 Jun 2022 12:57:32 PM CEST
 
 **Bad News!**  
 
-*zenity 4* uses the ugly *gtk4*. And there is no more *zenity.ui*. You have to edit the source:
+*zenity 4* uses the imo ugly *gtk4*. And there is no more *zenity.ui*. You have to patch the source:
 
 ```
-src/progress.c:400
-
-adw_message_dialog_set_response_enabled (ADW_MESSAGE_DIALOG(dialog), "ok", TRUE);
+patch --verbose src/progress.c ../enable_OK_in_progress.txt
 ```
 
 and compile yourself!
