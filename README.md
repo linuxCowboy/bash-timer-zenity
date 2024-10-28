@@ -84,9 +84,10 @@ meson setup zen
 meson compile -C zen
 
 zen/src/zenity --progress --pulsate
-
 # OK/default: ret 0
 # Cancel:     ret 1
+
+# set local var *CMD* with full path
 ```
 
 ... and if you're unlucky also suppress a *libEGL* warning.
